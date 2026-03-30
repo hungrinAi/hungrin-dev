@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hungrin – Insights</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --g-dark:    #2d7a5f;
+  --g-mid:     #3a9470;
+  --g-light:   #5bb38a;
+  --g-pale:    #e6f5ef;
+  --g-faint:   #f2faf6;
+  --text:      #1a2e28;
+  --text-mid:  #4a5e57;
+  --text-muted:#8aa89e;
+  --border:    #d8ece3;
+  --white:     #ffffff;
+  --sidebar-w: 228px;
+}
+
+html, body { height: 100%; overflow: hidden; }
+body { font-family: 'DM Sans', sans-serif; color: var(--text); background: #eaf6f0; display: flex; -webkit-font-smoothing: antialiased; }
+
+/* ── SIDEBAR ─────────────────────────── */
+.sidebar { width: var(--sidebar-w); min-width: var(--sidebar-w); height: 100vh; background: var(--white); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 1.4rem 0; flex-shrink: 0; }
+.sidebar-logo { display: flex; align-items: center; gap: 9px; padding: 0 1.25rem 1.75rem; font-size: 1.1rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
+.logo-icon { width: 30px; height: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+.logo-icon span { background: var(--g-dark); display: block; }
+.logo-icon span:nth-child(1) { border-radius: 50% 50% 0 50%; }
+.logo-icon span:nth-child(2) { border-radius: 50% 50% 50% 0; }
+.logo-icon span:nth-child(3) { border-radius: 50% 0 50% 50%; }
+.logo-icon span:nth-child(4) { border-radius: 0 50% 50% 50%; }
+.nav-item { display: flex; align-items: center; gap: 11px; padding: 0.7rem 1.25rem; font-size: 0.92rem; color: var(--text-mid); cursor: pointer; border-left: 3px solid transparent; text-decoration: none; transition: background 0.15s, color 0.15s; }
+.nav-item:hover { background: var(--g-faint); color: var(--g-dark); }
+.nav-item.active { background: var(--g-pale); color: var(--g-dark); font-weight: 600; border-left-color: var(--g-dark); }
+.nav-icon { font-size: 1.05rem; width: 22px; text-align: center; }
+.sidebar-spacer { flex: 1; }
+.btn-demo { margin: 0 1rem 0.5rem; padding: 0.75rem; text-align: center; background: var(--g-dark); color: #fff; border-radius: 10px; font-size: 0.88rem; font-weight: 600; cursor: pointer; text-decoration: none; display: block; transition: background 0.2s; }
+.btn-demo:hover { background: var(--g-mid); }
+
+/* ── MAIN ────────────────────────────── */
+.main { flex: 1; height: 100vh; display: flex; flex-direction: column; min-width: 0; overflow: hidden; }
+.topbar { background: var(--white); border-bottom: 1px solid var(--border); padding: 0 1.75rem; height: 68px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+.topbar-left h1 { font-size: 1.3rem; font-weight: 600; letter-spacing: -0.025em; }
+.topbar-left p { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+.topbar-right { display: flex; align-items: center; gap: 10px; }
+.notif-btn { position: relative; background: var(--g-faint); border: 1px solid var(--border); border-radius: 10px; padding: 7px 11px; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; color: var(--text-mid); }
+.notif-dot { position: absolute; top: 5px; right: 6px; width: 8px; height: 8px; border-radius: 50%; background: #e05a5a; border: 1.5px solid var(--white); }
+.avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #f0b8a0, #d4805a); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 600; color: #fff; cursor: pointer; }
+
+/* ── LAYOUT ──────────────────────────── */
+.page-body { flex: 1; overflow-y: auto; padding: 1.5rem 1.75rem; display: grid; grid-template-columns: 1fr 300px; gap: 1.25rem; align-content: start; }
+
+/* ── STAT CARDS ──────────────────────── */
+.stats-row { grid-column: 1; display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
+.stat-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.2rem; display: flex; align-items: flex-start; gap: 11px; }
+.stat-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+.stat-body { min-width: 0; }
+.stat-label { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 2px; }
+.stat-val { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.04em; color: var(--text); line-height: 1.1; }
+.stat-sub { font-size: 0.72rem; color: var(--text-muted); margin-top: 3px; }
+.stat-sub.up { color: var(--g-dark); font-weight: 600; }
+
+/* ── SALES CHART ─────────────────────── */
+.chart-card { grid-column: 1; background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem 1.5rem; }
+.card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+.card-title { font-size: 0.98rem; font-weight: 600; letter-spacing: -0.01em; }
+.tab-group { display: flex; gap: 4px; }
+.tab-btn { padding: 5px 14px; border-radius: 8px; border: 1px solid var(--border); background: var(--g-faint); font-family: inherit; font-size: 0.78rem; font-weight: 500; color: var(--text-mid); cursor: pointer; transition: all 0.15s; }
+.tab-btn.active { background: var(--white); color: var(--text); font-weight: 600; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.chart-area { position: relative; width: 100%; height: 160px; margin-bottom: 0.75rem; }
+.insight-bar { background: var(--g-faint); border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 1rem; display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.insight-text { font-size: 0.82rem; color: var(--text-mid); line-height: 1.6; }
+.insight-text strong { color: var(--g-dark); }
+.weather-badge { display: flex; align-items: center; gap: 5px; font-size: 0.82rem; font-weight: 700; color: var(--g-dark); white-space: nowrap; flex-shrink: 0; }
+
+/* ── BEHAVIOUR TABLE ─────────────────── */
+.behaviour-card { grid-column: 1; background: var(--white); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+.behaviour-card .card-header { padding: 1rem 1.25rem 0; margin-bottom: 0; }
+table { width: 100%; border-collapse: collapse; }
+thead th { padding: 0.65rem 1.25rem; text-align: left; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); border-bottom: 1px solid var(--border); background: var(--g-faint); }
+tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: var(--g-faint); }
+tbody td { padding: 0.85rem 1.25rem; font-size: 0.85rem; color: var(--text-mid); }
+tbody td:first-child { font-weight: 600; color: var(--text); }
+.insight-pill { display: inline-flex; align-items: center; gap: 5px; font-size: 0.75rem; color: var(--text-mid); background: var(--g-faint); border: 1px solid var(--border); padding: 3px 10px; border-radius: 100px; }
+
+/* ── ACTION CARDS ROW ────────────────── */
+.action-row { grid-column: 1; display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; padding-bottom: 0.5rem; }
+.action-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; display: flex; flex-direction: column; gap: 0.6rem; position: relative; overflow: hidden; }
+.action-icon { font-size: 1.3rem; }
+.action-title { font-size: 0.88rem; font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
+.action-desc { font-size: 0.75rem; color: var(--text-muted); line-height: 1.55; }
+.action-desc strong { color: var(--g-dark); }
+.action-pill { font-size: 0.7rem; color: var(--text-muted); background: var(--g-faint); border: 1px solid var(--border); border-radius: 6px; padding: 3px 8px; display: inline-block; margin-bottom: 2px; }
+.action-btn { padding: 7px 14px; background: var(--g-dark); color: #fff; border: none; border-radius: 8px; font-family: inherit; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: background 0.2s; align-self: flex-start; margin-top: auto; }
+.action-btn:hover { background: var(--g-mid); }
+.action-emoji-bg { position: absolute; right: -10px; top: 50%; transform: translateY(-50%); font-size: 3.5rem; opacity: 0.12; pointer-events: none; }
+
+/* ── BOTTOM CHAT BAR ─────────────────── */
+.chat-bar-wrap { grid-column: 1; background: var(--white); border: 1px solid var(--border); border-radius: 12px; display: flex; align-items: center; gap: 8px; padding: 0.65rem 0.85rem; margin-bottom: 1.5rem; }
+.chat-bar-wrap input { flex: 1; border: none; outline: none; font-family: inherit; font-size: 0.85rem; color: var(--text); background: transparent; }
+.chat-bar-wrap input::placeholder { color: var(--text-muted); }
+.chat-chip { padding: 5px 11px; border: 1px solid var(--border); border-radius: 100px; background: var(--g-faint); font-family: inherit; font-size: 0.73rem; color: var(--text-mid); cursor: pointer; white-space: nowrap; transition: all 0.15s; display: flex; align-items: center; gap: 4px; }
+.chat-chip:hover { background: var(--g-pale); color: var(--g-dark); border-color: var(--g-mid); }
+.send-btn { padding: 0.55rem 1.25rem; background: var(--g-dark); color: #fff; border: none; border-radius: 8px; font-family: inherit; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: background 0.2s; flex-shrink: 0; }
+.send-btn:hover { background: var(--g-mid); }
+
+/* ── AI SIDEBAR ──────────────────────── */
+.ai-sidebar { grid-column: 2; grid-row: 1 / 7; background: var(--white); border: 1px solid var(--border); border-radius: 14px; display: flex; flex-direction: column; overflow: hidden; position: sticky; top: 0; max-height: calc(100vh - 68px - 3rem); }
+.ai-sidebar-title { padding: 1rem 1.1rem 0.75rem; font-size: 0.95rem; font-weight: 600; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+.ai-banner { background: linear-gradient(135deg, #c8edd8 0%, #a8dfc0 100%); display: flex; align-items: center; justify-content: center; padding: 1rem; flex-shrink: 0; position: relative; overflow: hidden; min-height: 140px; }
+.ai-robot { font-size: 5.5rem; animation: bob 4s ease-in-out infinite; filter: drop-shadow(0 4px 14px rgba(45,122,95,0.25)); }
+.sparkle { position: absolute; font-size: 1rem; opacity: 0.5; animation: twinkle 2.5s ease-in-out infinite; }
+@keyframes bob { 0%,100%{transform:translateY(0) rotate(-1deg)} 50%{transform:translateY(-8px) rotate(1deg)} }
+@keyframes twinkle { 0%,100%{opacity:0.3;transform:scale(0.9)} 50%{opacity:0.8;transform:scale(1.1)} }
+
+.ai-messages { flex: 1; overflow-y: auto; padding: 0.85rem; display: flex; flex-direction: column; gap: 9px; min-height: 0; }
+.user-msg { align-self: flex-end; background: var(--g-pale); border: 1px solid var(--border); border-radius: 12px 12px 3px 12px; padding: 8px 11px; font-size: 0.8rem; color: var(--text); max-width: 92%; display: flex; align-items: center; gap: 6px; line-height: 1.45; }
+.user-tick { color: var(--g-dark); font-size: 0.7rem; }
+.bot-row { display: flex; gap: 7px; }
+.bot-av { width: 26px; height: 26px; border-radius: 50%; background: var(--g-pale); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.82rem; flex-shrink: 0; margin-top: 2px; }
+.bot-wrap { flex: 1; }
+.bot-meta { font-size: 0.68rem; color: var(--text-muted); margin-bottom: 3px; display: flex; gap: 5px; }
+.bot-name-tag { color: var(--g-dark); font-weight: 700; font-size: 0.72rem; }
+.bot-bubble { background: var(--g-faint); border: 1px solid var(--border); border-radius: 4px 12px 12px 12px; padding: 9px 11px; font-size: 0.78rem; color: var(--text-mid); line-height: 1.6; }
+.opportunity-item { display: flex; gap: 7px; margin-bottom: 5px; }
+.opp-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--g-light); flex-shrink: 0; margin-top: 5px; }
+.opp-title { font-size: 0.78rem; font-weight: 700; color: var(--text); }
+.opp-sub { font-size: 0.72rem; color: var(--text-muted); }
+.typing { display: flex; gap: 3px; padding: 8px 10px; background: var(--g-faint); border: 1px solid var(--border); border-radius: 4px 10px 10px 10px; width: fit-content; }
+.typing span { width: 6px; height: 6px; border-radius: 50%; background: var(--g-light); display: inline-block; animation: bounce 1.2s infinite; }
+.typing span:nth-child(2) { animation-delay: 0.2s; }
+.typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes bounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-5px)} }
+
+.ai-input-row { display: flex; gap: 6px; padding: 0.7rem; border-top: 1px solid var(--border); flex-shrink: 0; }
+.ai-input-row input { flex: 1; border: 1px solid var(--border); border-radius: 8px; padding: 7px 10px; font-family: inherit; font-size: 0.78rem; color: var(--text); outline: none; background: var(--g-faint); }
+.ai-input-row input:focus { border-color: var(--g-mid); background: var(--white); }
+.ai-input-row button { padding: 7px 13px; background: var(--g-dark); color: #fff; border: none; border-radius: 8px; font-family: inherit; font-size: 0.75rem; font-weight: 600; cursor: pointer; }
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon"><span></span><span></span><span></span><span></span></div>
+    Dashboard
+  </div>
+  <a href="hungrin-dashboard.html" class="nav-item"><span class="nav-icon">🏠</span> Dashboard</a>
+  <a href="#" class="nav-item"><span class="nav-icon">📊</span> Insights</a>
+  <a href="hungrin-campaigns.html" class="nav-item"><span class="nav-icon">📣</span> Campaigns</a>
+  <a href="hungrin-promotions.html" class="nav-item"><span class="nav-icon">📢</span> Promotions</a>
+  <a href="hungrin-customers.html" class="nav-item"><span class="nav-icon">👥</span> Customers</a>
+  <a href="#" class="nav-item active"><span class="nav-icon">📈</span> Insights</a>
+  <a href="#" class="nav-item"><span class="nav-icon">📦</span> Orders</a>
+  <div class="sidebar-spacer"></div>
+  <a href="hungrin-demo.html" class="btn-demo">Book Demo</a>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h1>Insights</h1>
+      <p>Understand your customers, sales trends, and growth opportunities.</p>
+    </div>
+    <div class="topbar-right">
+      <div class="notif-btn">🔔<div class="notif-dot"></div></div>
+      <div class="avatar">S</div>
+    </div>
+  </div>
+
+  <div class="page-body">
+
+    <!-- stat cards -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-icon">📈</div>
+        <div class="stat-body">
+          <div class="stat-label">Revenue Trend</div>
+          <div class="stat-val">£4,230</div>
+          <div class="stat-sub">Last 7 days</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🔄</div>
+        <div class="stat-body">
+          <div class="stat-label">Repeat Customer Rate</div>
+          <div class="stat-val">51%</div>
+          <div class="stat-sub up">+ 6% growth</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🍔</div>
+        <div class="stat-body">
+          <div class="stat-label">Best Selling Item</div>
+          <div class="stat-val" style="font-size:1.15rem;">Classic Burger</div>
+          <div class="stat-sub">142 orders this week</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- sales chart -->
+    <div class="chart-card">
+      <div class="card-header">
+        <div class="card-title">Sales Insights</div>
+        <div class="tab-group">
+          <button class="tab-btn active" onclick="switchTab(this,'week')">This Week</button>
+          <button class="tab-btn" onclick="switchTab(this,'7')">7 Days</button>
+          <button class="tab-btn" onclick="switchTab(this,'30')">30 Days</button>
+        </div>
+      </div>
+      <div class="chart-area"><canvas id="insightChart"></canvas></div>
+      <div class="insight-bar">
+        <div class="insight-text">
+          Sales increase by <strong>+34%</strong> on sunny days.<br>
+          Consider promoting cold drinks and burgers during warm afternoons.
+        </div>
+        <div class="weather-badge">+34% weather effect ⛅</div>
+      </div>
+    </div>
+
+    <!-- customer behaviour table -->
+    <div class="behaviour-card">
+      <div class="card-header" style="padding:1rem 1.25rem;">
+        <div class="card-title">👥 Customer Behavior Insights</div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Customer Type</th>
+            <th>Orders</th>
+            <th>Avg Spend</th>
+            <th>Insight</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Loyal Customers</td>
+            <td>632</td>
+            <td>£32</td>
+            <td><span class="insight-pill">📅 Order mostly weekends</span></td>
+          </tr>
+          <tr>
+            <td>New Customers</td>
+            <td>74</td>
+            <td>£18</td>
+            <td><span class="insight-pill">⚠️ High drop-off after first order</span></td>
+          </tr>
+          <tr>
+            <td>VIP Customers</td>
+            <td>112</td>
+            <td>£58</td>
+            <td><span class="insight-pill">🍱 Prefer combo meals</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- action cards -->
+    <div class="action-row">
+      <div class="action-card">
+        <div class="action-icon">🔁</div>
+        <div class="action-title">Recover Lost Customers</div>
+        <div class="action-desc">83 customers haven't ordered in <strong>14+ days</strong>.</div>
+        <div class="action-pill">Serial Comeback Deal: Buy 1 Burger Get Fries Free</div>
+        <button class="action-btn" onclick="aiAction('Recover lost customers with a comeback deal')">Create Campaign</button>
+        <div class="action-emoji-bg">👤</div>
+      </div>
+      <div class="action-card">
+        <div class="action-icon">⏰</div>
+        <div class="action-title">Boost Slow Hours</div>
+        <div class="action-desc"><strong>2–4 PM</strong> has lowest order volume.</div>
+        <div class="action-pill">Run Afternoon Snack promo</div>
+        <button class="action-btn" onclick="aiAction('Create an afternoon snack promo for 2-4pm slow hours')">Create Promotion</button>
+        <div class="action-emoji-bg">🕑</div>
+      </div>
+      <div class="action-card">
+        <div class="action-icon">💰</div>
+        <div class="action-title">Increase Average Order Value</div>
+        <div class="action-desc">Adding drinks increases order value by <strong>+£4.20</strong>.</div>
+        <div class="action-pill">Promote: Burger + Drink combos</div>
+        <button class="action-btn" onclick="aiAction('Create a burger and drink combo upsell promotion')">Boost Promotion</button>
+        <div class="action-emoji-bg">🥤</div>
+      </div>
+    </div>
+
+    <!-- bottom chat bar -->
+    <div class="chat-bar-wrap">
+      <input id="main-input" type="text" placeholder="Ask the AI for business insights…" onkeydown="if(event.key==='Enter')sendMsg(this.value,true)">
+      <button class="chat-chip" onclick="aiAction('Suggest a promo')">📢 Suggest Promo</button>
+      <button class="chat-chip" onclick="aiAction('How can I improve sales this week?')">📈 Improve Sales</button>
+      <button class="chat-chip" onclick="aiAction('Analyze my customers')">👥 Analyze Customers</button>
+      <button class="chat-chip" onclick="aiAction('Boost my slowest day')">🚀 Boost</button>
+      <button class="send-btn" onclick="sendMsg(document.getElementById('main-input').value,true)">Send</button>
+    </div>
+
+    <!-- AI sidebar -->
+    <div class="ai-sidebar">
+      <div class="ai-sidebar-title">AI Business Insights</div>
+      <div class="ai-banner">
+        <span class="sparkle" style="top:12px;left:38%">✦</span>
+        <span class="sparkle" style="top:22px;right:55px;animation-delay:.7s">✦</span>
+        <span class="sparkle" style="bottom:12px;left:58%;animation-delay:1.3s">✦</span>
+        <div class="ai-robot">🤖</div>
+      </div>
+      <div class="ai-messages" id="ai-messages"></div>
+      <div class="ai-input-row">
+        <input id="sidebar-input" type="text" placeholder="Ask for insights…" onkeydown="if(event.key==='Enter')sendMsg(this.value,false)">
+        <button onclick="sendMsg(document.getElementById('sidebar-input').value,false)">→</button>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script>
+/* ── CHART ─────────────────────────── */
+const datasets = {
+  week: [310,390,355,430,480,540,178],
+  '7':  [280,350,430,390,480,560,178],
+  '30': [200,310,280,420,380,510,520],
+};
+const labels = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+
+const ctx = document.getElementById('insightChart').getContext('2d');
+const chart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels,
+    datasets: [{
+      data: datasets.week,
+      borderColor: '#3a9470',
+      backgroundColor: 'rgba(58,148,112,0.1)',
+      fill: true, tension: 0.42,
+      pointRadius: 4, pointBackgroundColor: '#fff',
+      pointBorderColor: '#3a9470', pointBorderWidth: 2,
+      borderWidth: 2.5,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: c => ' £' + c.parsed.y } }
+    },
+    scales: {
+      y: {
+        position: 'right',
+        ticks: { callback: v => '£' + v, font: { size: 11 }, color: '#8aa89e' },
+        grid: { color: 'rgba(216,236,227,0.5)' },
+      },
+      x: {
+        ticks: { font: { size: 11 }, color: '#8aa89e' },
+        grid: { display: false }
+      }
+    }
+  }
+});
+
+function switchTab(el, key) {
+  document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  chart.data.datasets[0].data = datasets[key];
+  chart.update();
+}
+
+/* ── AI CHAT ────────────────────────── */
+const aiReplies = {
+  default: { type: 'opportunities', intro: 'Top opportunities:', items: [
+    { title: 'Burger Combos', sub: 'High conversion on weekends' },
+    { title: 'Family Bundles', sub: 'Popular with repeat customers' },
+    { title: 'Lunch Deals', sub: 'Tuesday and Wednesday low traffic' },
+  ]},
+  promote: { type: 'text', text: '🎯 Best items to promote this week:\n\n1. Classic Burger – your #1 seller. Push a combo deal for £12.99.\n2. Cold Drinks – +38% demand on warm afternoons.\n3. Dessert Upsell – only 18% of customers order dessert. Add a prompt at checkout.' },
+  sales: { type: 'text', text: '📈 To improve sales this week:\n\n• Run a Wednesday lunch promo — your slowest midweek slot.\n• Boost your Deliveroo listing with a photo update.\n• Send a re-engagement push to 83 inactive customers.\n• Expected uplift: +22% by end of week.' },
+  customers: { type: 'text', text: '👥 Customer analysis:\n\n• 51% repeat rate — strong loyalty base.\n• VIP segment (112 customers) drive 42% of revenue.\n• New customer drop-off: 68% don\'t re-order within 7 days.\n\n💡 Tip: Send a "Thanks for your first order" promo within 24hrs to boost retention.' },
+  boost: { type: 'text', text: '🚀 Your slowest day is Tuesday (2–4pm). Recommended boost:\n\n• "Afternoon Snack Deal" — any snack + drink for £5.99\n• Auto-schedule the push notification at 1:45pm\n• Expected: +34 extra orders on Tuesdays' },
+  recover: { type: 'text', text: '🔁 83 customers haven\'t ordered in 14+ days.\n\nBest reactivation:\n• "Serial Comeback Deal" — Buy 1 Burger, Get Fries Free\n• Send via Deliveroo + SMS\n• Trigger at day 14 of inactivity\n• Expected recovery: ~27 customers (32%)' },
+  combo: { type: 'text', text: '🥤 Drink upsell strategy:\n\n• Only 31% of burger orders include a drink\n• Adding a £2.99 drink = +£4.20 average order value\n• Suggested: "Add a drink for £1 today only" banner\n• Projected monthly uplift: +£840 revenue' },
+};
+
+function getReply(msg) {
+  const m = msg.toLowerCase();
+  if (m.includes('promot') || m.includes('this week') || m.includes('suggest')) return aiReplies.promote;
+  if (m.includes('improv') || m.includes('sales')) return aiReplies.sales;
+  if (m.includes('customer') || m.includes('analyz')) return aiReplies.customers;
+  if (m.includes('boost') || m.includes('slow')) return aiReplies.boost;
+  if (m.includes('recover') || m.includes('lost') || m.includes('comeback')) return aiReplies.recover;
+  if (m.includes('combo') || m.includes('drink') || m.includes('upsell')) return aiReplies.combo;
+  return aiReplies.default;
+}
+
+function getTime() { return new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}); }
+
+function sendMsg(val, fromMain) {
+  if (!val.trim()) return;
+  if (fromMain) document.getElementById('main-input').value = '';
+  else document.getElementById('sidebar-input').value = '';
+  addUserMsg(val);
+  addTyping();
+  const reply = getReply(val);
+  setTimeout(() => { removeTyping(); addBotMsg(reply); }, 900 + Math.random()*300);
+}
+
+function aiAction(prompt) { sendMsg(prompt, true); }
+
+function addUserMsg(text) {
+  const area = document.getElementById('ai-messages');
+  const el = document.createElement('div');
+  el.className = 'user-msg';
+  el.innerHTML = `${text} <span class="user-tick">✓</span>`;
+  area.appendChild(el); area.scrollTop = area.scrollHeight;
+}
+
+function addTyping() {
+  const area = document.getElementById('ai-messages');
+  const el = document.createElement('div');
+  el.className = 'bot-row'; el.id = 'typing-el';
+  el.innerHTML = `<div class="bot-av">🤖</div><div><div class="typing"><span></span><span></span><span></span></div></div>`;
+  area.appendChild(el); area.scrollTop = area.scrollHeight;
+}
+
+function removeTyping() { document.getElementById('typing-el')?.remove(); }
+
+function addBotMsg(reply) {
+  const area = document.getElementById('ai-messages');
+  let bodyHtml = '';
+
+  if (reply.type === 'opportunities') {
+    bodyHtml = `<div style="margin-bottom:5px;font-size:0.78rem;color:var(--text);">${reply.intro}</div>` +
+      reply.items.map(i => `
+        <div class="opportunity-item">
+          <div class="opp-dot"></div>
+          <div><div class="opp-title">${i.title}</div><div class="opp-sub">${i.sub}</div></div>
+        </div>`).join('');
+  } else {
+    bodyHtml = reply.text.split('\n').map(l =>
+      l.startsWith('•') ? `<div style="display:flex;gap:5px;margin:2px 0;"><span style="color:var(--g-dark);">•</span><span>${l.slice(1).trim()}</span></div>` :
+      l.match(/^\d\./) ? `<div style="margin:2px 0;font-weight:600;color:var(--text);">${l}</div>` :
+      l ? `<div>${l}</div>` : `<div style="height:6px;"></div>`
+    ).join('');
+  }
+
+  const el = document.createElement('div');
+  el.className = 'bot-row';
+  el.innerHTML = `
+    <div class="bot-av">🤖</div>
+    <div class="bot-wrap">
+      <div class="bot-meta"><span class="bot-name-tag">🟢 AI</span><span>${getTime()}</span></div>
+      <div class="bot-bubble">${bodyHtml}</div>
+    </div>
+  `;
+  area.appendChild(el); area.scrollTop = area.scrollHeight;
+}
+
+/* initial message */
+setTimeout(() => {
+  addUserMsg('What should I promote this week?');
+  addTyping();
+  setTimeout(() => { removeTyping(); addBotMsg(aiReplies.default); }, 1000);
+}, 400);
+</script>
+</body>
+</html>

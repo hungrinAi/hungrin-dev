@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hungrin – Get Started</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --g-dark:    #2d7a5f;
+  --g-mid:     #3a9470;
+  --g-light:   #5bb38a;
+  --g-pale:    #e6f5ef;
+  --g-faint:   #f2faf6;
+  --text:      #1a2e28;
+  --text-mid:  #4a5e57;
+  --text-muted:#8aa89e;
+  --border:    #d8ece3;
+  --white:     #ffffff;
+}
+
+html, body {
+  height: 100%; min-height: 100vh;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: #dff0ea;
+  background-image:
+    radial-gradient(ellipse 65% 60% at 10% 40%, rgba(91,179,138,0.22) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 90% 70%, rgba(45,122,95,0.12) 0%, transparent 55%),
+    url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='0' width='2' height='2' rx='0.5' fill='%232d7a5f' fill-opacity='0.07'/%3E%3C/svg%3E");
+  background-size: auto, auto, 40px 40px;
+  display: flex; align-items: center; justify-content: center;
+  padding: 2rem 1rem;
+  min-height: 100vh;
+}
+
+/* ── SHELL ───────────────────────────── */
+.shell {
+  width: 100%; max-width: 560px;
+  background: var(--white); border-radius: 20px;
+  box-shadow: 0 8px 60px rgba(45,122,95,0.15), 0 2px 8px rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+
+/* ── STEP HEADER ─────────────────────── */
+.step-header {
+  padding: 1.25rem 1.75rem 0;
+}
+.step-meta {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+.step-label { font-size: 0.78rem; font-weight: 600; color: var(--text-mid); }
+.step-time { font-size: 0.75rem; color: var(--text-muted); }
+
+.progress-track {
+  height: 3px; background: var(--border); border-radius: 2px;
+  margin-bottom: 1.5rem; overflow: hidden;
+}
+.progress-fill {
+  height: 100%; background: var(--g-dark); border-radius: 2px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* progress dots */
+.step-dots {
+  display: flex; align-items: center; gap: 6px;
+  margin-bottom: 1.5rem;
+}
+.step-dot {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 0.75rem; color: var(--text-muted);
+}
+.step-dot-circle {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.6rem; font-weight: 700;
+  transition: all 0.3s;
+}
+.step-dot.done .step-dot-circle { background: var(--g-dark); border-color: var(--g-dark); color: #fff; }
+.step-dot.active .step-dot-circle { border-color: var(--g-dark); color: var(--g-dark); background: var(--g-pale); }
+.step-dot.active { color: var(--g-dark); font-weight: 600; }
+.step-dot-line { flex: 1; height: 2px; background: var(--border); border-radius: 1px; min-width: 20px; }
+.step-dot-line.done { background: var(--g-dark); }
+
+/* ── STEP BODY ───────────────────────── */
+.step-body { padding: 0 1.75rem 1.75rem; }
+
+/* ── STEP FOOTER ─────────────────────── */
+.step-footer {
+  padding: 1.25rem 1.75rem;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem;
+}
+
+.btn-back {
+  display: flex; align-items: center; gap: 6px;
+  font-family: inherit; font-size: 0.88rem; color: var(--text-mid);
+  background: none; border: none; cursor: pointer;
+  padding: 0.6rem 0; transition: color 0.15s;
+}
+.btn-back:hover { color: var(--g-dark); }
+.btn-back:disabled { opacity: 0.35; cursor: default; }
+
+.btn-continue {
+  display: flex; align-items: center; gap: 8px;
+  padding: 0.75rem 1.6rem;
+  background: var(--g-dark); color: #fff;
+  border: none; border-radius: 10px;
+  font-family: inherit; font-size: 0.9rem; font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 3px 12px rgba(45,122,95,0.28);
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+}
+.btn-continue:hover { background: var(--g-mid); box-shadow: 0 5px 18px rgba(45,122,95,0.36); }
+.btn-continue:active { transform: scale(0.97); }
+
+/* ── TYPOGRAPHY ──────────────────────── */
+.step-heading {
+  font-size: 1.35rem; font-weight: 600; letter-spacing: -0.025em;
+  margin-bottom: 0.5rem; color: var(--text);
+}
+.step-desc { font-size: 0.9rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 1.5rem; }
+
+.checklist { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; margin-bottom: 1.5rem; }
+.checklist li { display: flex; align-items: center; gap: 8px; font-size: 0.88rem; color: var(--text-mid); }
+.checklist li::before { content: '✓'; color: var(--g-dark); font-weight: 700; font-size: 0.8rem; }
+
+/* ── FORM ELEMENTS ───────────────────── */
+.field-group { display: flex; flex-direction: column; gap: 1rem; }
+.field-label { font-size: 0.83rem; font-weight: 600; color: var(--text); margin-bottom: 0.4rem; display: block; }
+
+.text-input {
+  width: 100%; padding: 0.8rem 1rem;
+  font-family: inherit; font-size: 0.9rem; color: var(--text);
+  background: var(--g-faint); border: 1.5px solid var(--border);
+  border-radius: 10px; outline: none;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  -webkit-appearance: none;
+}
+.text-input::placeholder { color: var(--text-muted); }
+.text-input:focus { border-color: var(--g-mid); background: var(--white); box-shadow: 0 0 0 3px rgba(58,148,112,0.12); }
+.text-input.error { border-color: #e05a5a; }
+
+/* chip selector */
+.chip-group { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  padding: 0.5rem 0.9rem; border-radius: 100px;
+  border: 1.5px solid var(--border);
+  font-family: inherit; font-size: 0.82rem; font-weight: 500;
+  background: var(--g-faint); color: var(--text-mid);
+  cursor: pointer; transition: all 0.15s; user-select: none;
+  display: flex; align-items: center; gap: 5px;
+}
+.chip:hover { border-color: var(--g-mid); color: var(--g-dark); background: var(--g-pale); }
+.chip.selected { border-color: var(--g-dark); background: var(--g-pale); color: var(--g-dark); font-weight: 600; }
+.chip.selected::before { content: '✓'; font-size: 0.72rem; }
+
+/* security note */
+.security-note {
+  display: flex; align-items: center; gap: 7px;
+  background: var(--g-faint); border: 1px solid var(--border);
+  border-radius: 8px; padding: 0.65rem 0.9rem;
+  font-size: 0.78rem; color: var(--text-mid);
+  margin-bottom: 1.25rem;
+}
+
+/* platform grid */
+.platform-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
+.platform-card {
+  border: 1.5px solid var(--border); border-radius: 12px;
+  padding: 1.1rem 0.75rem; text-align: center;
+  background: var(--g-faint);
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+.platform-card.connected { border-color: var(--g-mid); background: var(--g-pale); }
+.platform-logo { font-size: 1.6rem; margin-bottom: 0.4rem; display: block; }
+.platform-name { font-size: 0.82rem; font-weight: 600; color: var(--text); margin-bottom: 0.75rem; }
+.platform-btn {
+  width: 100%; padding: 0.5rem 0.5rem;
+  font-family: inherit; font-size: 0.75rem; font-weight: 600;
+  border: none; border-radius: 7px; cursor: pointer;
+  background: var(--g-dark); color: #fff;
+  transition: background 0.2s;
+}
+.platform-btn:hover { background: var(--g-mid); }
+.platform-btn.done { background: var(--g-pale); color: var(--g-dark); border: 1px solid var(--border); cursor: default; }
+
+/* ── WELCOME SCREEN ──────────────────── */
+.welcome-robot {
+  text-align: center; margin-bottom: 1.5rem; position: relative;
+}
+.robot-emoji {
+  font-size: 4rem; display: inline-block;
+  animation: bob 3s ease-in-out infinite;
+  filter: drop-shadow(0 4px 12px rgba(45,122,95,0.2));
+}
+@keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+/* dashboard preview strip */
+.dashboard-preview {
+  background: var(--white); border-radius: 10px; overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 3px 16px rgba(45,122,95,0.1);
+  margin-bottom: 1.5rem;
+}
+.dp-header {
+  background: var(--g-faint); border-bottom: 1px solid var(--border);
+  padding: 6px 12px; display: flex; align-items: center; gap: 6px;
+}
+.dp-dot { width: 8px; height: 8px; border-radius: 50%; }
+.dp-url { flex: 1; background: var(--border); border-radius: 3px; padding: 2px 8px; font-size: 0.62rem; color: var(--text-muted); }
+.dp-body { padding: 10px 12px; display: flex; flex-direction: column; gap: 7px; font-size: 0.68rem; }
+.dp-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; }
+.dp-stat { background: var(--g-faint); border: 1px solid var(--border); border-radius: 6px; padding: 5px 7px; }
+.dp-stat-l { font-size: 0.58rem; color: var(--text-muted); }
+.dp-stat-v { font-size: 0.78rem; font-weight: 700; color: var(--text); }
+.dp-badge { font-size: 0.55rem; font-weight: 600; background: #d4f0e4; color: var(--g-dark); padding: 1px 4px; border-radius: 3px; }
+.dp-chart { background: var(--g-faint); border: 1px solid var(--border); border-radius: 6px; padding: 7px; }
+.dp-promo { background: linear-gradient(120deg, var(--g-dark), var(--g-mid)); border-radius: 6px; padding: 7px 9px; color: #fff; display: flex; align-items: center; gap: 8px; }
+.dp-promo-badge { background: rgba(255,255,255,0.2); border-radius: 4px; padding: 3px 6px; font-size: 0.6rem; font-weight: 600; }
+.dp-promo-info { flex: 1; font-size: 0.65rem; }
+.dp-promo-price { font-size: 0.78rem; font-weight: 700; }
+
+/* ── PROMO CARD (step 4) ─────────────── */
+.promo-suggest {
+  background: var(--white); border: 1.5px solid var(--border);
+  border-radius: 14px; overflow: hidden;
+  box-shadow: 0 3px 16px rgba(45,122,95,0.08);
+  margin-bottom: 1.25rem;
+}
+.promo-suggest-img {
+  background: linear-gradient(135deg, #c8edd8 0%, #a8dfc0 100%);
+  padding: 1rem 1.25rem;
+  display: flex; align-items: center; gap: 1rem;
+}
+.promo-suggest-icon { font-size: 2.5rem; }
+.promo-suggest-body { flex: 1; }
+.promo-suggest-name { font-size: 1rem; font-weight: 600; color: var(--text); }
+.promo-suggest-price { font-size: 1rem; font-weight: 700; color: var(--g-dark); float: right; margin-top: -1.25rem; }
+.promo-tag { font-size: 0.7rem; font-weight: 600; color: var(--g-dark); background: var(--g-pale); padding: 2px 8px; border-radius: 5px; display: inline-block; margin-bottom: 0.4rem; }
+.promo-suggest-details { padding: 1rem 1.25rem; }
+.promo-check { display: flex; align-items: center; gap: 7px; font-size: 0.82rem; color: var(--text-mid); margin-bottom: 5px; }
+.promo-check::before { content: '✓'; color: var(--g-dark); font-weight: 700; font-size: 0.75rem; }
+
+.trust-strip {
+  text-align: center; font-size: 0.78rem; color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+.trust-logos { display: flex; align-items: center; justify-content: center; gap: 12px; }
+.trust-logo { font-size: 0.8rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; }
+.t-deliveroo { background: #e6fff9; color: #00997a; }
+.t-uber { background: #f0f0f0; color: #333; }
+.t-just { background: #fff3e6; color: #cc6600; }
+
+/* ── SUCCESS ─────────────────────────── */
+.success-wrap { text-align: center; padding: 1.5rem 0 0.5rem; }
+.success-emoji { font-size: 3.5rem; margin-bottom: 1rem; display: block; animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+@keyframes pop { 0%{transform:scale(0)} 100%{transform:scale(1)} }
+.success-heading { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 0.5rem; color: var(--text); }
+.success-sub { font-size: 0.9rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 1.5rem; }
+.success-checklist { text-align: left; margin-bottom: 1.5rem; }
+
+/* ── STEP VISIBILITY ─────────────────── */
+.step-panel { display: none; }
+.step-panel.active { display: block; }
+
+/* ── LINK ────────────────────────────── */
+.text-link { font-size: 0.82rem; color: var(--text-muted); cursor: pointer; text-decoration: none; }
+.text-link:hover { color: var(--g-dark); }
+
+/* ── TRUSTED BY ──────────────────────── */
+.trusted-footer {
+  text-align: center; padding: 1rem 1.75rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.78rem; color: var(--text-muted);
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- Step header (hidden on welcome & success) -->
+  <div class="step-header" id="step-header" style="display:none;">
+    <div class="step-meta">
+      <span class="step-label" id="step-label">Step 1 of 4</span>
+      <span class="step-time" id="step-time">Takes 2 minutes</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill" style="width:25%"></div>
+    </div>
+    <!-- step dots -->
+    <div class="step-dots" id="step-dots">
+      <div class="step-dot active" id="dot-1">
+        <div class="step-dot-circle">1</div>
+        Restaurant Details
+      </div>
+      <div class="step-dot-line" id="line-1"></div>
+      <div class="step-dot" id="dot-2">
+        <div class="step-dot-circle">2</div>
+        Platforms
+      </div>
+      <div class="step-dot-line" id="line-2"></div>
+      <div class="step-dot" id="dot-3">
+        <div class="step-dot-circle">3</div>
+        AI Promos
+      </div>
+    </div>
+  </div>
+
+  <!-- ── STEP 0: WELCOME ──────────────── -->
+  <div class="step-panel active" id="step-0">
+    <div class="step-body" style="padding-top:1.75rem;">
+
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:1.25rem;">
+        <div style="width:22px;height:22px;background:var(--g-pale);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.65rem;color:var(--g-dark);">✓</div>
+        <span style="font-size:0.8rem;color:var(--text-muted);">Welcome</span>
+        <span style="width:30px;height:2px;background:var(--border);display:inline-block;"></span>
+        <div style="width:22px;height:22px;background:var(--g-pale);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.65rem;color:var(--g-dark);">→</div>
+        <span style="font-size:0.8rem;font-weight:600;color:var(--g-dark);">Restaurant Details</span>
+      </div>
+
+      <h2 class="step-heading">Tell Us About Your Restaurant</h2>
+      <p class="step-desc">Hungrin uses AI to analyze your sales and automatically create promotions that bring in more customers.</p>
+
+      <!-- mini dashboard preview -->
+      <div class="dashboard-preview">
+        <div class="dp-header">
+          <div class="dp-dot" style="background:#ff6058;"></div>
+          <div class="dp-dot" style="background:#ffbd2e;"></div>
+          <div class="dp-dot" style="background:#28c840;"></div>
+          <div class="dp-url">app.hungrin.com</div>
+        </div>
+        <div class="dp-body">
+          <div class="dp-stats">
+            <div class="dp-stat"><div class="dp-stat-l">New Orders</div><div class="dp-stat-v">£780 <span class="dp-badge">+22%</span></div></div>
+            <div class="dp-stat"><div class="dp-stat-l">Weekly</div><div class="dp-stat-v">+34% <span class="dp-badge">↑</span></div></div>
+            <div class="dp-stat"><div class="dp-stat-l">Online</div><div class="dp-stat-v">285 <span class="dp-badge">●</span></div></div>
+          </div>
+          <div class="dp-chart">
+            <svg width="100%" height="32" viewBox="0 0 300 32" preserveAspectRatio="none" fill="none">
+              <defs><linearGradient id="wg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3a9470" stop-opacity="0.3"/><stop offset="100%" stop-color="#3a9470" stop-opacity="0"/></linearGradient></defs>
+              <path d="M0,26 C30,24 50,20 80,16 C110,12 130,18 160,12 C190,6 210,10 240,6 C260,3 280,8 300,6" stroke="#3a9470" stroke-width="1.5" fill="none"/>
+              <path d="M0,26 C30,24 50,20 80,16 C110,12 130,18 160,12 C190,6 210,10 240,6 C260,3 280,8 300,6 L300,32 L0,32 Z" fill="url(#wg)"/>
+            </svg>
+          </div>
+          <div class="dp-promo">
+            <div class="dp-promo-badge">🔥</div>
+            <div class="dp-promo-info">Burger Bundle · £11.99</div>
+            <div class="dp-promo-price">7 left</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-continue" style="width:100%;justify-content:center;margin-bottom:0.85rem;" onclick="goTo(1)">
+        Start Setup →
+      </button>
+      <div style="text-align:center;">
+        <a href="hungrin-demo.html" class="text-link">or Book Demo</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── STEP 1: RESTAURANT DETAILS ────── -->
+  <div class="step-panel" id="step-1">
+    <div class="step-body">
+      <h2 class="step-heading">Tell Us About Your Restaurant</h2>
+      <ul class="checklist">
+        <li>Connect your delivery platforms</li>
+        <li>Let AI analyze your sales</li>
+        <li>Launch your first automated promotion</li>
+      </ul>
+
+      <div class="field-group">
+        <div>
+          <label class="field-label">Restaurant Name</label>
+          <input class="text-input" id="r-name" type="text" placeholder="e.g. The Burger Shack">
+        </div>
+        <div>
+          <label class="field-label">Restaurant Type</label>
+          <div class="chip-group" id="type-chips">
+            <div class="chip" onclick="toggleChip(this)">🍔 Burger</div>
+            <div class="chip" onclick="toggleChip(this)">🍕 Pizza</div>
+            <div class="chip" onclick="toggleChip(this)">🍱 Indian</div>
+            <div class="chip" onclick="toggleChip(this)">🧀 Cheese</div>
+            <div class="chip" onclick="toggleChip(this)">🍣 Sushi</div>
+            <div class="chip" onclick="toggleChip(this)">🥗 Salad</div>
+          </div>
+        </div>
+        <div>
+          <label class="field-label">Location</label>
+          <input class="text-input" id="r-location" type="text" placeholder="Postcode / City">
+        </div>
+        <div>
+          <label class="field-label">Average Orders Per Day</label>
+          <div class="chip-group" id="orders-chips">
+            <div class="chip" onclick="selectOne(this,'orders-chips')">0–20</div>
+            <div class="chip selected" onclick="selectOne(this,'orders-chips')">✓ 20–50</div>
+            <div class="chip" onclick="selectOne(this,'orders-chips')">50–100</div>
+            <div class="chip selected" onclick="selectOne(this,'orders-chips')">✓ 100+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="step-footer">
+      <button class="btn-back" onclick="goTo(0)" >← Back</button>
+      <button class="btn-continue" onclick="validateStep1()">Continue →</button>
+    </div>
+  </div>
+
+  <!-- ── STEP 2: DELIVERY PLATFORMS ────── -->
+  <div class="step-panel" id="step-2">
+    <div class="step-body">
+      <h2 class="step-heading">Connect Your Delivery Platforms</h2>
+      <p class="step-desc">Hungrin integrates directly with your delivery services so we can analyze sales.</p>
+
+      <div class="security-note">
+        ✅ Your data is secure. Hungrin only reads order data.
+      </div>
+
+      <div class="platform-grid">
+        <div class="platform-card" id="pc-deliveroo">
+          <span class="platform-logo">🛵</span>
+          <div class="platform-name">Deliveroo</div>
+          <button class="platform-btn" onclick="connectPlatform('deliveroo')">Connect Account</button>
+        </div>
+        <div class="platform-card" id="pc-uber">
+          <span class="platform-logo">🚗</span>
+          <div class="platform-name">Uber Eats</div>
+          <button class="platform-btn" onclick="connectPlatform('uber')">Connect Account</button>
+        </div>
+        <div class="platform-card" id="pc-just">
+          <span class="platform-logo">🍽️</span>
+          <div class="platform-name">Just Eat</div>
+          <button class="platform-btn" onclick="connectPlatform('just')">Connect Account</button>
+        </div>
+      </div>
+
+      <div style="margin-top:1rem;font-size:0.78rem;color:var(--text-muted);text-align:center;">
+        Your data is analysed securely · Takes 2 minutes
+      </div>
+    </div>
+    <div class="step-footer">
+      <button class="btn-back" onclick="goTo(1)">← Back</button>
+      <button class="btn-continue" onclick="goTo(3)">Continue →</button>
+    </div>
+  </div>
+
+  <!-- ── STEP 3: AI PROMOTIONS ──────────── -->
+  <div class="step-panel" id="step-3">
+    <div class="step-body">
+      <h2 class="step-heading">Let AI Optimize Your Promotions</h2>
+      <p class="step-desc">Based on your restaurant data, Hungrin AI has created your first promotion.</p>
+
+      <div class="promo-suggest">
+        <div class="promo-suggest-img">
+          <div class="promo-suggest-icon">🍔</div>
+          <div class="promo-suggest-body">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;">
+              <div class="promo-suggest-name">Burger Bundle</div>
+              <div style="font-size:1rem;font-weight:700;color:var(--g-dark);">£12.99</div>
+            </div>
+            <div class="promo-tag">🚀 Slow Day</div>
+          </div>
+        </div>
+        <div class="promo-suggest-details">
+          <div class="promo-check">Low Monday Traffic · high burger conversion</div>
+          <div class="promo-check">Expected Results: +18% orders on Mondays</div>
+        </div>
+      </div>
+
+      <div class="trust-strip" style="margin-bottom:0.5rem;">
+        Trusted by <strong style="color:var(--text);">500+</strong> restaurants
+      </div>
+      <div class="trust-logos" style="margin-bottom:1.25rem;">
+        <span class="trust-logo t-deliveroo">🛵 Deliveroo</span>
+        <span class="trust-logo t-uber">Uber Eats</span>
+        <span class="trust-logo t-just">JUST EAT</span>
+      </div>
+    </div>
+    <div class="step-footer">
+      <button class="btn-back" onclick="goTo(2)">← Back</button>
+      <button class="btn-continue" onclick="goTo(4)">Launch Promotion →</button>
+    </div>
+  </div>
+
+  <!-- ── STEP 4: SUCCESS ────────────────── -->
+  <div class="step-panel" id="step-4">
+    <div class="step-body" style="padding-top:1.75rem;">
+      <div class="success-wrap">
+        <span class="success-emoji">🎉</span>
+        <h2 class="success-heading">You're Live!</h2>
+        <p class="success-sub">Hungrin is now optimizing your restaurant promotions.</p>
+        <p style="font-size:0.88rem;font-weight:600;color:var(--text);margin-bottom:0.75rem;">What happens next:</p>
+        <ul class="checklist success-checklist">
+          <li>AI monitors sales.</li>
+          <li>Promotions update automatically</li>
+          <li>Insights appear in your dashboard</li>
+        </ul>
+        <a href="hungrin-pricing.html" class="btn-continue" style="display:inline-flex;margin:0 auto;">
+          Go to Dashboard →
+        </a>
+      </div>
+    </div>
+    <div class="trusted-footer">
+      Trusted by
+      <span class="trust-logo t-deliveroo" style="font-size:0.75rem;padding:3px 8px;">🛵 Deliveroo</span>
+      <span class="trust-logo t-uber" style="font-size:0.75rem;padding:3px 8px;">Uber Eats</span>
+      <span class="trust-logo t-just" style="font-size:0.75rem;padding:3px 8px;">JUST EAT</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- toast -->
+<div id="toast" style="position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--g-dark);color:#fff;padding:0.6rem 1.3rem;border-radius:100px;font-size:0.82rem;font-weight:500;opacity:0;transition:opacity 0.3s,transform 0.3s;pointer-events:none;white-space:nowrap;z-index:99;"></div>
+
+<script>
+  let currentStep = 0;
+  const connectedPlatforms = new Set();
+
+  const stepMeta = [
+    null,
+    { label: 'Step 1 of 4', time: 'Takes 2 minutes', progress: 25 },
+    { label: 'Step 2 of 4', time: 'Takes 2 minutes', progress: 50 },
+    { label: 'Step 3 of 4', time: 'Almost done!', progress: 75 },
+    { label: 'Step 4 of 4 · AI Promotions', time: '', progress: 90 },
+    { label: 'Step 5 of 4 · Success', time: '', progress: 100 },
+  ];
+
+  function goTo(step) {
+    document.getElementById('step-' + currentStep).classList.remove('active');
+    currentStep = step;
+    document.getElementById('step-' + step).classList.add('active');
+
+    const header = document.getElementById('step-header');
+    if (step === 0 || step === 4) {
+      header.style.display = 'none';
+    } else {
+      header.style.display = 'block';
+      const m = stepMeta[step];
+      document.getElementById('step-label').textContent = m.label;
+      document.getElementById('step-time').textContent = m.time;
+      document.getElementById('progress-fill').style.width = m.progress + '%';
+      updateDots(step);
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function updateDots(step) {
+    for (let i = 1; i <= 3; i++) {
+      const dot = document.getElementById('dot-' + i);
+      const circle = dot.querySelector('.step-dot-circle');
+      dot.classList.remove('active', 'done');
+      if (i < step) {
+        dot.classList.add('done');
+        circle.textContent = '✓';
+      } else if (i === step) {
+        dot.classList.add('active');
+        circle.textContent = i;
+      } else {
+        circle.textContent = i;
+      }
+    }
+    for (let i = 1; i <= 2; i++) {
+      const line = document.getElementById('line-' + i);
+      line.classList.toggle('done', i < step);
+    }
+  }
+
+  function toggleChip(el) {
+    el.classList.toggle('selected');
+    if (el.classList.contains('selected') && !el.textContent.startsWith('✓')) {
+      el.dataset.original = el.textContent;
+    }
+  }
+
+  function selectOne(el, groupId) {
+    document.querySelectorAll('#' + groupId + ' .chip').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  function validateStep1() {
+    const name = document.getElementById('r-name');
+    const loc  = document.getElementById('r-location');
+    let ok = true;
+    if (!name.value.trim()) { name.classList.add('error'); ok = false; } else { name.classList.remove('error'); }
+    if (!loc.value.trim())  { loc.classList.add('error');  ok = false; } else { loc.classList.remove('error'); }
+    if (ok) goTo(2);
+  }
+
+  function connectPlatform(id) {
+    if (connectedPlatforms.has(id)) return;
+    connectedPlatforms.add(id);
+    const card = document.getElementById('pc-' + id);
+    card.classList.add('connected');
+    const btn = card.querySelector('.platform-btn');
+    btn.textContent = '✓ Connected';
+    btn.classList.add('done');
+    toast('Connected! Syncing order data…');
+  }
+
+  const toast = msg => {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.style.opacity = '1'; t.style.transform = 'translateX(-50%) translateY(0)';
+    setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(20px)'; }, 3000);
+  };
+
+  document.querySelectorAll('.text-input').forEach(inp =>
+    inp.addEventListener('input', () => inp.classList.remove('error'))
+  );
+</script>
+</body>
+</html>

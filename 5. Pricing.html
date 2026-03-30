@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hungrin – Pricing</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --g-dark:    #2d7a5f;
+  --g-mid:     #3a9470;
+  --g-light:   #5bb38a;
+  --g-pale:    #e6f5ef;
+  --g-faint:   #f2faf6;
+  --text:      #1a2e28;
+  --text-mid:  #4a5e57;
+  --text-muted:#8aa89e;
+  --border:    #d8ece3;
+  --white:     #ffffff;
+  --sidebar-w: 220px;
+}
+
+html, body { height: 100%; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  background: #dff0ea;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+}
+
+/* ── SIDEBAR ─────────────────────────── */
+.sidebar {
+  width: var(--sidebar-w);
+  min-width: var(--sidebar-w);
+  height: 100vh;
+  background: var(--white);
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  padding: 1.5rem 0;
+  overflow-y: auto;
+}
+
+.sidebar-logo {
+  display: flex; align-items: center; gap: 9px;
+  padding: 0 1.25rem 1.75rem;
+  font-size: 1.1rem; font-weight: 700; color: var(--text);
+  letter-spacing: -0.02em;
+}
+.logo-icon { width: 30px; height: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+.logo-icon span { background: var(--g-dark); display: block; }
+.logo-icon span:nth-child(1) { border-radius: 50% 50% 0 50%; }
+.logo-icon span:nth-child(2) { border-radius: 50% 50% 50% 0; }
+.logo-icon span:nth-child(3) { border-radius: 50% 0 50% 50%; }
+.logo-icon span:nth-child(4) { border-radius: 0 50% 50% 50%; }
+
+.sidebar-label {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em;
+  color: var(--text-muted); text-transform: uppercase;
+  padding: 0 1.25rem 0.5rem;
+}
+
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 0.65rem 1.25rem;
+  font-size: 0.9rem; color: var(--text-mid);
+  cursor: pointer; border-radius: 0;
+  transition: background 0.15s, color 0.15s;
+  text-decoration: none;
+  border-left: 3px solid transparent;
+}
+.nav-item:hover { background: var(--g-faint); color: var(--g-dark); }
+.nav-item.active { background: var(--g-pale); color: var(--g-dark); font-weight: 600; border-left-color: var(--g-dark); }
+.nav-icon { font-size: 1rem; width: 20px; text-align: center; }
+
+.sidebar-spacer { flex: 1; }
+
+.btn-demo {
+  margin: 0 1rem 1rem;
+  padding: 0.75rem; text-align: center;
+  background: var(--g-dark); color: #fff;
+  border-radius: 10px; font-size: 0.88rem; font-weight: 600;
+  cursor: pointer; text-decoration: none;
+  transition: background 0.2s;
+  display: block;
+}
+.btn-demo:hover { background: var(--g-mid); }
+
+/* ── MAIN ────────────────────────────── */
+.main {
+  flex: 1; height: 100vh; overflow-y: auto;
+  display: flex; flex-direction: column;
+}
+
+/* topbar */
+.topbar {
+  background: var(--white); border-bottom: 1px solid var(--border);
+  padding: 0 1.75rem; height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-shrink: 0; position: sticky; top: 0; z-index: 10;
+}
+.topbar-left h1 { font-size: 1.15rem; font-weight: 600; letter-spacing: -0.02em; }
+.topbar-left p { font-size: 0.8rem; color: var(--text-muted); }
+.topbar-right { display: flex; align-items: center; gap: 12px; }
+.notif-btn {
+  position: relative; background: var(--g-faint);
+  border: 1px solid var(--border); border-radius: 10px;
+  padding: 6px 10px; font-size: 0.85rem; cursor: pointer;
+  display: flex; align-items: center; gap: 5px; color: var(--text-mid);
+}
+.notif-dot {
+  position: absolute; top: 5px; right: 5px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #e05a5a; border: 1.5px solid var(--white);
+}
+.avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--g-light), var(--g-dark));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.8rem; font-weight: 600; color: #fff; cursor: pointer;
+  overflow: hidden;
+}
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+/* content area */
+.content {
+  padding: 1.5rem 1.75rem;
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+/* ── STATS BAR ───────────────────────── */
+.stats-bar {
+  grid-column: 1 / -1;
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 12px; padding: 0.75rem 1.25rem;
+  display: flex; align-items: center; gap: 0;
+}
+.stat-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 0 1.5rem 0 0; margin-right: 1.5rem;
+  border-right: 1px solid var(--border);
+  font-size: 0.85rem;
+}
+.stat-item:last-child { border-right: none; padding-right: 0; margin-right: 0; }
+.stat-item strong { font-weight: 600; color: var(--text); }
+.stat-badge-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+/* ── PRICING MAIN ────────────────────── */
+.pricing-main { display: flex; flex-direction: column; gap: 1.25rem; min-width: 0; }
+
+.section-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 14px; padding: 1.5rem;
+}
+.section-title {
+  font-size: 1rem; font-weight: 600; letter-spacing: -0.01em;
+  margin-bottom: 1.25rem; color: var(--text);
+}
+
+/* plan cards */
+.plans-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
+
+.plan-card {
+  border: 1.5px solid var(--border); border-radius: 12px;
+  padding: 1.25rem; position: relative;
+  transition: box-shadow 0.2s, transform 0.2s;
+  background: var(--g-faint);
+}
+.plan-card:hover { box-shadow: 0 4px 20px rgba(45,122,95,0.12); transform: translateY(-2px); }
+.plan-card.featured {
+  border-color: var(--g-mid); border-width: 2px;
+  background: linear-gradient(160deg, #e8f8f0 0%, #d4f0e2 100%);
+}
+
+.plan-badge {
+  position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+  background: var(--g-dark); color: #fff;
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.02em;
+  padding: 3px 12px; border-radius: 100px;
+  white-space: nowrap;
+}
+
+.plan-name { font-size: 1.1rem; font-weight: 600; text-align: center; margin-bottom: 2px; color: var(--text); }
+.plan-price { font-size: 1.8rem; font-weight: 700; text-align: center; letter-spacing: -0.04em; color: var(--text); margin-bottom: 4px; }
+.plan-desc { font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-bottom: 1rem; line-height: 1.5; }
+
+.plan-features { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.1rem; }
+.plan-features li {
+  display: flex; align-items: flex-start; gap: 7px;
+  font-size: 0.78rem; color: var(--text-mid); line-height: 1.4;
+}
+.plan-features li::before {
+  content: '✓'; color: var(--g-dark); font-weight: 700;
+  font-size: 0.72rem; margin-top: 1px; flex-shrink: 0;
+}
+
+.plan-btn {
+  width: 100%; padding: 0.65rem;
+  background: var(--g-dark); color: #fff;
+  border: none; border-radius: 8px;
+  font-family: inherit; font-size: 0.82rem; font-weight: 600;
+  cursor: pointer; transition: background 0.2s, transform 0.15s;
+}
+.plan-btn:hover { background: var(--g-mid); }
+.plan-btn:active { transform: scale(0.97); }
+
+/* ── COMPARE TABLE ───────────────────── */
+.compare-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+.compare-table th {
+  text-align: left; padding: 0.6rem 0.75rem;
+  font-weight: 600; color: var(--text-mid);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.78rem;
+}
+.compare-table th:first-child { width: 38%; }
+.compare-table td {
+  padding: 0.65rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-mid);
+  vertical-align: middle;
+}
+.compare-table tr:last-child td { border-bottom: none; }
+.compare-table tr:hover td { background: var(--g-faint); }
+.compare-table td:first-child { font-weight: 500; color: var(--text); }
+
+.check-icon { color: var(--g-dark); font-weight: 700; font-size: 1rem; }
+.dash-icon { color: var(--text-muted); }
+.tier-badge {
+  display: inline-block; font-size: 0.68rem; font-weight: 600;
+  padding: 2px 7px; border-radius: 5px;
+  background: var(--g-pale); color: var(--g-dark);
+}
+.tier-badge.muted { background: #f0f0ee; color: var(--text-muted); }
+
+/* delivery logos */
+.delivery-logo {
+  font-size: 0.72rem; font-weight: 700;
+  padding: 2px 6px; border-radius: 4px;
+  display: inline-block;
+}
+.uber-logo { background: #000; color: #fff; }
+.just-logo { background: #ff8000; color: #fff; }
+.deliveroo-logo { background: #00ccbc; color: #fff; }
+
+/* ── AI SIDEBAR ──────────────────────── */
+.ai-sidebar { display: flex; flex-direction: column; gap: 1.25rem; }
+
+.ai-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 14px; overflow: hidden;
+}
+
+.ai-robot-banner {
+  background: linear-gradient(135deg, #c8edd8 0%, #a8dfc0 100%);
+  padding: 1.25rem; text-align: center;
+  position: relative; overflow: hidden; min-height: 130px;
+  display: flex; align-items: center; justify-content: center;
+}
+.ai-robot-emoji {
+  font-size: 5rem; animation: bob 3s ease-in-out infinite;
+  filter: drop-shadow(0 4px 12px rgba(45,122,95,0.3));
+}
+@keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+.ai-card-body { padding: 1.1rem 1.25rem; }
+.ai-card-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.4rem; color: var(--text); letter-spacing: -0.01em; }
+
+.ai-recommendation {
+  background: var(--g-faint); border: 1px solid var(--border);
+  border-radius: 10px; padding: 0.9rem 1rem;
+}
+.ai-rec-label {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 0.72rem; color: var(--text-muted); margin-bottom: 6px;
+}
+.ai-rec-plan {
+  font-size: 1rem; font-weight: 700; color: var(--g-dark);
+  letter-spacing: -0.02em; margin-bottom: 0.6rem;
+}
+.ai-rec-features { list-style: none; display: flex; flex-direction: column; gap: 4px; margin-bottom: 0.75rem; }
+.ai-rec-features li { font-size: 0.78rem; color: var(--text-mid); display: flex; align-items: center; gap: 6px; }
+.ai-rec-features li::before { content: '✓'; color: var(--g-dark); font-weight: 700; font-size: 0.72rem; }
+.ai-rec-note { font-size: 0.75rem; color: var(--text-muted); line-height: 1.5; }
+
+/* ── AI CHAT BAR ─────────────────────── */
+.chat-bar {
+  grid-column: 1 / -1;
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 14px; padding: 0.65rem 0.75rem;
+  display: flex; align-items: center; gap: 0.75rem;
+  position: sticky; bottom: 0;
+}
+.chat-input {
+  flex: 1; border: none; outline: none;
+  font-family: inherit; font-size: 0.88rem;
+  color: var(--text); background: transparent;
+}
+.chat-input::placeholder { color: var(--text-muted); }
+.chat-action {
+  display: flex; align-items: center; gap: 5px;
+  padding: 0.5rem 0.9rem; border-radius: 8px;
+  font-family: inherit; font-size: 0.78rem; font-weight: 600;
+  cursor: pointer; border: 1px solid var(--border);
+  background: var(--g-faint); color: var(--text-mid);
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+.chat-action:hover { background: var(--g-pale); color: var(--g-dark); }
+.chat-send {
+  padding: 0.5rem 1.1rem; border-radius: 8px;
+  font-family: inherit; font-size: 0.82rem; font-weight: 600;
+  cursor: pointer; border: none;
+  background: var(--g-dark); color: #fff;
+  transition: background 0.2s;
+}
+.chat-send:hover { background: var(--g-mid); }
+
+/* ── AI CHAT POPUP ───────────────────── */
+.chat-popup {
+  position: fixed; bottom: 90px; left: calc(var(--sidebar-w) + 1.75rem);
+  width: 380px; background: var(--white);
+  border: 1px solid var(--border); border-radius: 14px;
+  box-shadow: 0 8px 40px rgba(45,122,95,0.15);
+  padding: 1rem 1.1rem; display: none; flex-direction: column; gap: 8px;
+  z-index: 50; font-size: 0.82rem;
+}
+.chat-popup.show { display: flex; }
+.chat-msg { padding: 8px 12px; border-radius: 10px; line-height: 1.55; max-width: 90%; }
+.chat-msg.bot { background: var(--g-faint); border: 1px solid var(--border); color: var(--text-mid); align-self: flex-start; }
+.chat-msg.user { background: var(--g-dark); color: #fff; align-self: flex-end; border-radius: 10px 10px 2px 10px; }
+.chat-popup-close {
+  position: absolute; top: 8px; right: 10px;
+  background: none; border: none; font-size: 1rem;
+  cursor: pointer; color: var(--text-muted);
+}
+
+/* toast */
+#toast {
+  position:fixed;bottom:1.5rem;right:1.5rem;
+  background:var(--g-dark);color:#fff;padding:0.65rem 1.2rem;
+  border-radius:100px;font-size:0.82rem;font-weight:500;
+  opacity:0;transition:opacity 0.3s,transform 0.3s;
+  transform:translateY(10px);pointer-events:none;z-index:99;
+}
+#toast.show{opacity:1;transform:translateY(0);}
+
+/* scrollbar */
+::-webkit-scrollbar{width:6px;height:6px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon"><span></span><span></span><span></span><span></span></div>
+    Dashboard
+  </div>
+
+  <a href="hungrin-landing.html" class="nav-item">
+    <span class="nav-icon">🏠</span> Dashboard
+  </a>
+  <a href="#" class="nav-item">
+    <span class="nav-icon">📊</span> Insights
+  </a>
+  <a href="#" class="nav-item">
+    <span class="nav-icon">🗂️</span> Dashboard
+  </a>
+  <a href="#" class="nav-item">
+    <span class="nav-icon">📦</span> Orders
+  </a>
+  <a href="#" class="nav-item">
+    <span class="nav-icon">📺</span> Sales
+  </a>
+  <a href="#" class="nav-item active">
+    <span class="nav-icon">💳</span> Pricing
+  </a>
+
+  <div class="sidebar-spacer"></div>
+  <a href="hungrin-demo.html" class="btn-demo">Book Demo</a>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- topbar -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <h1>Pricing</h1>
+      <p>Choose a plan that fits your business needs.</p>
+    </div>
+    <div class="topbar-right">
+      <div class="notif-btn">
+        🔔
+        <div class="notif-dot"></div>
+      </div>
+      <div class="avatar">SC</div>
+    </div>
+  </div>
+
+  <!-- content grid -->
+  <div class="content">
+
+    <!-- stats bar -->
+    <div class="stats-bar">
+      <div class="stat-item">
+        <span class="stat-badge-dot" style="background:#f59e0b;"></span>
+        <strong>16</strong> Pending Orders
+      </div>
+      <div class="stat-item">
+        <span class="stat-badge-dot" style="background:var(--g-mid);"></span>
+        <strong>78</strong> Completed Orders
+      </div>
+      <div class="stat-item">
+        <span class="stat-badge-dot" style="background:#6b7280;"></span>
+        <strong>£178.99</strong> Today
+      </div>
+    </div>
+
+    <!-- left: pricing + comparison -->
+    <div class="pricing-main">
+
+      <!-- plan cards -->
+      <div class="section-card">
+        <div class="section-title">Reports &amp; CSV Upload</div>
+        <div class="plans-grid">
+
+          <div class="plan-card">
+            <div class="plan-name">Starter</div>
+            <div class="plan-price">£19</div>
+            <div class="plan-desc">Ideal for new small businesses.</div>
+            <ul class="plan-features">
+              <li>Manage customer data and orders</li>
+              <li>Basic AI insights</li>
+              <li>Limited campaigns</li>
+              <li>Email support</li>
+            </ul>
+            <button class="plan-btn" onclick="selectPlan('Starter', '£19')">Get Started</button>
+          </div>
+
+          <div class="plan-card featured">
+            <div class="plan-badge">Most Popular</div>
+            <div class="plan-name">Growth</div>
+            <div class="plan-price">£49</div>
+            <div class="plan-desc">Perfect for growing businesses ready to expand.</div>
+            <ul class="plan-features">
+              <li>All Starter features plus:</li>
+              <li>Advanced AI insights</li>
+              <li>Targeted campaigns</li>
+              <li>Priority support</li>
+            </ul>
+            <button class="plan-btn" onclick="selectPlan('Growth', '£49')">Get Started</button>
+          </div>
+
+          <div class="plan-card">
+            <div class="plan-name">Pro</div>
+            <div class="plan-price">£99</div>
+            <div class="plan-desc">Best for established businesses with high demands.</div>
+            <ul class="plan-features">
+              <li>All Growth features</li>
+              <li>Custom AI solutions</li>
+              <li>Exclusive promotions</li>
+              <li>Dedicated account manager</li>
+            </ul>
+            <button class="plan-btn" onclick="selectPlan('Pro', '£99')">Get Started</button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- compare table -->
+      <div class="section-card">
+        <div class="section-title">Compare Features</div>
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Starter</th>
+              <th>Growth</th>
+              <th>Time &amp; Date</th>
+              <th>Delivery</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Manage Customer data and orders</td>
+              <td><span class="check-icon">✓</span></td>
+              <td><span class="check-icon">✓</span></td>
+              <td style="font-size:0.75rem;color:var(--text-muted)">Today at 9:15 AM</td>
+              <td><span class="delivery-logo uber-logo">Uber</span></td>
+            </tr>
+            <tr>
+              <td>AI Insights</td>
+              <td><span class="tier-badge muted">Basic</span></td>
+              <td><span class="tier-badge">Advanced</span></td>
+              <td style="font-size:0.75rem;color:var(--text-muted)">Today at 8:30 AM</td>
+              <td><span class="delivery-logo uber-logo">Uber</span></td>
+            </tr>
+            <tr>
+              <td>Campaigns</td>
+              <td><span class="tier-badge muted">Limited</span></td>
+              <td><span class="tier-badge">Targeted</span></td>
+              <td style="font-size:0.75rem;color:var(--text-muted)">Today at 7:55 AM</td>
+              <td><span class="delivery-logo just-logo">Just Eat</span></td>
+            </tr>
+            <tr>
+              <td>Online Review Management</td>
+              <td><span class="dash-icon">—</span></td>
+              <td><span class="check-icon">✓</span></td>
+              <td style="font-size:0.75rem;color:var(--text-muted)">Yesterday</td>
+              <td><span class="delivery-logo uber-logo">Uber</span></td>
+            </tr>
+            <tr>
+              <td>Priority Support</td>
+              <td><span class="dash-icon">—</span></td>
+              <td><span class="check-icon">✓</span></td>
+              <td style="font-size:0.75rem;color:var(--text-muted)">Yesterday</td>
+              <td><span class="delivery-logo uber-logo">Uber</span></td>
+            </tr>
+            <tr>
+              <td>Delivery Optimization</td>
+              <td><span class="dash-icon">—</span></td>
+              <td><span class="check-icon">✓</span></td>
+              <td><span class="check-icon">✓</span></td>
+              <td><span class="delivery-logo deliveroo-logo">Deliveroo</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- AI chat bar -->
+      <div class="chat-bar">
+        <input class="chat-input" id="chat-input" type="text" placeholder="Ask the AI to compare plans…" onkeydown="handleChat(event)">
+        <button class="chat-action" onclick="sendChat('Ask Now')">🤖 Ask Now</button>
+        <button class="chat-action" onclick="sendChat('AI FAQs')">✉️ AI FAQs</button>
+        <button class="chat-action" onclick="sendChat('Contact Sales')">📞 Contact Sales</button>
+        <button class="chat-send" onclick="sendChat()">Send</button>
+      </div>
+
+    </div>
+
+    <!-- right: AI sidebar -->
+    <div class="ai-sidebar">
+      <div class="ai-card">
+        <div class="ai-robot-banner">
+          <div class="ai-robot-emoji">🤖</div>
+        </div>
+        <div class="ai-card-body">
+          <div class="ai-card-title">Find the best plan for your business.</div>
+          <div class="ai-recommendation">
+            <div class="ai-rec-label">✅ Best choice for you:</div>
+            <div class="ai-rec-plan">Growth Plan</div>
+            <p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:8px;">Based on your current needs:</p>
+            <ul class="ai-rec-features">
+              <li>Growth Plan</li>
+              <li>Advanced AI insights</li>
+              <li>Targeted campaigns</li>
+              <li>Priority support</li>
+            </ul>
+            <p class="ai-rec-note">Upgrade to accelerate your growth and maximise your success.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- quick FAQ card -->
+      <div class="ai-card">
+        <div class="ai-card-body">
+          <div class="ai-card-title" style="margin-bottom:0.75rem;">Quick answers</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div class="chat-action" style="justify-content:flex-start;width:100%;border-radius:8px;" onclick="askFAQ('Can I switch plans anytime?')">Can I switch plans anytime?</div>
+            <div class="chat-action" style="justify-content:flex-start;width:100%;border-radius:8px;" onclick="askFAQ('Is there a free trial?')">Is there a free trial?</div>
+            <div class="chat-action" style="justify-content:flex-start;width:100%;border-radius:8px;" onclick="askFAQ('What delivery platforms are supported?')">What delivery platforms are supported?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- AI chat popup -->
+<div class="chat-popup" id="chat-popup">
+  <button class="chat-popup-close" onclick="closeChat()">✕</button>
+  <div id="chat-messages"></div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const toast = msg => {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+};
+
+function selectPlan(name, price) {
+  toast(`${name} plan (${price}/mo) selected — redirecting to checkout…`);
+}
+
+const aiAnswers = {
+  default: "Great question! The Growth plan is our most popular choice for restaurants seeing steady order volume. It includes advanced AI insights and targeted campaigns. Would you like to compare it with Pro?",
+  "Can I switch plans anytime?": "Yes! You can upgrade or downgrade your plan at any time from your account settings. Changes take effect on your next billing cycle.",
+  "Is there a free trial?": "We offer a 14-day free trial on all plans — no credit card required. Just sign up and start growing your restaurant today.",
+  "What delivery platforms are supported?": "Hungrin integrates with Deliveroo, Uber Eats, and Just Eat. Pro plan users get priority sync and real-time order management across all three."
+};
+
+function openChat(msg) {
+  const popup = document.getElementById('chat-popup');
+  const msgs = document.getElementById('chat-messages');
+  popup.classList.add('show');
+
+  if (msg) {
+    msgs.innerHTML = '';
+    const userBubble = document.createElement('div');
+    userBubble.className = 'chat-msg user';
+    userBubble.textContent = msg;
+    msgs.appendChild(userBubble);
+
+    setTimeout(() => {
+      const botBubble = document.createElement('div');
+      botBubble.className = 'chat-msg bot';
+      botBubble.textContent = aiAnswers[msg] || aiAnswers.default;
+      msgs.appendChild(botBubble);
+    }, 600);
+  }
+}
+
+function closeChat() {
+  document.getElementById('chat-popup').classList.remove('show');
+}
+
+function askFAQ(q) { openChat(q); }
+
+function sendChat(preset) {
+  const input = document.getElementById('chat-input');
+  const msg = preset || input.value.trim();
+  if (!msg) return;
+  openChat(msg === 'Ask Now' || msg === 'AI FAQs' || msg === 'Contact Sales' ? aiAnswers.default && msg : msg);
+  input.value = '';
+}
+
+function handleChat(e) {
+  if (e.key === 'Enter') sendChat();
+}
+</script>
+</body>
+</html>

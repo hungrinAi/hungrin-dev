@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hungrin – Billing</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --g-dark:    #2d7a5f;
+  --g-mid:     #3a9470;
+  --g-light:   #5bb38a;
+  --g-pale:    #e6f5ef;
+  --g-faint:   #f2faf6;
+  --text:      #1a2e28;
+  --text-mid:  #4a5e57;
+  --text-muted:#8aa89e;
+  --border:    #d8ece3;
+  --white:     #ffffff;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  background-color: #dff0ea;
+  background-image:
+    radial-gradient(ellipse 60% 55% at 8% 30%, rgba(91,179,138,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 45% at 92% 70%, rgba(45,122,95,0.1) 0%, transparent 55%),
+    url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='0' width='2' height='2' rx='0.5' fill='%232d7a5f' fill-opacity='0.06'/%3E%3C/svg%3E");
+  background-size: auto, auto, 40px 40px;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── TOP NAV ─────────────────────────── */
+.topnav {
+  background: var(--white); border-bottom: 1px solid var(--border);
+  padding: 0 2.5rem; height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 50;
+}
+.nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+.logo-icon { width: 28px; height: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+.logo-icon span { background: var(--g-dark); display: block; }
+.logo-icon span:nth-child(1) { border-radius: 50% 50% 0 50%; }
+.logo-icon span:nth-child(2) { border-radius: 50% 50% 50% 0; }
+.logo-icon span:nth-child(3) { border-radius: 50% 0 50% 50%; }
+.logo-icon span:nth-child(4) { border-radius: 0 50% 50% 50%; }
+.nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--g-dark); letter-spacing: -0.02em; }
+.nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+.nav-links a { font-size: 0.88rem; color: var(--text-mid); text-decoration: none; transition: color 0.15s; }
+.nav-links a:hover { color: var(--g-dark); }
+.btn-nav { padding: 0.55rem 1.25rem; background: var(--g-dark); color: #fff; border: none; border-radius: 9px; font-family: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer; text-decoration: none; transition: background 0.2s; }
+.btn-nav:hover { background: var(--g-mid); }
+
+/* ── PAGE WRAPPER ────────────────────── */
+.page-wrap { max-width: 1060px; margin: 0 auto; padding: 2rem 1.5rem 5rem; }
+
+/* breadcrumb */
+.breadcrumb { display: flex; align-items: center; gap: 7px; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+.breadcrumb a { color: var(--text-muted); text-decoration: none; }
+.breadcrumb a:hover { color: var(--g-dark); }
+.breadcrumb-sep { opacity: 0.5; font-size: 0.75rem; }
+.page-heading { font-size: 1.8rem; font-weight: 700; letter-spacing: -0.035em; margin-bottom: 0.3rem; }
+
+/* ── HERO DASHBOARD PREVIEW ──────────── */
+.hero-preview {
+  background: var(--white); border: 1px solid var(--border); border-radius: 14px;
+  overflow: hidden; margin-bottom: 1.5rem; margin-top: 1.5rem;
+  box-shadow: 0 4px 30px rgba(45,122,95,0.1);
+}
+.preview-bar { background: var(--g-faint); border-bottom: 1px solid var(--border); padding: 7px 14px; display: flex; align-items: center; gap: 6px; }
+.preview-dot { width: 9px; height: 9px; border-radius: 50%; }
+.preview-url { flex: 1; background: var(--border); border-radius: 4px; padding: 2px 10px; font-size: 0.65rem; color: var(--text-muted); }
+.preview-body { display: grid; grid-template-columns: 100px 1fr; }
+.preview-sidebar { background: #f8fdfb; border-right: 1px solid var(--border); padding: 10px 0; }
+.preview-sidebar-logo { display: flex; align-items: center; gap: 4px; padding: 3px 10px 10px; font-size: 0.65rem; font-weight: 700; color: var(--g-dark); }
+.preview-sidebar-logo .logo-icon { width: 12px; height: 12px; gap: 2px; }
+.prev-nav { padding: 5px 10px; font-size: 0.62rem; color: var(--text-muted); cursor: default; display: flex; align-items: center; gap: 5px; }
+.prev-nav.active { background: var(--g-pale); color: var(--g-dark); font-weight: 600; border-right: 2px solid var(--g-dark); }
+.preview-main { padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+.prev-tabs { display: flex; gap: 6px; }
+.prev-tab { padding: 3px 10px; border-radius: 6px; font-size: 0.62rem; font-weight: 600; background: var(--g-pale); color: var(--g-dark); cursor: default; border: 1px solid var(--border); }
+.prev-tab.alt { background: var(--white); color: var(--text-muted); }
+.prev-chart { background: var(--g-faint); border: 1px solid var(--border); border-radius: 6px; padding: 8px; }
+.prev-chart-title { font-size: 0.62rem; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.prev-chart-row { display: flex; justify-content: space-between; margin-bottom: 3px; }
+.prev-metric { font-size: 0.58rem; color: var(--text-muted); }
+.prev-spark { width: 100%; height: 28px; }
+.prev-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 5px; }
+.prev-card { background: var(--g-faint); border: 1px solid var(--border); border-radius: 5px; padding: 5px 7px; }
+.prev-card-l { font-size: 0.55rem; color: var(--text-muted); }
+.prev-card-v { font-size: 0.72rem; font-weight: 700; color: var(--text); }
+.prev-card-b { font-size: 0.5rem; background: #d4f0e4; color: var(--g-dark); padding: 1px 4px; border-radius: 3px; display: inline-block; margin-top: 1px; }
+
+/* ── MAIN GRID ───────────────────────── */
+.main-grid { display: grid; grid-template-columns: 1fr 320px; gap: 1.25rem; align-items: start; }
+
+/* ── CARDS ───────────────────────────── */
+.card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 16px; padding: 1.5rem;
+}
+.card-title { font-size: 1rem; font-weight: 600; letter-spacing: -0.015em; margin-bottom: 1.25rem; }
+
+/* ── CURRENT PLAN ────────────────────── */
+.plan-card { grid-column: 1; }
+.plan-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.2rem; }
+.plan-tag { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 600; color: var(--g-dark); }
+.plan-billed { font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 4px; cursor: pointer; }
+.plan-billed:hover { color: var(--g-dark); }
+.plan-name { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.03em; margin-top: 0.5rem; margin-bottom: 2px; }
+.plan-price { font-size: 1.1rem; font-weight: 600; color: var(--text); margin-bottom: 1rem; }
+.plan-price span { font-size: 0.82rem; font-weight: 400; color: var(--text-muted); }
+.plan-actions { display: flex; gap: 10px; align-items: center; margin-bottom: 1.1rem; }
+.btn-upgrade { padding: 0.65rem 1.4rem; background: var(--g-dark); color: #fff; border: none; border-radius: 9px; font-family: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+.btn-upgrade:hover { background: var(--g-mid); }
+.btn-cancel { font-size: 0.8rem; color: var(--text-muted); cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 3px; }
+.btn-cancel:hover { color: #dc2626; }
+
+.plan-features { list-style: none; display: flex; flex-direction: column; gap: 5px; margin-bottom: 1.1rem; }
+.plan-features li { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-mid); }
+.plan-features li::before { content: '✓'; color: var(--g-dark); font-weight: 700; font-size: 0.78rem; flex-shrink: 0; }
+.plan-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 0.85rem; border-top: 1px solid var(--border); font-size: 0.78rem; color: var(--text-muted); }
+.plan-footer-right { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; color: var(--text-muted); }
+
+/* ── PAYMENT METHOD ──────────────────── */
+.payment-card { grid-column: 2; grid-row: 1 / 3; }
+.visa-row { background: var(--g-faint); border: 1px solid var(--border); border-radius: 10px; padding: 0.85rem 1rem; display: flex; align-items: center; gap: 10px; margin-bottom: 0.85rem; }
+.visa-badge { background: #1a1f71; color: #fff; font-size: 0.65rem; font-weight: 800; padding: 3px 8px; border-radius: 5px; letter-spacing: 0.05em; flex-shrink: 0; font-style: italic; }
+.visa-info { flex: 1; }
+.visa-number { font-size: 0.85rem; font-weight: 600; color: var(--text); }
+.visa-expiry { font-size: 0.72rem; color: var(--text-muted); margin-top: 1px; }
+.btn-update { padding: 6px 16px; background: var(--g-dark); color: #fff; border: none; border-radius: 8px; font-family: inherit; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+.btn-update:hover { background: var(--g-mid); }
+.security-note { display: flex; align-items: center; gap: 7px; font-size: 0.75rem; color: var(--text-muted); background: var(--g-faint); border: 1px solid var(--border); border-radius: 8px; padding: 0.6rem 0.85rem; }
+
+/* ── BILLING HISTORY ─────────────────── */
+.history-card { grid-column: 1; }
+table { width: 100%; border-collapse: collapse; }
+thead th { padding: 0.55rem 0.75rem; text-align: left; font-size: 0.72rem; font-weight: 600; color: var(--text-muted); border-bottom: 1px solid var(--border); background: var(--g-faint); }
+tbody tr { border-bottom: 1px solid var(--border); }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: var(--g-faint); }
+tbody td { padding: 0.75rem 0.75rem; font-size: 0.83rem; color: var(--text-mid); vertical-align: middle; }
+tbody td:first-child { color: var(--text-muted); }
+tbody td:last-child { font-weight: 700; color: var(--text); text-align: right; }
+.paid-badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 100px; background: #d4f0e4; color: var(--g-dark); font-size: 0.7rem; font-weight: 600; }
+.invoice-btn { font-size: 0.72rem; color: var(--g-dark); cursor: pointer; text-decoration: none; }
+.invoice-btn:hover { text-decoration: underline; }
+
+.history-pagination { display: flex; align-items: center; justify-content: space-between; padding-top: 0.85rem; border-top: 1px solid var(--border); margin-top: 0.5rem; }
+.pagination-info { font-size: 0.75rem; color: var(--text-muted); }
+.pagination-controls { display: flex; align-items: center; gap: 6px; }
+.pg-nav { display: flex; align-items: center; gap: 4px; padding: 5px 12px; border: 1px solid var(--border); border-radius: 7px; background: var(--white); font-family: inherit; font-size: 0.75rem; cursor: pointer; color: var(--text-mid); transition: all 0.15s; }
+.pg-nav:hover { background: var(--g-pale); color: var(--g-dark); }
+.pg-nav:disabled { opacity: 0.35; cursor: default; }
+.pg-num { width: 28px; height: 28px; border-radius: 7px; border: 1px solid var(--border); background: var(--g-dark); color: #fff; font-family: inherit; font-size: 0.75rem; font-weight: 600; cursor: default; display: flex; align-items: center; justify-content: center; }
+
+/* ── SUBSCRIPTION EXTRAS ─────────────── */
+.extras-card { grid-column: 2; }
+.extra-item { display: flex; align-items: flex-start; gap: 12px; padding: 0.9rem 0; border-bottom: 1px solid var(--border); }
+.extra-item:last-child { border-bottom: none; padding-bottom: 0; }
+.extra-icon { width: 46px; height: 46px; border-radius: 10px; background: var(--g-pale); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
+.extra-body { flex: 1; }
+.extra-name { font-size: 0.88rem; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 7px; margin-bottom: 2px; }
+.extra-badge { font-size: 0.6rem; font-weight: 700; background: #fef3cd; color: #8a6100; padding: 2px 6px; border-radius: 4px; }
+.extra-desc { font-size: 0.75rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 7px; }
+.extra-add-btn { padding: 5px 14px; background: var(--g-dark); color: #fff; border: none; border-radius: 7px; font-family: inherit; font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+.extra-add-btn:hover { background: var(--g-mid); }
+.extra-toggle { display: flex; align-items: center; gap: 8px; }
+.toggle { position: relative; width: 36px; height: 20px; cursor: pointer; }
+.toggle input { opacity: 0; width: 0; height: 0; }
+.toggle-slider { position: absolute; inset: 0; background: var(--g-dark); border-radius: 20px; transition: background 0.2s; }
+.toggle-slider::before { content:''; position: absolute; width: 14px; height: 14px; left: 3px; top: 3px; background: #fff; border-radius: 50%; transition: transform 0.2s; }
+.toggle input:not(:checked) + .toggle-slider { background: var(--border); }
+.toggle input:not(:checked) + .toggle-slider::before { transform: none; }
+.toggle input:checked + .toggle-slider::before { transform: translateX(16px); }
+
+/* ── HELP FOOTER ─────────────────────── */
+.help-section {
+  background: linear-gradient(120deg, #e8f8f0 0%, #d0eedd 60%, #c0e8d4 100%);
+  border: 1px solid var(--border); border-radius: 16px;
+  padding: 2rem 2.5rem; margin-top: 1.5rem;
+  display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+}
+.help-robot { font-size: 6rem; animation: bob 4s ease-in-out infinite; filter: drop-shadow(0 4px 14px rgba(45,122,95,0.2)); flex-shrink: 0; }
+@keyframes bob { 0%,100%{transform:translateY(0) rotate(-2deg)} 50%{transform:translateY(-8px) rotate(2deg)} }
+.help-copy h3 { font-size: 1.3rem; font-weight: 600; letter-spacing: -0.025em; margin-bottom: 0.4rem; }
+.help-copy p { font-size: 0.88rem; color: var(--text-mid); margin-bottom: 1.1rem; }
+.help-copy a { color: var(--g-dark); font-weight: 600; }
+.btn-demo-help { display: inline-flex; align-items: center; gap: 8px; padding: 0.8rem 1.8rem; background: var(--g-dark); color: #fff; border: none; border-radius: 10px; font-family: inherit; font-size: 0.9rem; font-weight: 600; cursor: pointer; box-shadow: 0 3px 12px rgba(45,122,95,0.28); text-decoration: none; transition: background 0.2s; }
+.btn-demo-help:hover { background: var(--g-mid); }
+
+/* modal */
+.modal-overlay { position: fixed; inset: 0; background: rgba(26,46,40,0.35); backdrop-filter: blur(3px); display: none; align-items: center; justify-content: center; z-index: 100; }
+.modal-overlay.show { display: flex; }
+.modal { background: var(--white); border-radius: 16px; padding: 1.75rem; width: 440px; max-width: 95vw; box-shadow: 0 12px 60px rgba(45,122,95,0.2); animation: pop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+@keyframes pop { 0%{transform:scale(0.92);opacity:0} 100%{transform:scale(1);opacity:1} }
+.modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
+.modal-title { font-size: 1rem; font-weight: 600; }
+.modal-close { background: none; border: none; font-size: 1rem; cursor: pointer; color: var(--text-muted); }
+.modal-field { margin-bottom: 1rem; }
+.modal-label { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 5px; }
+.modal-input { width: 100%; padding: 0.72rem 0.9rem; border: 1.5px solid var(--border); border-radius: 9px; font-family: inherit; font-size: 0.88rem; color: var(--text); background: var(--g-faint); outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+.modal-input:focus { border-color: var(--g-mid); box-shadow: 0 0 0 3px rgba(58,148,112,0.12); background: var(--white); }
+.modal-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.modal-footer { display: flex; gap: 8px; margin-top: 1.5rem; }
+.modal-cancel { flex:1; padding: 0.7rem; border: 1px solid var(--border); border-radius: 9px; background: var(--white); font-family: inherit; font-size: 0.85rem; cursor: pointer; color: var(--text-mid); }
+.modal-save { flex:1; padding: 0.7rem; background: var(--g-dark); color: #fff; border: none; border-radius: 9px; font-family: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+.modal-save:hover { background: var(--g-mid); }
+
+/* cancel modal */
+.cancel-modal-icon { font-size: 2.5rem; text-align: center; margin-bottom: 0.75rem; }
+.cancel-modal-title { font-size: 1.05rem; font-weight: 700; text-align: center; margin-bottom: 0.4rem; }
+.cancel-modal-desc { font-size: 0.85rem; color: var(--text-mid); text-align: center; margin-bottom: 1.25rem; line-height: 1.6; }
+.btn-keep { flex:1; padding: 0.7rem; background: var(--g-dark); color: #fff; border: none; border-radius: 9px; font-family: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+.btn-cancel-sub { flex:1; padding: 0.7rem; border: 1px solid var(--border); border-radius: 9px; background: var(--white); font-family: inherit; font-size: 0.85rem; cursor: pointer; color: #dc2626; }
+
+/* toast */
+#toast { position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--g-dark); color: #fff; padding: 0.65rem 1.3rem; border-radius: 100px; font-size: 0.82rem; font-weight: 500; opacity: 0; transition: opacity 0.3s, transform 0.3s; pointer-events: none; z-index: 200; white-space: nowrap; }
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+@media(max-width:720px) {
+  .main-grid { grid-template-columns: 1fr; }
+  .payment-card, .extras-card { grid-column: 1; grid-row: auto; }
+  .nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="topnav">
+  <a href="hungrin-landing.html" class="nav-logo">
+    <div class="logo-icon"><span></span><span></span><span></span><span></span></div>
+    <span class="nav-brand">Hungrin</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="hungrin-dashboard.html">Dashboard</a></li>
+    <li><a href="hungrin-promotions.html">Promotions</a></li>
+    <li><a href="hungrin-orders.html">Reports</a></li>
+    <li><a href="hungrin-insights.html">Insights</a></li>
+  </ul>
+  <a href="hungrin-demo.html" class="btn-nav">Book Demo</a>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- heading -->
+  <div class="breadcrumb">
+    <a href="hungrin-dashboard.html">🏠</a>
+    <span class="breadcrumb-sep">›</span>
+    <span>Billing</span>
+  </div>
+  <h1 class="page-heading">Billing</h1>
+
+  <!-- dashboard mini-preview -->
+  <div class="hero-preview">
+    <div class="preview-bar">
+      <div class="preview-dot" style="background:#ff6058"></div>
+      <div class="preview-dot" style="background:#ffbd2e"></div>
+      <div class="preview-dot" style="background:#28c840"></div>
+      <div class="preview-url">app.hungrin.com/billing</div>
+    </div>
+    <div class="preview-body">
+      <div class="preview-sidebar">
+        <div class="preview-sidebar-logo"><div class="logo-icon"><span></span><span></span><span></span><span></span></div>Hungrin</div>
+        <div class="prev-nav">📣 Campaigns</div>
+        <div class="prev-nav">🎯 Promotions</div>
+        <div class="prev-nav active">💳 Billing</div>
+        <div class="prev-nav">👥 Customers</div>
+      </div>
+      <div class="preview-main">
+        <div class="prev-tabs">
+          <div class="prev-tab">Spend/Growth Plan</div>
+          <div class="prev-tab alt">Plans · Smart features</div>
+          <div class="prev-tab alt">£99 · 2× Payments · Daily</div>
+        </div>
+        <div class="prev-cards">
+          <div class="prev-card"><div class="prev-card-l">Monthly Plan</div><div class="prev-card-v">£99</div><div class="prev-card-b">Active</div></div>
+          <div class="prev-card"><div class="prev-card-l">Next Payment</div><div class="prev-card-v">May 20</div><div class="prev-card-b">Auto</div></div>
+          <div class="prev-card"><div class="prev-card-l">Invoices</div><div class="prev-card-v">12 paid</div><div class="prev-card-b">All paid</div></div>
+        </div>
+        <div class="prev-chart">
+          <div class="prev-chart-row">
+            <span class="prev-chart-title">Spend history</span>
+            <span class="prev-metric">£99/mo · Growth Plan</span>
+          </div>
+          <svg class="prev-spark" viewBox="0 0 300 28" preserveAspectRatio="none" fill="none">
+            <defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3a9470" stop-opacity="0.25"/><stop offset="100%" stop-color="#3a9470" stop-opacity="0"/></linearGradient></defs>
+            <path d="M0,20 C40,18 60,14 100,12 C140,10 150,16 180,14 C210,12 240,8 300,6" stroke="#3a9470" stroke-width="1.5" fill="none"/>
+            <path d="M0,20 C40,18 60,14 100,12 C140,10 150,16 180,14 C210,12 240,8 300,6 L300,28 L0,28 Z" fill="url(#bg)"/>
+          </svg>
+          <div style="display:flex;justify-content:space-between;margin-top:2px;">
+            <span style="font-size:0.52rem;color:var(--text-muted)">Jan</span><span style="font-size:0.52rem;color:var(--text-muted)">Feb</span><span style="font-size:0.52rem;color:var(--text-muted)">Mar</span><span style="font-size:0.52rem;color:var(--text-muted)">Apr</span><span style="font-size:0.52rem;color:var(--text-muted)">May</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- main grid -->
+  <div class="main-grid">
+
+    <!-- CURRENT PLAN -->
+    <div class="card plan-card">
+      <div class="plan-header">
+        <div class="plan-tag">✅ Current Plan</div>
+        <div class="plan-billed" onclick="toast('Switching to annual billing saves 20%')">billed monthly ▾</div>
+      </div>
+      <div class="plan-name">Growth Plan</div>
+      <div class="plan-price">£99 <span>/ month</span></div>
+      <div class="plan-actions">
+        <button class="btn-upgrade" onclick="document.getElementById('upgrade-modal').classList.add('show')">Upgrade Plan</button>
+        <a class="btn-cancel" href="#" onclick="event.preventDefault();document.getElementById('cancel-modal').classList.add('show')">Cancel Plan ›</a>
+      </div>
+      <ul class="plan-features">
+        <li>Connect unlimited delivery platforms</li>
+        <li>Run unlimited AI promotions</li>
+        <li>Real-time sales insights dashboard</li>
+        <li>Automated weather-based promotions</li>
+        <li>Priority support</li>
+      </ul>
+      <div class="plan-footer">
+        <span>Auto-renews on <strong>May 20, 2024</strong></span>
+        <div class="plan-footer-right">Updated on Coinport 🔄</div>
+      </div>
+    </div>
+
+    <!-- PAYMENT METHOD -->
+    <div class="card payment-card">
+      <div class="card-title">Payment Method</div>
+      <div class="visa-row">
+        <div class="visa-badge">VISA</div>
+        <div class="visa-info">
+          <div class="visa-number">•••• •••• •••• 4242</div>
+          <div class="visa-expiry">Expiration 12/25</div>
+        </div>
+        <button class="btn-update" onclick="document.getElementById('payment-modal').classList.add('show')">Update</button>
+      </div>
+      <div class="security-note">🔒 Payment data is encrypted &amp; securely stored.</div>
+    </div>
+
+    <!-- BILLING HISTORY -->
+    <div class="card history-card">
+      <div class="card-title">Billing History</div>
+
+      <!-- payment card repeated per mockup -->
+      <div class="visa-row" style="margin-bottom:1.25rem;">
+        <div class="visa-badge">VISA</div>
+        <div class="visa-info">
+          <div class="visa-number">Card debited •••• 4242</div>
+          <div class="visa-expiry">12/25</div>
+        </div>
+        <button class="btn-update" onclick="document.getElementById('payment-modal').classList.add('show')">Update</button>
+      </div>
+      <div class="security-note" style="margin-bottom:1.25rem;">🔒 Payment data is encrypted &amp; securely stored.</div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th style="text-align:right;">Amount</th>
+          </tr>
+        </thead>
+        <tbody id="invoice-tbody"></tbody>
+      </table>
+
+      <div class="history-pagination">
+        <span class="pagination-info">← Previous &nbsp; <strong id="inv-range">1 – 4</strong> of 12 invoices</span>
+        <div class="pagination-controls">
+          <button class="pg-nav" id="inv-prev" disabled onclick="changeInvPage(-1)">‹ Previous</button>
+          <div class="pg-num" id="inv-pg">1</div>
+          <button class="pg-nav" id="inv-next" onclick="changeInvPage(1)">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUBSCRIPTION EXTRAS -->
+    <div class="card extras-card">
+      <div class="card-title">Subscription Extras</div>
+
+      <div class="extra-item">
+        <div class="extra-icon">📱</div>
+        <div class="extra-body">
+          <div class="extra-name">SMS Marketing</div>
+          <div class="extra-desc">Send promotions to your customers' phones.</div>
+          <button class="extra-add-btn" onclick="addExtra('SMS Marketing', 30)">Add for £30 / mo</button>
+        </div>
+      </div>
+
+      <div class="extra-item">
+        <div class="extra-icon">🍔</div>
+        <div class="extra-body">
+          <div class="extra-name">Customer Loyalty</div>
+          <div class="extra-desc">Reward repeat customers with smart loyalty programs.</div>
+          <button class="extra-add-btn" onclick="addExtra('Customer Loyalty', 20)">Add for £20 / mo</button>
+        </div>
+      </div>
+
+      <div class="extra-item">
+        <div class="extra-icon">📋</div>
+        <div class="extra-body">
+          <div class="extra-name">Menu Enhancements <span class="extra-badge">BETA</span></div>
+          <div style="font-size:0.78rem;font-weight:600;color:var(--text-muted);margin-bottom:3px;">Coming Soon</div>
+          <div class="extra-desc">Enable advanced weather-based deals.</div>
+        </div>
+      </div>
+
+      <div class="extra-item">
+        <div class="extra-icon">🌤️</div>
+        <div class="extra-body">
+          <div class="extra-name">Weather Insights</div>
+          <div class="extra-desc">Enable advanced weather-based deals.</div>
+          <div class="extra-toggle">
+            <label class="toggle">
+              <input type="checkbox" checked onchange="toggleExtra('Weather Insights', this.checked)">
+              <span class="toggle-slider"></span>
+            </label>
+            <span style="font-size:0.75rem;color:var(--text-muted);">Active</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /main-grid -->
+
+  <!-- help section -->
+  <div class="help-section">
+    <div class="help-robot">🤖</div>
+    <div class="help-copy">
+      <h3>Need help with your billing?</h3>
+      <p>Contact Support or email us at <a href="mailto:billing@hungrin.com">billing@hungrin.com</a></p>
+      <a href="hungrin-demo.html" class="btn-demo-help">✉ Book Demo 🖥→</a>
+    </div>
+  </div>
+
+</div><!-- /page-wrap -->
+
+<!-- PAYMENT MODAL -->
+<div class="modal-overlay" id="payment-modal" onclick="if(event.target===this)this.classList.remove('show')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Update Payment Method</div>
+      <button class="modal-close" onclick="document.getElementById('payment-modal').classList.remove('show')">✕</button>
+    </div>
+    <div class="modal-field">
+      <label class="modal-label">Card Number</label>
+      <input class="modal-input" type="text" placeholder="•••• •••• •••• ••••" maxlength="19">
+    </div>
+    <div class="modal-row">
+      <div class="modal-field">
+        <label class="modal-label">Expiry Date</label>
+        <input class="modal-input" type="text" placeholder="MM / YY" maxlength="7">
+      </div>
+      <div class="modal-field">
+        <label class="modal-label">CVC</label>
+        <input class="modal-input" type="text" placeholder="•••" maxlength="4">
+      </div>
+    </div>
+    <div class="modal-field">
+      <label class="modal-label">Name on Card</label>
+      <input class="modal-input" type="text" placeholder="Carl Morrison">
+    </div>
+    <div class="modal-footer">
+      <button class="modal-cancel" onclick="document.getElementById('payment-modal').classList.remove('show')">Cancel</button>
+      <button class="modal-save" onclick="savePayment()">Save Card</button>
+    </div>
+  </div>
+</div>
+
+<!-- UPGRADE MODAL -->
+<div class="modal-overlay" id="upgrade-modal" onclick="if(event.target===this)this.classList.remove('show')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Upgrade Your Plan</div>
+      <button class="modal-close" onclick="document.getElementById('upgrade-modal').classList.remove('show')">✕</button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:1.25rem;">
+      <div style="background:var(--g-faint);border:1.5px solid var(--border);border-radius:10px;padding:1rem;">
+        <div style="font-size:0.88rem;font-weight:700;">Growth Plan — £49/mo</div>
+        <div style="font-size:0.75rem;color:var(--text-muted);margin-top:2px;">Current plan</div>
+      </div>
+      <div style="background:var(--g-pale);border:2px solid var(--g-dark);border-radius:10px;padding:1rem;cursor:pointer;" onclick="selectPlan(this)">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div style="font-size:0.88rem;font-weight:700;color:var(--g-dark);">Pro Plan — £99/mo</div>
+          <span style="font-size:0.65rem;background:var(--g-dark);color:#fff;padding:2px 8px;border-radius:100px;">Recommended</span>
+        </div>
+        <div style="font-size:0.75rem;color:var(--text-mid);margin-top:4px;">Custom AI · Exclusive promos · Account manager</div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-cancel" onclick="document.getElementById('upgrade-modal').classList.remove('show')">Cancel</button>
+      <button class="modal-save" onclick="confirmUpgrade()">Upgrade Now</button>
+    </div>
+  </div>
+</div>
+
+<!-- CANCEL MODAL -->
+<div class="modal-overlay" id="cancel-modal" onclick="if(event.target===this)this.classList.remove('show')">
+  <div class="modal">
+    <div class="cancel-modal-icon">😢</div>
+    <div class="cancel-modal-title">Cancel your plan?</div>
+    <div class="cancel-modal-desc">You'll lose access to AI promotions, real-time insights, and delivery integrations. Your data will be kept for 30 days.</div>
+    <div class="modal-footer">
+      <button class="btn-keep" onclick="document.getElementById('cancel-modal').classList.remove('show')">Keep My Plan</button>
+      <button class="btn-cancel-sub" onclick="confirmCancel()">Cancel Plan</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+/* ── INVOICES ────────────────────────── */
+const invoices = [
+  { date:'April 20, 2024',    desc:'Growth Plan', status:'Paid', amount:'£99' },
+  { date:'March 20, 2024',    desc:'Growth Plan', status:'Paid', amount:'£99' },
+  { date:'February 20, 2024', desc:'Growth Plan', status:'Paid', amount:'£99' },
+  { date:'January 20, 2024',  desc:'Growth Plan', status:'Paid', amount:'£99' },
+  { date:'December 20, 2023', desc:'Growth Plan', status:'Paid', amount:'£99' },
+  { date:'November 20, 2023', desc:'Growth Plan', status:'Paid', amount:'£99' },
+  { date:'October 20, 2023',  desc:'Growth Plan', status:'Paid', amount:'£99' },
+  { date:'September 20, 2023',desc:'Growth Plan', status:'Paid', amount:'£99' },
+  { date:'August 20, 2023',   desc:'Starter Plan',status:'Paid', amount:'£19' },
+  { date:'July 20, 2023',     desc:'Starter Plan',status:'Paid', amount:'£19' },
+  { date:'June 20, 2023',     desc:'Starter Plan',status:'Paid', amount:'£19' },
+  { date:'May 20, 2023',      desc:'Starter Plan',status:'Paid', amount:'£19' },
+];
+const PAGE = 4;
+let invPage = 1;
+
+function renderInvoices() {
+  const start = (invPage-1)*PAGE;
+  const page  = invoices.slice(start, start+PAGE);
+  const totalPages = Math.ceil(invoices.length/PAGE);
+  document.getElementById('invoice-tbody').innerHTML = page.map(inv => `
+    <tr>
+      <td>${inv.date}</td>
+      <td>${inv.desc}</td>
+      <td><span class="paid-badge">Paid</span></td>
+      <td style="text-align:right;display:flex;align-items:center;justify-content:flex-end;gap:10px;">
+        <a class="invoice-btn" href="#" onclick="event.preventDefault();toast('Downloading invoice…')">PDF ↓</a>
+        ${inv.amount}
+      </td>
+    </tr>`).join('');
+  document.getElementById('inv-range').textContent = `${start+1} – ${Math.min(start+PAGE, invoices.length)}`;
+  document.getElementById('inv-pg').textContent = invPage;
+  document.getElementById('inv-prev').disabled = invPage === 1;
+  document.getElementById('inv-next').disabled = invPage >= totalPages;
+}
+
+function changeInvPage(d) { invPage += d; renderInvoices(); }
+
+/* ── ACTIONS ─────────────────────────── */
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+function savePayment() {
+  document.getElementById('payment-modal').classList.remove('show');
+  toast('Payment method updated successfully ✓');
+}
+
+function confirmUpgrade() {
+  document.getElementById('upgrade-modal').classList.remove('show');
+  toast('Upgraded to Pro Plan! Welcome to the top tier 🚀');
+}
+
+function confirmCancel() {
+  document.getElementById('cancel-modal').classList.remove('show');
+  toast('Plan cancellation requested. Active until May 20, 2024.');
+}
+
+function addExtra(name, price) {
+  toast(`${name} added for £${price}/mo ✓`);
+}
+
+function toggleExtra(name, on) {
+  toast(`${name} ${on ? 'enabled' : 'disabled'}`);
+}
+
+renderInvoices();
+</script>
+</body>
+</html>

@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hungrin – Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --g-dark:    #2d7a5f;
+  --g-mid:     #3a9470;
+  --g-light:   #5bb38a;
+  --g-pale:    #e6f5ef;
+  --g-faint:   #f2faf6;
+  --text:      #1a2e28;
+  --text-mid:  #4a5e57;
+  --text-muted:#8aa89e;
+  --border:    #d8ece3;
+  --white:     #ffffff;
+  --sidebar-w: 228px;
+}
+
+html, body { height: 100%; overflow: hidden; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  background: #eaf6f0;
+  display: flex;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── SIDEBAR ─────────────────────────── */
+.sidebar {
+  width: var(--sidebar-w); min-width: var(--sidebar-w);
+  height: 100vh; background: var(--white);
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  padding: 1.4rem 0; overflow-y: auto; flex-shrink: 0;
+}
+.sidebar-logo {
+  display: flex; align-items: center; gap: 9px;
+  padding: 0 1.25rem 1.75rem;
+  font-size: 1.1rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em;
+}
+.logo-icon { width: 30px; height: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+.logo-icon span { background: var(--g-dark); display: block; }
+.logo-icon span:nth-child(1) { border-radius: 50% 50% 0 50%; }
+.logo-icon span:nth-child(2) { border-radius: 50% 50% 50% 0; }
+.logo-icon span:nth-child(3) { border-radius: 50% 0 50% 50%; }
+.logo-icon span:nth-child(4) { border-radius: 0 50% 50% 50%; }
+
+.nav-item {
+  display: flex; align-items: center; gap: 11px;
+  padding: 0.7rem 1.25rem; font-size: 0.92rem; color: var(--text-mid);
+  cursor: pointer; border-left: 3px solid transparent;
+  text-decoration: none; transition: background 0.15s, color 0.15s;
+}
+.nav-item:hover { background: var(--g-faint); color: var(--g-dark); }
+.nav-item.active { background: var(--g-pale); color: var(--g-dark); font-weight: 600; border-left-color: var(--g-dark); }
+.nav-icon { font-size: 1.05rem; width: 22px; text-align: center; }
+.sidebar-spacer { flex: 1; }
+.btn-demo {
+  margin: 0 1rem 0.5rem; padding: 0.75rem; text-align: center;
+  background: var(--g-dark); color: #fff; border-radius: 10px;
+  font-size: 0.88rem; font-weight: 600; cursor: pointer;
+  text-decoration: none; display: block; transition: background 0.2s;
+}
+.btn-demo:hover { background: var(--g-mid); }
+
+/* ── MAIN ────────────────────────────── */
+.main { flex: 1; height: 100vh; overflow-y: auto; display: flex; flex-direction: column; min-width: 0; }
+
+/* topbar */
+.topbar {
+  background: var(--white); border-bottom: 1px solid var(--border);
+  padding: 0 1.75rem; height: 68px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-shrink: 0; position: sticky; top: 0; z-index: 20;
+}
+.topbar-greeting h1 { font-size: 1.3rem; font-weight: 600; letter-spacing: -0.025em; }
+.topbar-greeting h1 strong { color: var(--g-dark); }
+.topbar-greeting p { font-size: 0.8rem; color: var(--text-mid); margin-top: 1px; }
+.topbar-greeting p strong { color: var(--text); font-weight: 600; }
+.topbar-right { display: flex; align-items: center; gap: 10px; }
+.notif-btn {
+  position: relative; background: var(--g-faint); border: 1px solid var(--border);
+  border-radius: 10px; padding: 7px 11px; font-size: 0.9rem; cursor: pointer;
+  display: flex; align-items: center; gap: 5px; color: var(--text-mid);
+}
+.notif-dot {
+  position: absolute; top: 5px; right: 6px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #e05a5a; border: 1.5px solid var(--white);
+}
+.avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: linear-gradient(135deg, #f0b8a0, #d4805a);
+  border: 2px solid var(--border); cursor: pointer; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem; font-weight: 600; color: #fff;
+}
+
+/* ── CONTENT ─────────────────────────── */
+.content { padding: 1.5rem 1.75rem; display: flex; flex-direction: column; gap: 1.25rem; flex: 1; }
+
+/* ── STAT CARDS ROW ──────────────────── */
+.stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+.stat-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 14px; padding: 1rem 1.1rem;
+  display: flex; align-items: center; gap: 10px;
+  transition: box-shadow 0.2s;
+}
+.stat-card:hover { box-shadow: 0 4px 20px rgba(45,122,95,0.1); }
+.stat-icon { font-size: 1.6rem; flex-shrink: 0; }
+.stat-body { min-width: 0; }
+.stat-label { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 1px; }
+.stat-main { display: flex; align-items: baseline; gap: 5px; flex-wrap: wrap; }
+.stat-val { font-size: 1rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
+.stat-change { font-size: 0.72rem; font-weight: 600; display: flex; align-items: center; gap: 2px; }
+.stat-change.up { color: var(--g-dark); }
+.stat-change.neutral { color: var(--text-muted); }
+.stat-sub { font-size: 0.7rem; color: var(--text-muted); margin-top: 1px; }
+.stat-badge {
+  display: inline-flex; align-items: center; gap: 3px;
+  font-size: 0.65rem; font-weight: 600; padding: 2px 7px;
+  border-radius: 100px; white-space: nowrap;
+}
+.stat-badge.green { background: #d4f0e4; color: var(--g-dark); }
+.stat-badge.amber { background: #fef3cd; color: #8a6100; }
+
+/* ── SALES CHART ─────────────────────── */
+.chart-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 14px; padding: 1.25rem 1.5rem;
+}
+.chart-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.25rem; }
+.chart-title { font-size: 1rem; font-weight: 600; letter-spacing: -0.01em; display: flex; align-items: center; gap: 6px; }
+.chart-desc { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 1rem; }
+.chart-tabs { display: flex; gap: 6px; }
+.chart-tab {
+  padding: 5px 14px; border-radius: 8px; font-family: inherit;
+  font-size: 0.78rem; font-weight: 500; cursor: pointer;
+  border: 1px solid var(--border); background: var(--g-faint); color: var(--text-mid);
+  transition: all 0.15s;
+}
+.chart-tab.active { background: var(--white); color: var(--text); font-weight: 600; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.chart-area { position: relative; width: 100%; height: 180px; margin-bottom: 1rem; }
+.chart-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 0.75rem; border-top: 1px solid var(--border);
+}
+.chart-footer-left { display: flex; align-items: baseline; gap: 10px; }
+.chart-footer-big { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+.chart-footer-label { font-size: 0.75rem; color: var(--text-muted); }
+.chart-footer-right { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--g-dark); font-weight: 600; }
+
+/* ── BOTTOM ROW ──────────────────────── */
+.bottom-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; padding-bottom: 1.5rem; }
+
+/* Promo card */
+.promo-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 14px; padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem;
+}
+.promo-card-header { display: flex; align-items: center; justify-content: space-between; }
+.promo-card-title { font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 7px; }
+.promo-dots { display: flex; gap: 3px; }
+.promo-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--border); }
+
+.promo-body { display: flex; gap: 1rem; align-items: flex-start; }
+.promo-img {
+  width: 130px; min-width: 130px; height: 110px; border-radius: 10px;
+  background: linear-gradient(135deg, #c8edd8 0%, #8fd4b0 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3.5rem; position: relative; overflow: hidden; flex-shrink: 0;
+}
+.promo-limited {
+  position: absolute; top: 6px; left: 6px; right: 6px;
+  background: rgba(45,122,95,0.85); color: #fff; border-radius: 5px;
+  padding: 3px 6px; font-size: 0.6rem; font-weight: 600; text-align: center;
+}
+.promo-right { flex: 1; min-width: 0; }
+.promo-tabs { display: flex; gap: 5px; margin-bottom: 8px; }
+.promo-tab {
+  padding: 3px 10px; border-radius: 6px; font-family: inherit;
+  font-size: 0.7rem; font-weight: 500; cursor: pointer;
+  border: 1px solid var(--border); background: var(--g-faint); color: var(--text-mid);
+}
+.promo-tab.active { background: var(--g-dark); color: #fff; border-color: var(--g-dark); }
+.promo-price-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.promo-price { font-size: 1.2rem; font-weight: 700; color: var(--text); }
+.promo-was { font-size: 0.75rem; color: var(--text-muted); text-decoration: line-through; }
+.promo-slots { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 6px; }
+.promo-boost {
+  width: 100%; padding: 0.55rem;
+  background: var(--g-dark); color: #fff;
+  border: none; border-radius: 8px;
+  font-family: inherit; font-size: 0.8rem; font-weight: 600;
+  cursor: pointer; transition: background 0.2s;
+}
+.promo-boost:hover { background: var(--g-mid); }
+
+.promo-footer { display: flex; gap: 1.25rem; }
+.promo-footer-item { display: flex; align-items: center; gap: 5px; font-size: 0.75rem; color: var(--text-muted); }
+.promo-footer-item::before { content: '✓'; color: var(--g-dark); font-weight: 700; font-size: 0.7rem; }
+
+.promo-name-row { display: flex; align-items: baseline; gap: 8px; margin-top: 6px; }
+.promo-name { font-size: 0.88rem; font-weight: 600; color: var(--text); }
+.promo-name-price { font-size: 0.82rem; font-weight: 700; color: var(--g-dark); }
+
+/* AI assistant card */
+.ai-card {
+  background: linear-gradient(145deg, #e8f8f0 0%, #d4f0e2 60%, #c0e8d4 100%);
+  border: 1px solid var(--border); border-radius: 14px;
+  padding: 1.25rem; display: flex; flex-direction: column; gap: 0.9rem;
+  position: relative; overflow: hidden;
+}
+.ai-robot {
+  position: absolute; right: -10px; bottom: -10px;
+  font-size: 7rem; opacity: 0.18; pointer-events: none;
+  animation: bob 4s ease-in-out infinite;
+}
+@keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+.ai-greeting { font-size: 0.9rem; color: var(--text); line-height: 1.55; }
+.ai-greeting strong { font-weight: 700; }
+
+.ai-input-row {
+  display: flex; gap: 7px; align-items: center;
+  background: rgba(255,255,255,0.75); border: 1px solid var(--border);
+  border-radius: 10px; padding: 0.5rem 0.75rem;
+}
+.ai-input {
+  flex: 1; border: none; outline: none; background: transparent;
+  font-family: inherit; font-size: 0.85rem; color: var(--text);
+}
+.ai-input::placeholder { color: var(--text-muted); }
+.ai-send {
+  padding: 5px 14px; background: var(--g-dark); color: #fff;
+  border: none; border-radius: 7px;
+  font-family: inherit; font-size: 0.78rem; font-weight: 600;
+  cursor: pointer; transition: background 0.2s; flex-shrink: 0;
+}
+.ai-send:hover { background: var(--g-mid); }
+
+.ai-actions { display: flex; flex-wrap: wrap; gap: 7px; }
+.ai-action {
+  padding: 5px 12px; border-radius: 100px;
+  border: 1px solid rgba(45,122,95,0.25);
+  background: rgba(255,255,255,0.6);
+  font-family: inherit; font-size: 0.75rem; font-weight: 500;
+  color: var(--g-dark); cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.ai-action:hover { background: rgba(255,255,255,0.9); border-color: var(--g-dark); }
+
+.ai-footer { display: flex; flex-direction: column; gap: 4px; }
+.ai-footer-item { display: flex; align-items: center; gap: 5px; font-size: 0.72rem; color: var(--text-mid); }
+.ai-footer-item::before { content: '✓'; color: var(--g-dark); font-weight: 700; font-size: 0.65rem; }
+
+/* AI chat popup */
+.ai-popup {
+  position: fixed; bottom: 1.5rem; right: 1.75rem;
+  width: 320px; background: var(--white);
+  border: 1px solid var(--border); border-radius: 14px;
+  box-shadow: 0 8px 40px rgba(45,122,95,0.18);
+  display: none; flex-direction: column;
+  overflow: hidden; z-index: 50;
+}
+.ai-popup.show { display: flex; }
+.ai-popup-header {
+  background: var(--g-dark); color: #fff;
+  padding: 0.75rem 1rem;
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 0.85rem; font-weight: 600;
+}
+.ai-popup-close { background: none; border: none; color: #fff; font-size: 1rem; cursor: pointer; opacity: 0.8; }
+.ai-popup-close:hover { opacity: 1; }
+.ai-popup-msgs { padding: 0.75rem; display: flex; flex-direction: column; gap: 8px; max-height: 220px; overflow-y: auto; }
+.ai-msg { padding: 8px 11px; border-radius: 10px; font-size: 0.8rem; line-height: 1.5; max-width: 88%; }
+.ai-msg.bot { background: var(--g-faint); border: 1px solid var(--border); color: var(--text-mid); align-self: flex-start; }
+.ai-msg.user { background: var(--g-dark); color: #fff; align-self: flex-end; border-radius: 10px 10px 2px 10px; }
+.ai-popup-input { padding: 0.65rem; border-top: 1px solid var(--border); display: flex; gap: 6px; }
+.ai-popup-field { flex: 1; border: 1px solid var(--border); border-radius: 7px; padding: 6px 10px; font-family: inherit; font-size: 0.8rem; outline: none; }
+.ai-popup-send { padding: 6px 12px; background: var(--g-dark); color: #fff; border: none; border-radius: 7px; font-family: inherit; font-size: 0.78rem; font-weight: 600; cursor: pointer; }
+
+/* toast */
+#toast {
+  position: fixed; bottom: 1.5rem; left: calc(var(--sidebar-w) + 1.5rem);
+  background: var(--g-dark); color: #fff;
+  padding: 0.6rem 1.2rem; border-radius: 100px;
+  font-size: 0.82rem; font-weight: 500;
+  opacity: 0; transform: translateY(10px);
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none; z-index: 99; white-space: nowrap;
+}
+#toast.show { opacity: 1; transform: translateY(0); }
+
+/* scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon"><span></span><span></span><span></span><span></span></div>
+    Dashboard
+  </div>
+  <a href="#" class="nav-item active"><span class="nav-icon">🏠</span> Dashboard</a>
+  <a href="#" class="nav-item"><span class="nav-icon">📣</span> Campaigns</a>
+  <a href="#" class="nav-item"><span class="nav-icon">🎯</span> Promotions</a>
+  <a href="#" class="nav-item"><span class="nav-icon">🚚</span> Deliveries</a>
+  <a href="#" class="nav-item"><span class="nav-icon">👥</span> Customers</a>
+  <a href="#" class="nav-item"><span class="nav-icon">📊</span> Insights</a>
+  <a href="#" class="nav-item"><span class="nav-icon">📦</span> Orders</a>
+  <div class="sidebar-spacer"></div>
+  <a href="hungrin-demo.html" class="btn-demo">Book Demo</a>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- topbar -->
+  <div class="topbar">
+    <div class="topbar-greeting">
+      <h1>Welcome back, <strong>Sarah!</strong></h1>
+      <p>Hungrin only makes money when you do—<strong>cancel anytime.</strong></p>
+    </div>
+    <div class="topbar-right">
+      <div class="notif-btn">🔔 <div class="notif-dot"></div></div>
+      <div class="avatar">S</div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- stat cards -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-icon">🛵</div>
+        <div class="stat-body">
+          <div class="stat-label">New Orders Today</div>
+          <div class="stat-main">
+            <span class="stat-val">£178.99</span>
+            <span class="stat-change up">▼</span>
+          </div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">📈</div>
+        <div class="stat-body">
+          <div class="stat-label">Weekly Revenue</div>
+          <div class="stat-main">
+            <span class="stat-val">£780</span>
+            <span class="stat-badge green">+22% ↑</span>
+          </div>
+          <div class="stat-sub">For customers</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🌤️</div>
+        <div class="stat-body">
+          <div class="stat-label">Weather effect</div>
+          <div class="stat-main">
+            <span class="stat-val">+34%</span>
+            <span class="stat-badge green">↑</span>
+          </div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🍽️</div>
+        <div class="stat-body">
+          <div class="stat-label">This Orders</div>
+          <div class="stat-main">
+            <span class="stat-val">285</span>
+            <span class="stat-change up">→ 34%</span>
+          </div>
+          <div class="stat-sub">Weather effect</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- sales chart -->
+    <div class="chart-card">
+      <div class="chart-top">
+        <div>
+          <div class="chart-title">Sales Performance ℹ️</div>
+          <div class="chart-desc">Sales performance over last 7 days</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div class="chart-tabs">
+            <button class="chart-tab active" onclick="setTab(this,'week')">This Week</button>
+            <button class="chart-tab" onclick="setTab(this,'7')">7 Days</button>
+            <button class="chart-tab" onclick="setTab(this,'30')">30 Days</button>
+          </div>
+          <button style="padding:5px 10px;border:1px solid var(--border);border-radius:8px;background:var(--g-faint);font-size:0.75rem;cursor:pointer;color:var(--text-mid);">↻</button>
+        </div>
+      </div>
+      <div class="chart-area">
+        <canvas id="salesChart"></canvas>
+      </div>
+      <div class="chart-footer">
+        <div class="chart-footer-left">
+          <span class="chart-footer-big">£4,230</span>
+          <span class="chart-footer-label">last 7 days</span>
+          <span class="chart-footer-big" style="font-size:0.95rem;">£178</span>
+          <span class="chart-footer-label">today</span>
+        </div>
+        <div class="chart-footer-right">
+          + 34% weather effect ☀️ ⛅ 🌧️ ☁️
+        </div>
+      </div>
+    </div>
+
+    <!-- bottom row: promo + AI -->
+    <div class="bottom-row">
+
+      <!-- promo of the day -->
+      <div class="promo-card">
+        <div class="promo-card-header">
+          <div class="promo-card-title">🎯 Promo of the Day</div>
+          <div class="promo-dots"><div class="promo-dot"></div><div class="promo-dot"></div><div class="promo-dot"></div></div>
+        </div>
+
+        <div class="promo-body">
+          <div class="promo-img">
+            🍔
+            <div class="promo-limited">✨ Limited Time · Burger Bundle!</div>
+          </div>
+          <div class="promo-right">
+            <div class="promo-tabs">
+              <button class="promo-tab active">G</button>
+              <button class="promo-tab" onclick="toast('Switching to +2 view…')">+2</button>
+              <button class="promo-tab" onclick="toast('Day view selected')">Day</button>
+            </div>
+            <div class="promo-price-row">
+              <span class="promo-price">£12.99</span>
+              <span class="promo-was">was £16.99</span>
+              <span class="stat-badge amber" style="font-size:0.6rem;">🔥 Hot</span>
+            </div>
+            <div class="promo-slots">Only 7 slots left today.</div>
+            <button class="promo-boost" onclick="toast('Promo boosted! 🚀')">Boost Promos</button>
+          </div>
+        </div>
+
+        <div>
+          <div class="promo-name-row">
+            <span class="promo-name">Burger Bundle!</span>
+            <span class="promo-name-price">£16.99</span>
+          </div>
+          <div style="font-size:0.78rem;color:var(--text-muted);margin-top:2px;">Only 7 slots left today.</div>
+        </div>
+
+        <div class="promo-footer">
+          <div class="promo-footer-item">No contracts</div>
+          <div class="promo-footer-item">Cancel anytime</div>
+        </div>
+      </div>
+
+      <!-- AI growth assistant -->
+      <div class="ai-card">
+        <div class="ai-robot">🤖</div>
+        <div class="ai-greeting">
+          <strong>Hello!</strong> I'm your AI Growth Assistant.<br>Ready to boost your sales today?
+        </div>
+
+        <div class="ai-input-row">
+          <input class="ai-input" id="ai-input" type="text" placeholder="Type your request…" onkeydown="if(event.key==='Enter')sendAI()">
+          <button class="ai-send" onclick="sendAI()">Send</button>
+        </div>
+
+        <div class="ai-actions">
+          <button class="ai-action" onclick="askAI('Suggest a promo for today')">+ Suggest A Promo</button>
+          <button class="ai-action" onclick="askAI('What are my top-performing items?')">+ Current offers</button>
+          <button class="ai-action" onclick="askAI('How can I get more customers?')">+ Get More Customers</button>
+          <button class="ai-action" onclick="askAI('Create a social media post for my promo')">+ Create a Post</button>
+        </div>
+
+        <div class="ai-footer">
+          <div class="ai-footer-item">No contracts</div>
+          <div class="ai-footer-item">Cancel anytime</div>
+          <div class="ai-footer-item">Works with Deliveroo, Uber Eats &amp; Just Eat</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<!-- AI chat popup -->
+<div class="ai-popup" id="ai-popup">
+  <div class="ai-popup-header">
+    🤖 AI Growth Assistant
+    <button class="ai-popup-close" onclick="closeAI()">✕</button>
+  </div>
+  <div class="ai-popup-msgs" id="ai-msgs"></div>
+  <div class="ai-popup-input">
+    <input class="ai-popup-field" id="ai-popup-input" placeholder="Ask anything…" onkeydown="if(event.key==='Enter')sendPopupAI()">
+    <button class="ai-popup-send" onclick="sendPopupAI()">Send</button>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ── CHART ────────────────────────────
+const datasets = {
+  week: [320, 390, 410, 360, 480, 520, 178],
+  '7':  [280, 350, 430, 390, 460, 540, 178],
+  '30': [200, 310, 280, 420, 380, 490, 510]
+};
+const labels = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+
+const ctx = document.getElementById('salesChart').getContext('2d');
+let salesChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels,
+    datasets: [{
+      data: datasets.week,
+      borderColor: '#3a9470',
+      backgroundColor: 'rgba(58,148,112,0.12)',
+      fill: true, tension: 0.45,
+      pointRadius: 4, pointBackgroundColor: '#fff',
+      pointBorderColor: '#3a9470', pointBorderWidth: 2,
+      borderWidth: 2.5
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: {
+      callbacks: { label: c => ' £' + c.parsed.y }
+    }},
+    scales: {
+      y: {
+        position: 'right',
+        ticks: { callback: v => '£' + v, font: { size: 11 }, color: '#8aa89e' },
+        grid: { color: 'rgba(216,236,227,0.6)' }
+      },
+      x: {
+        ticks: { font: { size: 11 }, color: '#8aa89e' },
+        grid: { display: false }
+      }
+    }
+  }
+});
+
+function setTab(el, key) {
+  document.querySelectorAll('.chart-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  salesChart.data.datasets[0].data = datasets[key];
+  salesChart.update();
+}
+
+// ── TOAST ────────────────────────────
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ── AI CHAT ──────────────────────────
+const aiResponses = {
+  default: "Great question! Based on your sales data, I recommend running a Burger Bundle promo this Wednesday — rain is forecast and your burger orders spike 38% on wet days.",
+  "Suggest a promo for today": "📊 Based on today's data: sunny weather + lunch hour = great time for a drinks & sides combo. Try a £8.99 meal deal — expected +24 extra orders.",
+  "What are my top-performing items?": "🏆 Your top performers this week: Burger Bundle (42 orders), Cheese Fries (38), Chicken Wrap (29). Burger Bundle drives 31% of your revenue.",
+  "How can I get more customers?": "🎯 To attract more customers: (1) Run a flash deal at 11am — slow hour for you. (2) Add a photo to your Deliveroo listing. (3) Respond to your 3 unread reviews.",
+  "Create a social media post for my promo": "📱 Here's a post: '🍔 LIMITED TIME: Burger Bundle for just £12.99 — was £16.99! Only 7 slots left today. Order now on Deliveroo & Uber Eats. 🔥 #BurgerBundle #LimitedOffer'"
+};
+
+function openAI(msg) {
+  const popup = document.getElementById('ai-popup');
+  const msgs  = document.getElementById('ai-msgs');
+  popup.classList.add('show');
+  msgs.innerHTML = '';
+  addMsg('bot', "Hello! I'm your AI Growth Assistant. How can I boost your sales today?");
+  if (msg) {
+    setTimeout(() => { addMsg('user', msg); }, 300);
+    setTimeout(() => { addMsg('bot', aiResponses[msg] || aiResponses.default); }, 900);
+  }
+}
+
+function closeAI() { document.getElementById('ai-popup').classList.remove('show'); }
+
+function addMsg(role, text) {
+  const msgs = document.getElementById('ai-msgs');
+  const el = document.createElement('div');
+  el.className = 'ai-msg ' + role;
+  el.textContent = text;
+  msgs.appendChild(el);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function askAI(q) { openAI(q); }
+
+function sendAI() {
+  const input = document.getElementById('ai-input');
+  const val = input.value.trim();
+  if (!val) return;
+  openAI(val);
+  input.value = '';
+}
+
+function sendPopupAI() {
+  const input = document.getElementById('ai-popup-input');
+  const val = input.value.trim();
+  if (!val) return;
+  addMsg('user', val);
+  input.value = '';
+  setTimeout(() => addMsg('bot', aiResponses[val] || aiResponses.default), 700);
+}
+</script>
+</body>
+</html>

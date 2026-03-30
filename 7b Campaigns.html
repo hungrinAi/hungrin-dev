@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hungrin – Campaigns</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --g-dark:    #2d7a5f;
+  --g-mid:     #3a9470;
+  --g-light:   #5bb38a;
+  --g-pale:    #e6f5ef;
+  --g-faint:   #f2faf6;
+  --text:      #1a2e28;
+  --text-mid:  #4a5e57;
+  --text-muted:#8aa89e;
+  --border:    #d8ece3;
+  --white:     #ffffff;
+  --sidebar-w: 228px;
+}
+
+html, body { height: 100%; overflow: hidden; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  background: #eaf6f0;
+  display: flex;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── SIDEBAR ─────────────────────────── */
+.sidebar {
+  width: var(--sidebar-w); min-width: var(--sidebar-w);
+  height: 100vh; background: var(--white);
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  padding: 1.4rem 0; overflow-y: auto; flex-shrink: 0;
+}
+.sidebar-logo {
+  display: flex; align-items: center; gap: 9px;
+  padding: 0 1.25rem 1.75rem;
+  font-size: 1.1rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em;
+}
+.logo-icon { width: 30px; height: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+.logo-icon span { background: var(--g-dark); display: block; }
+.logo-icon span:nth-child(1) { border-radius: 50% 50% 0 50%; }
+.logo-icon span:nth-child(2) { border-radius: 50% 50% 50% 0; }
+.logo-icon span:nth-child(3) { border-radius: 50% 0 50% 50%; }
+.logo-icon span:nth-child(4) { border-radius: 0 50% 50% 50%; }
+.nav-item {
+  display: flex; align-items: center; gap: 11px;
+  padding: 0.7rem 1.25rem; font-size: 0.92rem; color: var(--text-mid);
+  cursor: pointer; border-left: 3px solid transparent;
+  text-decoration: none; transition: background 0.15s, color 0.15s;
+}
+.nav-item:hover { background: var(--g-faint); color: var(--g-dark); }
+.nav-item.active { background: var(--g-pale); color: var(--g-dark); font-weight: 600; border-left-color: var(--g-dark); }
+.nav-icon { font-size: 1.05rem; width: 22px; text-align: center; }
+.sidebar-spacer { flex: 1; }
+.btn-demo {
+  margin: 0 1rem 0.5rem; padding: 0.75rem; text-align: center;
+  background: var(--g-dark); color: #fff; border-radius: 10px;
+  font-size: 0.88rem; font-weight: 600; cursor: pointer;
+  text-decoration: none; display: block; transition: background 0.2s;
+}
+.btn-demo:hover { background: var(--g-mid); }
+
+/* ── MAIN ────────────────────────────── */
+.main { flex: 1; height: 100vh; overflow-y: auto; display: flex; flex-direction: column; min-width: 0; }
+
+.topbar {
+  background: var(--white); border-bottom: 1px solid var(--border);
+  padding: 0 1.75rem; height: 68px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-shrink: 0; position: sticky; top: 0; z-index: 20;
+}
+.topbar-left h1 { font-size: 1.3rem; font-weight: 600; letter-spacing: -0.025em; }
+.topbar-left p { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+.topbar-right { display: flex; align-items: center; gap: 10px; }
+.notif-btn {
+  position: relative; background: var(--g-faint); border: 1px solid var(--border);
+  border-radius: 10px; padding: 7px 11px; font-size: 0.9rem; cursor: pointer;
+  display: flex; align-items: center; color: var(--text-mid);
+}
+.notif-dot { position: absolute; top: 5px; right: 6px; width: 8px; height: 8px; border-radius: 50%; background: #e05a5a; border: 1.5px solid var(--white); }
+.avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #f0b8a0, #d4805a); border: 2px solid var(--border); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 600; color: #fff; }
+
+/* ── CONTENT ─────────────────────────── */
+.content { padding: 1.5rem 1.75rem; display: flex; flex-direction: column; gap: 1.25rem; }
+
+/* ── TOOLBAR ─────────────────────────── */
+.toolbar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+
+.filter-tabs { display: flex; gap: 4px; background: var(--g-faint); border: 1px solid var(--border); border-radius: 10px; padding: 4px; }
+.filter-tab {
+  padding: 6px 18px; border-radius: 7px;
+  font-family: inherit; font-size: 0.85rem; font-weight: 500;
+  cursor: pointer; border: none; background: transparent; color: var(--text-mid);
+  transition: all 0.15s;
+}
+.filter-tab.active { background: var(--g-dark); color: #fff; font-weight: 600; }
+.filter-tab:not(.active):hover { background: var(--g-pale); color: var(--g-dark); }
+
+.toolbar-right { display: flex; align-items: center; gap: 8px; }
+.filter-btn {
+  display: flex; align-items: center; gap: 5px;
+  padding: 7px 13px; border: 1px solid var(--border);
+  border-radius: 9px; background: var(--white);
+  font-family: inherit; font-size: 0.82rem; color: var(--text-mid);
+  cursor: pointer; transition: background 0.15s;
+}
+.filter-btn:hover { background: var(--g-faint); }
+.btn-new {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 18px; background: var(--g-dark); color: #fff;
+  border: none; border-radius: 9px;
+  font-family: inherit; font-size: 0.88rem; font-weight: 600;
+  cursor: pointer; transition: background 0.2s;
+  box-shadow: 0 2px 10px rgba(45,122,95,0.25);
+}
+.btn-new:hover { background: var(--g-mid); }
+
+/* ── SEARCH BAR ──────────────────────── */
+.search-row {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 10px; padding: 0 1rem;
+  height: 42px;
+}
+.search-row input {
+  flex: 1; border: none; outline: none;
+  font-family: inherit; font-size: 0.88rem; color: var(--text);
+  background: transparent;
+}
+.search-row input::placeholder { color: var(--text-muted); }
+.search-icon { color: var(--text-muted); font-size: 0.9rem; }
+
+.type-select {
+  padding: 0 12px; height: 42px;
+  border: 1px solid var(--border); border-radius: 10px;
+  background: var(--white); font-family: inherit;
+  font-size: 0.85rem; color: var(--text-mid);
+  cursor: pointer; outline: none;
+}
+
+.view-btn {
+  width: 42px; height: 42px;
+  border: 1px solid var(--border); border-radius: 10px;
+  background: var(--white); font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: var(--text-muted);
+}
+
+/* ── CAMPAIGN TABLE ──────────────────── */
+.table-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 14px; overflow: hidden;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 2fr 120px 90px 100px 180px 40px;
+  padding: 0.65rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--g-faint);
+}
+.th {
+  font-size: 0.78rem; font-weight: 600; color: var(--text-muted);
+  display: flex; align-items: center; gap: 4px;
+}
+.th .sort { font-size: 0.65rem; opacity: 0.6; cursor: pointer; }
+
+.campaign-row {
+  display: grid;
+  grid-template-columns: 2fr 120px 90px 100px 180px 40px;
+  padding: 0.9rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+  transition: background 0.15s;
+  cursor: pointer;
+}
+.campaign-row:last-child { border-bottom: none; }
+.campaign-row:hover { background: var(--g-faint); }
+
+.camp-name-cell { display: flex; align-items: center; gap: 12px; }
+.camp-thumb {
+  width: 52px; height: 44px; border-radius: 8px;
+  object-fit: cover; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem; background: var(--g-pale);
+}
+.camp-name { font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+.camp-meta { display: flex; align-items: center; gap: 6px; font-size: 0.7rem; color: var(--text-muted); }
+.camp-meta-icon { font-size: 0.65rem; }
+
+.status-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 12px; border-radius: 100px;
+  font-size: 0.75rem; font-weight: 600;
+}
+.status-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: 0.7; }
+.status-active  { background: #d4f0e4; color: var(--g-dark); }
+.status-paused  { background: #fef3cd; color: #8a6100; }
+.status-ended   { background: #f0f0ee; color: var(--text-muted); }
+
+.camp-val { font-size: 0.88rem; font-weight: 600; color: var(--text); }
+.camp-date { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
+
+.more-btn {
+  background: none; border: none; cursor: pointer;
+  color: var(--text-muted); font-size: 1.1rem; padding: 4px 6px;
+  border-radius: 6px; transition: background 0.15s;
+  display: flex; align-items: center; gap: 2px;
+}
+.more-btn:hover { background: var(--g-pale); color: var(--g-dark); }
+.more-dot { width: 4px; height: 4px; border-radius: 50%; background: currentColor; }
+
+/* ── PAGINATION ──────────────────────── */
+.pagination-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.75rem 1.25rem;
+  border-top: 1px solid var(--border);
+  background: var(--g-faint);
+}
+.page-info { font-size: 0.78rem; color: var(--text-muted); display: flex; align-items: center; gap: 6px; }
+.page-btn {
+  width: 30px; height: 30px; border-radius: 7px;
+  border: 1px solid var(--border); background: var(--white);
+  font-family: inherit; font-size: 0.8rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-mid); transition: all 0.15s;
+}
+.page-btn:hover { background: var(--g-pale); color: var(--g-dark); }
+.page-btn.active { background: var(--g-dark); color: #fff; border-color: var(--g-dark); font-weight: 600; }
+.page-controls { display: flex; align-items: center; gap: 5px; }
+.page-nav {
+  padding: 5px 12px; border: 1px solid var(--border); border-radius: 7px;
+  background: var(--white); font-family: inherit; font-size: 0.8rem;
+  cursor: pointer; color: var(--text-mid); transition: all 0.15s;
+}
+.page-nav:hover { background: var(--g-pale); color: var(--g-dark); }
+.page-nav:disabled { opacity: 0.4; cursor: default; }
+
+/* ── CTA BANNER ──────────────────────── */
+.cta-banner {
+  background: linear-gradient(120deg, #e8f8f0 0%, #d0eedd 60%, #c0e8d4 100%);
+  border: 1px solid var(--border); border-radius: 14px;
+  padding: 1.75rem 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 2rem; position: relative; overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+.cta-body { flex: 1; }
+.cta-title { font-size: 1.15rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.3rem; color: var(--text); }
+.cta-sub { font-size: 0.88rem; color: var(--text-mid); margin-bottom: 1rem; }
+.cta-sub strong { font-weight: 700; color: var(--text); }
+.cta-checks { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 2rem; }
+.cta-check { display: flex; align-items: center; gap: 7px; font-size: 0.85rem; color: var(--text-mid); }
+.cta-check::before { content: '✓'; color: var(--g-dark); font-weight: 700; font-size: 0.78rem; flex-shrink: 0; }
+.cta-robot { font-size: 6rem; flex-shrink: 0; animation: bob 4s ease-in-out infinite; }
+@keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+/* ── MODAL ───────────────────────────── */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(26,46,40,0.35); backdrop-filter: blur(3px);
+  display: none; align-items: center; justify-content: center;
+  z-index: 100;
+}
+.modal-overlay.show { display: flex; }
+.modal {
+  background: var(--white); border-radius: 16px;
+  padding: 1.75rem; width: 480px; max-width: 95vw;
+  box-shadow: 0 12px 60px rgba(45,122,95,0.2);
+  animation: pop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+@keyframes pop { 0%{transform:scale(0.92);opacity:0} 100%{transform:scale(1);opacity:1} }
+.modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
+.modal-title { font-size: 1.05rem; font-weight: 600; letter-spacing: -0.02em; }
+.modal-close { background: none; border: none; font-size: 1.1rem; cursor: pointer; color: var(--text-muted); padding: 4px; }
+.modal-close:hover { color: var(--text); }
+.modal-field { margin-bottom: 1rem; }
+.modal-label { font-size: 0.8rem; font-weight: 600; color: var(--text); margin-bottom: 5px; display: block; }
+.modal-input {
+  width: 100%; padding: 0.75rem 0.9rem;
+  border: 1.5px solid var(--border); border-radius: 9px;
+  font-family: inherit; font-size: 0.88rem; color: var(--text);
+  background: var(--g-faint); outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.modal-input:focus { border-color: var(--g-mid); box-shadow: 0 0 0 3px rgba(58,148,112,0.12); background: var(--white); }
+.modal-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.modal-footer { display: flex; gap: 8px; justify-content: flex-end; margin-top: 1.5rem; }
+.btn-cancel { padding: 0.65rem 1.2rem; border: 1px solid var(--border); border-radius: 8px; background: var(--white); font-family: inherit; font-size: 0.85rem; cursor: pointer; color: var(--text-mid); }
+.btn-cancel:hover { background: var(--g-faint); }
+.btn-create { padding: 0.65rem 1.4rem; background: var(--g-dark); color: #fff; border: none; border-radius: 8px; font-family: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+.btn-create:hover { background: var(--g-mid); }
+
+/* toast */
+#toast {
+  position: fixed; bottom: 1.5rem; right: 1.75rem;
+  background: var(--g-dark); color: #fff;
+  padding: 0.6rem 1.2rem; border-radius: 100px;
+  font-size: 0.82rem; font-weight: 500;
+  opacity: 0; transform: translateY(10px);
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none; z-index: 200; white-space: nowrap;
+}
+#toast.show { opacity: 1; transform: translateY(0); }
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon"><span></span><span></span><span></span><span></span></div>
+    Dashboard
+  </div>
+  <a href="hungrin-dashboard.html" class="nav-item"><span class="nav-icon">🏠</span> Dashboard</a>
+  <a href="#" class="nav-item active"><span class="nav-icon">📣</span> Campaigns</a>
+  <a href="#" class="nav-item"><span class="nav-icon">🎯</span> Promotions</a>
+  <a href="#" class="nav-item"><span class="nav-icon">🚚</span> Deliveries</a>
+  <a href="#" class="nav-item"><span class="nav-icon">👥</span> Customers</a>
+  <a href="#" class="nav-item"><span class="nav-icon">📊</span> Insights</a>
+  <a href="#" class="nav-item"><span class="nav-icon">📦</span> Orders</a>
+  <div class="sidebar-spacer"></div>
+  <a href="hungrin-demo.html" class="btn-demo">Book Demo</a>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h1>Campaigns</h1>
+      <p>Win back customers, increase orders, and drive revenue with targeted campaigns.</p>
+    </div>
+    <div class="topbar-right">
+      <div class="notif-btn">🔔<div class="notif-dot"></div></div>
+      <div class="avatar">S</div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- toolbar -->
+    <div class="toolbar">
+      <div class="filter-tabs">
+        <button class="filter-tab active" onclick="filterCampaigns('All', this)">All</button>
+        <button class="filter-tab" onclick="filterCampaigns('Active', this)">Active</button>
+        <button class="filter-tab" onclick="filterCampaigns('Paused', this)">Paused</button>
+        <button class="filter-tab" onclick="filterCampaigns('Ended', this)">Ended</button>
+      </div>
+      <div class="toolbar-right">
+        <button class="filter-btn">🔽 Filter</button>
+        <button class="btn-new" onclick="document.getElementById('new-modal').classList.add('show')">+ New Campaign</button>
+      </div>
+    </div>
+
+    <!-- search + table -->
+    <div class="table-card">
+      <!-- search bar -->
+      <div style="display:flex;align-items:center;gap:8px;padding:0.85rem 1.25rem;border-bottom:1px solid var(--border);">
+        <div class="search-row" style="flex:1;">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="search-input" placeholder="Search campaigns…" oninput="handleSearch(this.value)">
+        </div>
+        <select class="type-select" onchange="handleTypeFilter(this.value)">
+          <option>All Types</option>
+          <option>Food Promo</option>
+          <option>Seasonal</option>
+          <option>Loyalty</option>
+        </select>
+        <button class="view-btn">≡</button>
+      </div>
+
+      <!-- table header -->
+      <div class="table-header">
+        <div class="th">Name</div>
+        <div class="th">Status <span class="sort">▲▼</span></div>
+        <div class="th">Orders</div>
+        <div class="th">Revenue</div>
+        <div class="th">Date <span class="sort">▲▼</span></div>
+        <div class="th"></div>
+      </div>
+
+      <!-- rows -->
+      <div id="campaign-list">
+        <!-- injected by JS -->
+      </div>
+
+      <!-- pagination -->
+      <div class="pagination-row">
+        <div class="page-info">
+          Page <strong id="page-display">1</strong> of <strong>2</strong>
+          <button class="page-btn" onclick="toast('Expand pages')">›</button>
+          <button class="page-btn" onclick="toast('More pages')">••</button>
+        </div>
+        <div class="page-controls">
+          <button class="page-nav" id="prev-btn" disabled onclick="changePage(-1)">‹ Previous</button>
+          <button class="page-btn active" id="pg-1" onclick="setPage(1)">1</button>
+          <button class="page-btn" id="pg-2" onclick="setPage(2)">2</button>
+          <button class="page-nav" id="next-btn" onclick="changePage(1)">Next ›</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA banner -->
+    <div class="cta-banner">
+      <div class="cta-body">
+        <div class="cta-title">Create Targeted Campaigns</div>
+        <div class="cta-sub">Promote your <strong>best offers like a pro</strong></div>
+        <div class="cta-checks">
+          <div class="cta-check">Increase repeat orders</div>
+          <div class="cta-check">Fill slow times</div>
+          <div class="cta-check">Boost online reviews</div>
+          <div class="cta-check">Boost online reviews</div>
+        </div>
+      </div>
+      <div class="cta-robot">🤖</div>
+    </div>
+
+  </div>
+</main>
+
+<!-- NEW CAMPAIGN MODAL -->
+<div class="modal-overlay" id="new-modal" onclick="if(event.target===this)this.classList.remove('show')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">+ New Campaign</div>
+      <button class="modal-close" onclick="document.getElementById('new-modal').classList.remove('show')">✕</button>
+    </div>
+    <div class="modal-field">
+      <label class="modal-label">Campaign Name</label>
+      <input class="modal-input" id="new-name" type="text" placeholder="e.g. Weekend Feast">
+    </div>
+    <div class="modal-row">
+      <div class="modal-field">
+        <label class="modal-label">Start Date</label>
+        <input class="modal-input" type="date" id="new-start">
+      </div>
+      <div class="modal-field">
+        <label class="modal-label">End Date</label>
+        <input class="modal-input" type="date" id="new-end">
+      </div>
+    </div>
+    <div class="modal-field">
+      <label class="modal-label">Campaign Type</label>
+      <select class="modal-input">
+        <option>Food Promo</option>
+        <option>Seasonal</option>
+        <option>Loyalty</option>
+        <option>Flash Deal</option>
+      </select>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="document.getElementById('new-modal').classList.remove('show')">Cancel</button>
+      <button class="btn-create" onclick="createCampaign()">Create Campaign</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const allCampaigns = [
+  { id:1, name:'Upsell Desserts',   emoji:'🍨', meta:'6.39 ~ 920M',  status:'Active',  orders:82,  revenue:'£527', dateStart:'Apr 20, 2024', dateEnd:'May 4, 2024' },
+  { id:2, name:'Rainy Day Special', emoji:'🌧️', meta:'627 ~ 2.59M',   status:'Paused',  orders:41,  revenue:'£365', dateStart:'Apr 12, 2024', dateEnd:'Apr 27, 2024' },
+  { id:3, name:'Weekend Feast',     emoji:'🍔', meta:'940 ~ 920M',   status:'Active',  orders:120, revenue:'£940', dateStart:'Apr 05, 2024', dateEnd:'Apr 28, 2024' },
+  { id:4, name:'BOGO Pizza Deal',   emoji:'🍕', meta:'718 ~ 920M',   status:'Ended',   orders:97,  revenue:'£718', dateStart:'Mar 22, 2024', dateEnd:'Apr 7, 2024' },
+  { id:5, name:'Lunch Rush',        emoji:'🥗', meta:'520 ~ 1.2M',   status:'Active',  orders:64,  revenue:'£412', dateStart:'May 01, 2024', dateEnd:'May 15, 2024' },
+  { id:6, name:'Happy Hour',        emoji:'🥤', meta:'310 ~ 800K',   status:'Paused',  orders:29,  revenue:'£198', dateStart:'Mar 10, 2024', dateEnd:'Mar 25, 2024' },
+  { id:7, name:'Family Sunday',     emoji:'👨‍👩‍👧', meta:'880 ~ 1.5M', status:'Ended',   orders:115, revenue:'£830', dateStart:'Feb 18, 2024', dateEnd:'Mar 03, 2024' },
+  { id:8, name:'Spicy Week',        emoji:'🌶️', meta:'430 ~ 600K',  status:'Active',  orders:53,  revenue:'£341', dateStart:'May 05, 2024', dateEnd:'May 12, 2024' },
+];
+
+const PAGE_SIZE = 4;
+let currentPage = 1;
+let activeFilter = 'All';
+let searchQuery = '';
+
+function getFiltered() {
+  return allCampaigns.filter(c => {
+    const matchFilter = activeFilter === 'All' || c.status === activeFilter;
+    const matchSearch = c.name.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchFilter && matchSearch;
+  });
+}
+
+function renderCampaigns() {
+  const filtered = getFiltered();
+  const start = (currentPage - 1) * PAGE_SIZE;
+  const page  = filtered.slice(start, start + PAGE_SIZE);
+  const list  = document.getElementById('campaign-list');
+
+  if (page.length === 0) {
+    list.innerHTML = `<div style="padding:2rem;text-align:center;color:var(--text-muted);font-size:0.88rem;">No campaigns found.</div>`;
+    return;
+  }
+
+  list.innerHTML = page.map(c => `
+    <div class="campaign-row" onclick="toast('Opening ${c.name}…')">
+      <div class="camp-name-cell">
+        <div class="camp-thumb">${c.emoji}</div>
+        <div>
+          <div class="camp-name">${c.name}</div>
+          <div class="camp-meta"><span>🌿 ${c.meta}</span></div>
+        </div>
+      </div>
+      <div><span class="status-badge status-${c.status.toLowerCase()}">${c.status}</span></div>
+      <div class="camp-val">${c.orders}</div>
+      <div class="camp-val">${c.revenue}</div>
+      <div class="camp-date">${c.dateStart} –<br>${c.dateEnd}</div>
+      <button class="more-btn" onclick="event.stopPropagation();showMore('${c.name}')">
+        <span class="more-dot"></span><span class="more-dot"></span><span class="more-dot"></span>
+      </button>
+    </div>
+  `).join('');
+
+  updatePagination(filtered.length);
+}
+
+function updatePagination(total) {
+  const totalPages = Math.ceil(total / PAGE_SIZE);
+  document.getElementById('page-display').textContent = currentPage;
+  document.getElementById('prev-btn').disabled = currentPage === 1;
+  document.getElementById('next-btn').disabled = currentPage >= totalPages;
+  for (let i = 1; i <= 2; i++) {
+    const btn = document.getElementById('pg-' + i);
+    if (btn) btn.classList.toggle('active', i === currentPage);
+  }
+}
+
+function filterCampaigns(f, el) {
+  activeFilter = f;
+  currentPage = 1;
+  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  renderCampaigns();
+}
+
+function handleSearch(val) { searchQuery = val; currentPage = 1; renderCampaigns(); }
+function handleTypeFilter() { toast('Type filter applied'); }
+
+function setPage(p) { currentPage = p; renderCampaigns(); }
+function changePage(d) { currentPage += d; renderCampaigns(); }
+
+function showMore(name) {
+  toast(`Options for "${name}": Edit, Pause, Delete`);
+}
+
+function createCampaign() {
+  const name = document.getElementById('new-name').value.trim();
+  if (!name) { document.getElementById('new-name').style.borderColor = '#e05a5a'; return; }
+  allCampaigns.unshift({ id: Date.now(), name, emoji:'🎯', meta:'0 ~ 0', status:'Active', orders:0, revenue:'£0', dateStart:'Today', dateEnd:'—' });
+  document.getElementById('new-modal').classList.remove('show');
+  document.getElementById('new-name').value = '';
+  currentPage = 1; activeFilter = 'All';
+  document.querySelectorAll('.filter-tab').forEach((t,i) => t.classList.toggle('active', i===0));
+  renderCampaigns();
+  toast(`Campaign "${name}" created! 🎉`);
+}
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+renderCampaigns();
+</script>
+</body>
+</html>

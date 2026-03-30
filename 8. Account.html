@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hungrin – Account Profile</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --g-dark:    #2d7a5f;
+  --g-mid:     #3a9470;
+  --g-light:   #5bb38a;
+  --g-pale:    #e6f5ef;
+  --g-faint:   #f2faf6;
+  --text:      #1a2e28;
+  --text-mid:  #4a5e57;
+  --text-muted:#8aa89e;
+  --border:    #d8ece3;
+  --white:     #ffffff;
+}
+
+html, body { min-height: 100vh; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  background-color: #dff0ea;
+  background-image:
+    radial-gradient(ellipse 60% 55% at 8% 40%, rgba(91,179,138,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 45% at 92% 70%, rgba(45,122,95,0.1) 0%, transparent 55%),
+    url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='0' width='2' height='2' rx='0.5' fill='%232d7a5f' fill-opacity='0.06'/%3E%3C/svg%3E");
+  background-size: auto, auto, 40px 40px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── TOP NAV ─────────────────────────── */
+.topnav {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2.5rem;
+  height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 50;
+}
+.nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+.logo-icon { width: 28px; height: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+.logo-icon span { background: var(--g-dark); display: block; }
+.logo-icon span:nth-child(1) { border-radius: 50% 50% 0 50%; }
+.logo-icon span:nth-child(2) { border-radius: 50% 50% 50% 0; }
+.logo-icon span:nth-child(3) { border-radius: 50% 0 50% 50%; }
+.logo-icon span:nth-child(4) { border-radius: 0 50% 50% 50%; }
+.nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--g-dark); letter-spacing: -0.02em; }
+.nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+.nav-links a { font-size: 0.88rem; color: var(--text-mid); text-decoration: none; transition: color 0.15s; }
+.nav-links a:hover { color: var(--g-dark); }
+.restaurant-pill {
+  display: flex; align-items: center; gap: 7px;
+  background: var(--g-pale); border: 1px solid var(--border);
+  border-radius: 100px; padding: 5px 14px 5px 8px;
+  font-size: 0.82rem; font-weight: 600; color: var(--text);
+  cursor: pointer; transition: background 0.15s;
+}
+.restaurant-pill:hover { background: var(--g-faint); }
+.restaurant-pill-icon { font-size: 1.1rem; }
+
+/* ── PAGE WRAPPER ────────────────────── */
+.page-wrap { max-width: 1050px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+/* breadcrumb */
+.breadcrumb {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.25rem;
+}
+.breadcrumb a { color: var(--text-muted); text-decoration: none; display: flex; align-items: center; gap: 5px; }
+.breadcrumb a:hover { color: var(--g-dark); }
+.breadcrumb-sep { opacity: 0.5; }
+.breadcrumb-current { color: var(--text); font-weight: 500; }
+
+.page-heading { font-size: 1.6rem; font-weight: 600; letter-spacing: -0.03em; margin-bottom: 0.3rem; }
+.page-sub { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 2rem; }
+
+/* ── MAIN LAYOUT ─────────────────────── */
+.layout { display: grid; grid-template-columns: 210px 1fr; gap: 1.5rem; align-items: start; }
+
+/* ── SIDEBAR ─────────────────────────── */
+.settings-sidebar {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 16px; overflow: hidden;
+}
+.sidebar-robot {
+  background: linear-gradient(135deg, #c8edd8, #a8dfc0);
+  padding: 1.25rem; display: flex; align-items: center; justify-content: center;
+  min-height: 130px; position: relative; overflow: hidden;
+}
+.robot-emoji { font-size: 4.5rem; animation: bob 4s ease-in-out infinite; filter: drop-shadow(0 4px 12px rgba(45,122,95,0.25)); }
+.sparkle { position: absolute; font-size: 1rem; opacity: 0.5; animation: twinkle 2.5s ease-in-out infinite; }
+@keyframes bob { 0%,100%{transform:translateY(0) rotate(-2deg)} 50%{transform:translateY(-8px) rotate(2deg)} }
+@keyframes twinkle { 0%,100%{opacity:0.3;transform:scale(0.9)} 50%{opacity:0.8;transform:scale(1.15)} }
+
+.sidebar-nav { padding: 0.5rem 0; }
+.snav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 0.7rem 1.1rem; font-size: 0.88rem; color: var(--text-mid);
+  cursor: pointer; border-left: 3px solid transparent;
+  text-decoration: none; transition: background 0.15s, color 0.15s;
+}
+.snav-item:hover { background: var(--g-faint); color: var(--g-dark); }
+.snav-item.active { background: var(--g-pale); color: var(--g-dark); font-weight: 600; border-left-color: var(--g-dark); }
+.snav-icon { font-size: 1rem; width: 20px; text-align: center; }
+.snav-back { display: flex; align-items: center; gap: 7px; padding: 0.75rem 1.1rem; font-size: 0.82rem; color: var(--text-muted); cursor: pointer; text-decoration: none; border-top: 1px solid var(--border); margin-top: 0.25rem; transition: color 0.15s; }
+.snav-back:hover { color: var(--g-dark); }
+
+/* ── RIGHT CONTENT ───────────────────── */
+.settings-content { display: flex; flex-direction: column; gap: 1.25rem; }
+
+.settings-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 16px; padding: 1.75rem;
+}
+.card-title { font-size: 1.05rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+
+/* profile photo row */
+.profile-photo-row { display: flex; align-items: flex-start; gap: 1.25rem; margin-bottom: 1.5rem; }
+.profile-photo {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: linear-gradient(135deg, #c8edd8, #9fd4b5);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.2rem; flex-shrink: 0; cursor: pointer;
+  border: 2px solid var(--border); overflow: hidden;
+  transition: opacity 0.15s;
+}
+.profile-photo:hover { opacity: 0.85; }
+.profile-name-field { flex: 1; }
+.field-label { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); margin-bottom: 5px; display: block; letter-spacing: 0.02em; }
+.field-input {
+  width: 100%; padding: 0.72rem 0.9rem;
+  border: 1.5px solid var(--border); border-radius: 9px;
+  font-family: inherit; font-size: 0.88rem; color: var(--text);
+  background: var(--g-faint); outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  -webkit-appearance: none;
+}
+.field-input:focus { border-color: var(--g-mid); box-shadow: 0 0 0 3px rgba(58,148,112,0.12); background: var(--white); }
+.upload-link { font-size: 0.78rem; color: var(--g-dark); cursor: pointer; margin-top: 5px; display: inline-block; }
+.upload-link:hover { text-decoration: underline; }
+
+/* form grid */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 1.25rem; margin-bottom: 1.5rem; }
+.field-wrap { display: flex; flex-direction: column; }
+.field-row-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px; }
+.change-link { font-size: 0.75rem; color: var(--g-dark); cursor: pointer; font-weight: 500; }
+.change-link:hover { text-decoration: underline; }
+
+.save-btn {
+  display: block; margin: 0 auto;
+  padding: 0.78rem 2.5rem;
+  background: var(--g-dark); color: #fff;
+  border: none; border-radius: 10px;
+  font-family: inherit; font-size: 0.92rem; font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 3px 12px rgba(45,122,95,0.28);
+  transition: background 0.2s, transform 0.15s;
+}
+.save-btn:hover { background: var(--g-mid); }
+.save-btn:active { transform: scale(0.97); }
+
+/* connected platforms */
+.platform-list { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.25rem; }
+.platform-row {
+  display: flex; align-items: center;
+  background: var(--g-faint); border: 1px solid var(--border);
+  border-radius: 11px; padding: 0.85rem 1rem; gap: 1rem;
+}
+.platform-logo-box { width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+.platform-name { flex: 1; font-size: 0.9rem; font-weight: 600; color: var(--text); }
+.platform-status { display: flex; align-items: center; gap: 5px; font-size: 0.78rem; font-weight: 500; padding: 4px 12px; border-radius: 100px; }
+.ps-connected { background: #d4f0e4; color: var(--g-dark); }
+.ps-not       { background: #f0f0ee; color: var(--text-muted); }
+.platform-btn {
+  padding: 6px 16px; border-radius: 8px;
+  font-family: inherit; font-size: 0.78rem; font-weight: 600;
+  cursor: pointer; border: none; transition: background 0.2s;
+}
+.pb-connected  { background: var(--g-dark); color: #fff; }
+.pb-connected:hover { background: var(--g-mid); }
+.pb-disconnect { background: #fee2e2; color: #991b1b; }
+.pb-disconnect:hover { background: #fecaca; }
+.pb-connect    { background: var(--g-faint); color: var(--g-dark); border: 1px solid var(--border); }
+.pb-connect:hover { background: var(--g-pale); }
+
+.help-link { font-size: 0.82rem; color: var(--text-muted); }
+.help-link a { color: var(--g-dark); font-weight: 500; text-decoration: none; }
+.help-link a:hover { text-decoration: underline; }
+
+/* delete section */
+.delete-desc { font-size: 0.88rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 1.25rem; max-width: 480px; }
+.delete-btn {
+  display: block; margin: 0 auto;
+  padding: 0.75rem 2.2rem;
+  background: #dc2626; color: #fff;
+  border: none; border-radius: 10px;
+  font-family: inherit; font-size: 0.9rem; font-weight: 600;
+  cursor: pointer; transition: background 0.2s;
+}
+.delete-btn:hover { background: #b91c1c; }
+
+/* ── FOOTER ──────────────────────────── */
+.page-footer {
+  text-align: center; padding: 2rem 0 1rem;
+  display: flex; flex-direction: column; gap: 0.75rem;
+}
+.trust-strip { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.82rem; color: var(--text-mid); }
+.footer-links { display: flex; align-items: center; justify-content: center; gap: 1.25rem; font-size: 0.78rem; color: var(--text-muted); }
+.footer-links a { color: var(--text-muted); text-decoration: none; }
+.footer-links a:hover { color: var(--g-dark); }
+.footer-sep { opacity: 0.4; }
+
+/* ── CONFIRM MODAL ───────────────────── */
+.modal-overlay { position: fixed; inset: 0; background: rgba(26,46,40,0.35); backdrop-filter: blur(3px); display: none; align-items: center; justify-content: center; z-index: 100; }
+.modal-overlay.show { display: flex; }
+.modal { background: var(--white); border-radius: 16px; padding: 1.75rem; width: 420px; max-width: 95vw; box-shadow: 0 12px 60px rgba(45,122,95,0.2); animation: pop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+@keyframes pop { 0%{transform:scale(0.92);opacity:0} 100%{transform:scale(1);opacity:1} }
+.modal-icon { font-size: 2.5rem; text-align: center; margin-bottom: 0.75rem; }
+.modal-title { font-size: 1.05rem; font-weight: 700; text-align: center; margin-bottom: 0.5rem; }
+.modal-desc { font-size: 0.85rem; color: var(--text-mid); text-align: center; line-height: 1.6; margin-bottom: 1.5rem; }
+.modal-btns { display: flex; gap: 8px; }
+.modal-cancel { flex: 1; padding: 0.7rem; border: 1px solid var(--border); border-radius: 9px; background: var(--white); font-family: inherit; font-size: 0.85rem; cursor: pointer; color: var(--text-mid); }
+.modal-confirm { flex: 1; padding: 0.7rem; background: #dc2626; color: #fff; border: none; border-radius: 9px; font-family: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+.modal-confirm:hover { background: #b91c1c; }
+
+/* toast */
+#toast { position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--g-dark); color: #fff; padding: 0.65rem 1.3rem; border-radius: 100px; font-size: 0.82rem; font-weight: 500; opacity: 0; transition: opacity 0.3s, transform 0.3s; pointer-events: none; z-index: 200; white-space: nowrap; }
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+@media(max-width:700px) {
+  .layout { grid-template-columns: 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="topnav">
+  <a href="hungrin-landing.html" class="nav-logo">
+    <div class="logo-icon"><span></span><span></span><span></span><span></span></div>
+    <span class="nav-brand">Hungrin</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="hungrin-dashboard.html">Dashboard</a></li>
+    <li><a href="hungrin-orders.html">Reports</a></li>
+    <li><a href="hungrin-promotions.html">Promotions</a></li>
+    <li><a href="#" style="color:var(--g-dark);font-weight:600;">Settings</a></li>
+  </ul>
+  <div class="restaurant-pill">
+    <span class="restaurant-pill-icon">🍔</span>
+    Carl's Burger House
+  </div>
+</nav>
+
+<!-- PAGE -->
+<div class="page-wrap">
+
+  <!-- breadcrumb -->
+  <div class="breadcrumb">
+    <a href="#">⚙️ Settings</a>
+    <span class="breadcrumb-sep">/</span>
+    <span class="breadcrumb-current">Account Profile</span>
+  </div>
+
+  <h1 class="page-heading">Account Profile</h1>
+  <p class="page-sub">Manage your account settings and personal information.</p>
+
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="settings-sidebar">
+      <div class="sidebar-robot">
+        <span class="sparkle" style="top:12px;left:35%">✦</span>
+        <span class="sparkle" style="top:20px;right:28px;animation-delay:.7s">✦</span>
+        <span class="sparkle" style="bottom:14px;left:58%;animation-delay:1.3s">✦</span>
+        <div class="robot-emoji">🤖</div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#" class="snav-item"><span class="snav-icon">⚙️</span> Settings</a>
+        <a href="#" class="snav-item active"><span class="snav-icon">👤</span> Account</a>
+        <a href="#" class="snav-item"><span class="snav-icon">💳</span> Billing</a>
+        <a href="#" class="snav-item"><span class="snav-icon">👥</span> Team</a>
+        <a href="#" class="snav-item"><span class="snav-icon">🔔</span> Notifications</a>
+        <a href="hungrin-dashboard.html" class="snav-back">← Back to Dashboard</a>
+      </nav>
+    </aside>
+
+    <!-- SETTINGS CONTENT -->
+    <div class="settings-content">
+
+      <!-- Account Details card -->
+      <div class="settings-card">
+        <div class="card-title">Account Details</div>
+
+        <div class="profile-photo-row">
+          <div class="profile-photo" onclick="document.getElementById('photo-input').click()" title="Change photo">🍔</div>
+          <div class="profile-name-field">
+            <label class="field-label" for="profile-name">Profile Name</label>
+            <input class="field-input" id="profile-name" type="text" value="Carl's Burger House">
+            <a class="upload-link" onclick="document.getElementById('photo-input').click()">Upload New</a>
+            <input type="file" id="photo-input" accept="image/*" style="display:none" onchange="handlePhotoUpload(this)">
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="field-wrap">
+            <label class="field-label" for="restaurant-name">Restaurant Name</label>
+            <input class="field-input" id="restaurant-name" type="text" value="Carl's Burger House">
+          </div>
+          <div class="field-wrap">
+            <label class="field-label" for="full-name">Full Name</label>
+            <input class="field-input" id="full-name" type="text" value="Carl Morrison">
+          </div>
+          <div class="field-wrap">
+            <label class="field-label" for="email">Email</label>
+            <input class="field-input" id="email" type="email" value="carl@carlsburgerhouse.com">
+          </div>
+          <div class="field-wrap">
+            <label class="field-label" for="phone">Phone Number</label>
+            <input class="field-input" id="phone" type="tel" value="+44 7912 345678">
+          </div>
+          <div class="field-wrap">
+            <div class="field-row-header">
+              <label class="field-label" for="password">Password</label>
+            </div>
+            <input class="field-input" id="password" type="password" value="supersecret123" placeholder="••••••••••••••">
+          </div>
+          <div class="field-wrap">
+            <div class="field-row-header">
+              <label class="field-label" for="timezone">Timezone</label>
+              <a class="change-link" onclick="toast('Password change email sent ✓')">Change password</a>
+            </div>
+            <select class="field-input" id="timezone">
+              <option selected>(GMT+00:00) London</option>
+              <option>(GMT+01:00) Paris</option>
+              <option>(GMT-05:00) New York</option>
+              <option>(GMT-08:00) Los Angeles</option>
+              <option>(GMT+01:00) Amsterdam</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="save-btn" onclick="saveChanges()">Save Changes</button>
+      </div>
+
+      <!-- Connected Platforms card -->
+      <div class="settings-card">
+        <div class="card-title">Connected Platforms</div>
+        <div class="platform-list">
+
+          <div class="platform-row" id="platform-deliveroo">
+            <div class="platform-logo-box" style="background:#e6fff9;">🛵</div>
+            <div class="platform-name">Deliveroo</div>
+            <span class="platform-status ps-connected">✓ Connected</span>
+            <button class="platform-btn pb-connected" onclick="togglePlatform('deliveroo')">Connected</button>
+          </div>
+
+          <div class="platform-row" id="platform-uber">
+            <div class="platform-logo-box" style="background:#f0f0f0;font-size:0.7rem;font-weight:800;color:#000;">Uber</div>
+            <div class="platform-name" style="display:flex;align-items:center;gap:4px;">Uber <span style="color:#00994f;font-weight:700;">Eats</span></div>
+            <span class="platform-status ps-connected">✓ Connected</span>
+            <button class="platform-btn pb-disconnect" onclick="togglePlatform('uber')">Disconnect</button>
+          </div>
+
+          <div class="platform-row" id="platform-justeat">
+            <div class="platform-logo-box" style="background:#fff3e6;">🏠</div>
+            <div class="platform-name">Just Eat</div>
+            <span class="platform-status ps-not" id="je-status">Not Connected</span>
+            <button class="platform-btn pb-connect" id="je-btn" onclick="connectPlatform('justeat')">Connect Account</button>
+          </div>
+
+        </div>
+        <div class="help-link">Need help? Visit our <a href="#">Help Center</a> ›</div>
+      </div>
+
+      <!-- Delete Account card -->
+      <div class="settings-card">
+        <div class="card-title">Delete Account</div>
+        <p class="delete-desc">Permanently delete your account and all associated data. This action cannot be undone.</p>
+        <button class="delete-btn" onclick="document.getElementById('delete-modal').classList.add('show')">Delete Account</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- footer -->
+  <div class="page-footer">
+    <div class="trust-strip">
+      <div class="logo-icon" style="width:18px;height:18px;gap:2px;"><span></span><span></span><span></span><span></span></div>
+      Trusted by <strong>500+</strong> restaurants
+    </div>
+    <div class="footer-links">
+      <a href="hungrin-dashboard.html">Dashboard</a>
+      <span class="footer-sep">›</span>
+      <a href="hungrin-orders.html">Reports</a>
+      <span class="footer-sep">›</span>
+      <a href="hungrin-promotions.html">Promotions</a>
+      <span class="footer-sep">›</span>
+      <a href="#">Settings</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- DELETE CONFIRM MODAL -->
+<div class="modal-overlay" id="delete-modal" onclick="if(event.target===this)this.classList.remove('show')">
+  <div class="modal">
+    <div class="modal-icon">⚠️</div>
+    <div class="modal-title">Delete your account?</div>
+    <div class="modal-desc">This will permanently delete Carl's Burger House and all associated data — campaigns, customers, promotions, and order history. This cannot be undone.</div>
+    <div class="modal-btns">
+      <button class="modal-cancel" onclick="document.getElementById('delete-modal').classList.remove('show')">Cancel</button>
+      <button class="modal-confirm" onclick="confirmDelete()">Yes, Delete</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+function saveChanges() {
+  const name = document.getElementById('profile-name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  if (!name || !email) { toast('Please fill in all required fields'); return; }
+  toast('Changes saved successfully ✓');
+}
+
+function handlePhotoUpload(input) {
+  if (input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const photo = document.querySelector('.profile-photo');
+      photo.style.fontSize = '0';
+      photo.style.backgroundImage = `url(${e.target.result})`;
+      photo.style.backgroundSize = 'cover';
+      photo.style.backgroundPosition = 'center';
+    };
+    reader.readAsDataURL(input.files[0]);
+    toast('Profile photo updated ✓');
+  }
+}
+
+const platformState = { deliveroo: true, uber: true, justeat: false };
+
+function togglePlatform(id) {
+  if (id === 'deliveroo') {
+    toast('Deliveroo is connected and active. To disconnect contact support.');
+    return;
+  }
+  if (id === 'uber') {
+    platformState.uber = false;
+    const row = document.getElementById('platform-uber');
+    row.querySelector('.platform-status').className = 'platform-status ps-not';
+    row.querySelector('.platform-status').textContent = 'Not Connected';
+    const btn = row.querySelector('.platform-btn');
+    btn.className = 'platform-btn pb-connect';
+    btn.textContent = 'Connect Account';
+    btn.onclick = () => reconnectUber();
+    toast('Uber Eats disconnected');
+  }
+}
+
+function reconnectUber() {
+  const row = document.getElementById('platform-uber');
+  row.querySelector('.platform-status').className = 'platform-status ps-connected';
+  row.querySelector('.platform-status').textContent = '✓ Connected';
+  const btn = row.querySelector('.platform-btn');
+  btn.className = 'platform-btn pb-disconnect';
+  btn.textContent = 'Disconnect';
+  btn.onclick = () => togglePlatform('uber');
+  toast('Uber Eats reconnected ✓');
+}
+
+function connectPlatform(id) {
+  const statusEl = document.getElementById('je-status');
+  const btnEl = document.getElementById('je-btn');
+  statusEl.className = 'platform-status ps-connected';
+  statusEl.textContent = '✓ Connected';
+  btnEl.className = 'platform-btn pb-disconnect';
+  btnEl.textContent = 'Disconnect';
+  btnEl.onclick = () => disconnectJustEat();
+  toast('Just Eat connected successfully ✓');
+}
+
+function disconnectJustEat() {
+  const statusEl = document.getElementById('je-status');
+  const btnEl = document.getElementById('je-btn');
+  statusEl.className = 'platform-status ps-not';
+  statusEl.textContent = 'Not Connected';
+  btnEl.className = 'platform-btn pb-connect';
+  btnEl.textContent = 'Connect Account';
+  btnEl.onclick = () => connectPlatform('justeat');
+  toast('Just Eat disconnected');
+}
+
+function confirmDelete() {
+  document.getElementById('delete-modal').classList.remove('show');
+  toast('Account deletion requested. You will receive a confirmation email.');
+  setTimeout(() => { window.location.href = 'hungrin-auth.html'; }, 2500);
+}
+
+// sync profile name to restaurant pill on type
+document.getElementById('profile-name').addEventListener('input', function() {
+  document.querySelector('.restaurant-pill').innerHTML = `<span class="restaurant-pill-icon">🍔</span>${this.value || 'My Restaurant'}`;
+});
+</script>
+</body>
+</html>
