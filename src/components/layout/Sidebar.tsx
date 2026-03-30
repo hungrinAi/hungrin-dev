@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
   Home, 
   BarChart2, 
@@ -8,10 +8,12 @@ import {
   Package, 
   Settings, 
   CreditCard,
-  ChevronRight
+  ChevronRight,
+  LogOut
 } from 'lucide-react';
 import { cn } from '@/src/lib/utils';
 import { Logo } from '../Logo';
+import { authService } from '@/src/services/authService';
 
 const navItems = [
   { icon: Home, label: 'Dashboard', path: '/dashboard' },
@@ -25,6 +27,16 @@ const navItems = [
 
 export const Sidebar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await authService.logout();
+      navigate('/login');
+    } catch (error) {
+      console.error('Logout failed', error);
+    }
+  };
 
   return (
     <aside className="w-64 h-screen bg-white border-r border-border-light flex flex-col py-6 shrink-0">
@@ -53,7 +65,14 @@ export const Sidebar = () => {
         })}
       </nav>
 
-      <div className="px-4 mt-auto">
+      <div className="px-4 mt-auto space-y-2">
+        <button 
+          onClick={handleLogout}
+          className="w-full flex items-center gap-3 px-6 py-3 text-sm font-medium text-text-mid hover:bg-red-50 hover:text-red-600 transition-all rounded-xl"
+        >
+          <LogOut className="w-5 h-5" />
+          Logout
+        </button>
         <Link 
           to="/demo" 
           className="w-full bg-g-dark text-white py-3 rounded-xl font-semibold text-sm text-center block hover:bg-g-mid transition-all"

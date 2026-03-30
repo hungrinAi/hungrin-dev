@@ -6,11 +6,13 @@ import {
   User, 
   ArrowRight, 
   CheckCircle2,
-  Utensils
+  Utensils,
+  AlertCircle
 } from 'lucide-react';
 import { Logo } from '@/src/components/Logo';
 import { Button } from '@/src/components/ui/Button';
 import { Card } from '@/src/components/ui/Card';
+import { authService } from '@/src/services/authService';
 
 interface AuthPageProps {
   mode: 'login' | 'register';
@@ -19,14 +21,28 @@ interface AuthPageProps {
 export default function AuthPage({ mode }: AuthPageProps) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [restaurantName, setRestaurantName] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+    setError(null);
+
+    try {
+      if (mode === 'login') {
+        await authService.login(email, password);
+      } else {
+        await authService.register(email, password, restaurantName);
+      }
       navigate('/dashboard');
-    }, 1500);
+    } catch (err: any) {
+      setError(err.message || 'An error occurred during authentication.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -44,6 +60,13 @@ export default function AuthPage({ mode }: AuthPageProps) {
             </p>
           </div>
 
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl flex items-center gap-3 text-sm font-medium">
+              <AlertCircle className="w-5 h-5 shrink-0" />
+              {error}
+            </div>
+          )}
+
           <form onSubmit={handleSubmit} className="space-y-6">
             {mode === 'register' && (
               <div className="space-y-2">
@@ -53,6 +76,8 @@ export default function AuthPage({ mode }: AuthPageProps) {
                   <input 
                     required 
                     type="text" 
+                    value={restaurantName}
+                    onChange={(e) => setRestaurantName(e.target.value)}
                     placeholder="Sarah's Burger Shack" 
                     className="w-full bg-g-faint border border-border-light rounded-xl pl-12 pr-4 py-3.5 text-sm outline-none focus:border-g-dark transition-all" 
                   />
@@ -66,6 +91,8 @@ export default function AuthPage({ mode }: AuthPageProps) {
                 <input 
                   required 
                   type="email" 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@restaurant.com" 
                   className="w-full bg-g-faint border border-border-light rounded-xl pl-12 pr-4 py-3.5 text-sm outline-none focus:border-g-dark transition-all" 
                 />
@@ -78,6 +105,8 @@ export default function AuthPage({ mode }: AuthPageProps) {
                 <input 
                   required 
                   type="password" 
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••" 
                   className="w-full bg-g-faint border border-border-light rounded-xl pl-12 pr-4 py-3.5 text-sm outline-none focus:border-g-dark transition-all" 
                 />
