@@ -1,0 +1,23 @@
+warning: in the working copy of '7f. CSV Upload Customers.html', LF will be replaced by CRLF the next time Git touches it
+[1mdiff --git a/7f. CSV Upload Customers.html b/7f. CSV Upload Customers.html[m
+[1mindex 01446ae..cea0535 100644[m
+[1m--- a/7f. CSV Upload Customers.html[m	
+[1m+++ b/7f. CSV Upload Customers.html[m	
+[36m@@ -13,7 +13,7 @@[m
+   --text-mid:#4a5e57; --text-muted:#8aa89e; --border:#d8ece3;[m
+   --white:#ffffff; --sidebar-w:228px;[m
+ }[m
+[31m-html,body{height:100%;overflow:hidden;}[m
+[32m+[m[32mhtml,body{height:100%;overflow:auto;}[m
+ body{font-family:'DM Sans',sans-serif;color:var(--text);background:#eaf6f0;display:flex;-webkit-font-smoothing:antialiased;}[m
+ .sidebar{width:var(--sidebar-w);min-width:var(--sidebar-w);height:100vh;background:var(--white);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:1.4rem 0;flex-shrink:0;}[m
+ .sidebar-logo{display:flex;align-items:center;gap:9px;padding:0 1.25rem 1.75rem;font-size:1.1rem;font-weight:700;color:var(--text);letter-spacing:-0.02em;}[m
+[36m@@ -38,7 +38,7 @@[m [mbody{font-family:'DM Sans',sans-serif;color:var(--text);background:#eaf6f0;displ[m
+ .notif-btn{position:relative;background:var(--g-faint);border:1px solid var(--border);border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;font-size:1rem;cursor:pointer;}[m
+ .notif-dot{position:absolute;top:4px;right:4px;width:8px;height:8px;border-radius:50%;background:#e05a5a;border:1.5px solid var(--white);}[m
+ .avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#f0b8a0,#d4805a);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:600;color:#fff;cursor:pointer;}[m
+[31m-.body-grid{flex:1;display:grid;grid-template-columns:1fr 300px;min-height:0;overflow:hidden;}[m
+[32m+[m[32m.body-grid{flex:1;display:grid;grid-template-columns:1fr 300px;min-height:0;overflow:auto;}[m
+ .left-panel{display:flex;flex-direction:column;overflow:hidden;border-right:1px solid var(--border);}[m
+ .left-scroll{flex:1;overflow-y:auto;padding:1.25rem 1.5rem;display:flex;flex-direction:column;gap:1.1rem;}[m
+ [m
