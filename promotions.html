@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hungrin – Promotions</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --g-dark:#2d7a5f; --g-mid:#3a9470; --g-light:#5bb38a;
+  --g-pale:#e6f5ef; --g-faint:#f2faf6; --text:#1a2e28;
+  --text-mid:#4a5e57; --text-muted:#8aa89e; --border:#d8ece3;
+  --white:#ffffff; --sidebar-w:228px;
+}
+html,body{height:100%;overflow:hidden;}
+body{font-family:'DM Sans',sans-serif;color:var(--text);background:#eaf6f0;display:flex;-webkit-font-smoothing:antialiased;}
+.sidebar{width:var(--sidebar-w);min-width:var(--sidebar-w);height:100vh;background:var(--white);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:1.4rem 0;flex-shrink:0;}
+.sidebar-logo{display:flex;align-items:center;gap:9px;padding:0 1.25rem 1.75rem;font-size:1.1rem;font-weight:700;color:var(--text);letter-spacing:-0.02em;}
+.logo-icon{width:30px;height:30px;display:grid;grid-template-columns:1fr 1fr;gap:3px;}
+.logo-icon span{background:var(--g-dark);display:block;}
+.logo-icon span:nth-child(1){border-radius:50% 50% 0 50%;}
+.logo-icon span:nth-child(2){border-radius:50% 50% 50% 0;}
+.logo-icon span:nth-child(3){border-radius:50% 0 50% 50%;}
+.logo-icon span:nth-child(4){border-radius:0 50% 50% 50%;}
+.nav-item{display:flex;align-items:center;gap:11px;padding:0.7rem 1.25rem;font-size:0.92rem;color:var(--text-mid);cursor:pointer;border-left:3px solid transparent;text-decoration:none;transition:background 0.15s,color 0.15s;}
+.nav-item:hover{background:var(--g-faint);color:var(--g-dark);}
+.nav-item.active{background:var(--g-pale);color:var(--g-dark);font-weight:600;border-left-color:var(--g-dark);}
+.nav-icon{font-size:1.05rem;width:22px;text-align:center;}
+.sidebar-spacer{flex:1;}
+.btn-demo{margin:0 1rem 0.5rem;padding:0.75rem;text-align:center;background:var(--g-dark);color:#fff;border-radius:10px;font-size:0.88rem;font-weight:600;cursor:pointer;text-decoration:none;display:block;transition:background 0.2s;}
+.btn-demo:hover{background:var(--g-mid);}
+.main{flex:1;height:100vh;display:flex;flex-direction:column;min-width:0;overflow:hidden;}
+.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:0 1.75rem;height:68px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.topbar-left h1{font-size:1.3rem;font-weight:600;letter-spacing:-0.025em;}
+.topbar-right{display:flex;align-items:center;gap:10px;}
+.notif-btn{position:relative;background:var(--g-faint);border:1px solid var(--border);border-radius:10px;padding:7px 11px;font-size:0.9rem;cursor:pointer;display:flex;align-items:center;color:var(--text-mid);}
+.notif-dot{position:absolute;top:5px;right:6px;width:8px;height:8px;border-radius:50%;background:#e05a5a;border:1.5px solid var(--white);}
+.avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#f0b8a0,#d4805a);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:600;color:#fff;cursor:pointer;}
+.csv-banner{margin:1.25rem 1.75rem 0;background:var(--white);border:2px dashed var(--border);border-radius:16px;padding:1.25rem 1.75rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-shrink:0;transition:border-color 0.2s;}
+.csv-banner:hover{border-color:var(--g-mid);}
+.csv-banner-left{display:flex;align-items:center;gap:12px;}
+.csv-icon{font-size:2rem;}
+.csv-info h3{font-size:0.95rem;font-weight:600;color:var(--text);margin-bottom:2px;}
+.csv-info p{font-size:0.8rem;color:var(--text-muted);}
+.csv-status{font-size:0.8rem;color:var(--g-dark);font-weight:600;background:var(--g-pale);padding:4px 10px;border-radius:100px;display:none;}
+.csv-btn{padding:0.6rem 1.25rem;background:var(--g-dark);color:#fff;border:none;border-radius:9px;font-family:inherit;font-size:0.85rem;font-weight:600;cursor:pointer;transition:background 0.2s;flex-shrink:0;}
+.csv-btn:hover{background:var(--g-mid);}
+.chat-wrap{flex:1;display:flex;flex-direction:column;margin:1rem 1.75rem 1.25rem;background:var(--white);border:1px solid var(--border);border-radius:16px;overflow:hidden;min-height:0;}
+.chat-messages{flex:1;overflow-y:auto;padding:1.5rem;display:flex;flex-direction:column;gap:1.25rem;scroll-behavior:smooth;}
+.msg-user{align-self:flex-end;display:flex;align-items:center;gap:8px;}
+.msg-user-bubble{background:var(--g-pale);border:1px solid var(--border);border-radius:18px 18px 4px 18px;padding:0.7rem 1.1rem;font-size:0.9rem;color:var(--text);max-width:480px;line-height:1.5;}
+.msg-ai{align-self:flex-start;display:flex;gap:12px;max-width:820px;width:100%;}
+.ai-avatar{width:40px;height:40px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--g-pale),#c0e8d4);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.3rem;}
+.ai-bubble-wrap{flex:1;min-width:0;}
+.ai-meta{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.ai-name{font-size:0.82rem;font-weight:700;color:var(--g-dark);}
+.ai-time{font-size:0.72rem;color:var(--text-muted);}
+.ai-text{font-size:0.88rem;color:var(--text-mid);line-height:1.65;margin-bottom:0.5rem;}
+
+/* PROMO CARD */
+.promo-card{background:var(--g-faint);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-top:0.75rem;}
+.promo-card-header{background:linear-gradient(135deg,var(--g-dark),var(--g-mid));padding:1rem 1.25rem;display:flex;align-items:center;gap:12px;}
+.promo-card-emoji{font-size:2rem;}
+.promo-card-title{color:#fff;font-size:1rem;font-weight:700;}
+.promo-card-tag{font-size:0.72rem;color:rgba(255,255,255,0.8);background:rgba(255,255,255,0.2);padding:2px 8px;border-radius:100px;margin-top:3px;display:inline-block;}
+.promo-card-body{padding:1rem 1.25rem;display:flex;flex-direction:column;gap:0.75rem;}
+.promo-card-row{display:flex;align-items:flex-start;gap:8px;font-size:0.85rem;}
+.promo-card-key{color:var(--g-dark);font-weight:700;flex-shrink:0;min-width:80px;}
+.promo-card-val{color:var(--text);line-height:1.5;}
+.promo-copy-section{border-top:1px solid var(--border);padding:1rem 1.25rem;}
+.promo-copy-title{font-size:0.8rem;font-weight:600;color:var(--text-mid);margin-bottom:0.75rem;}
+.platform-copy-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:0.75rem;}
+.platform-copy-btn{padding:6px 14px;border-radius:8px;border:none;font-family:inherit;font-size:0.78rem;font-weight:700;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;gap:5px;}
+.btn-uber{background:#000;color:#fff;}
+.btn-uber:hover{background:#333;}
+.btn-deliveroo{background:#00ccbc;color:#fff;}
+.btn-deliveroo:hover{background:#00b5a6;}
+.btn-justeat{background:#ff8000;color:#fff;}
+.btn-justeat:hover{background:#e67300;}
+.copy-text-box{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:0.75rem;font-size:0.8rem;color:var(--text-mid);line-height:1.55;position:relative;}
+.copy-all-btn{width:100%;margin-top:0.5rem;padding:0.6rem;background:var(--g-dark);color:#fff;border:none;border-radius:8px;font-family:inherit;font-size:0.82rem;font-weight:600;cursor:pointer;transition:background 0.2s;display:flex;align-items:center;justify-content:center;gap:6px;}
+.copy-all-btn:hover{background:var(--g-mid);}
+.copied{background:var(--g-mid)!important;}
+
+.ai-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:0.75rem;}
+.ai-action-btn{padding:6px 14px;border-radius:100px;border:1.5px solid var(--border);background:var(--white);font-family:inherit;font-size:0.78rem;font-weight:600;color:var(--g-dark);cursor:pointer;transition:all 0.15s;}
+.ai-action-btn:hover{background:var(--g-pale);border-color:var(--g-dark);}
+.ai-action-btn.primary{background:var(--g-dark);color:#fff;border-color:var(--g-dark);}
+.ai-action-btn.primary:hover{background:var(--g-mid);}
+.suggestion-chips{display:flex;flex-wrap:wrap;gap:8px;padding:0.85rem 1.5rem;border-top:1px solid var(--border);background:var(--g-faint);}
+.chip{padding:6px 14px;border-radius:100px;border:1px solid var(--border);background:var(--white);font-family:inherit;font-size:0.78rem;color:var(--text-mid);cursor:pointer;transition:all 0.15s;}
+.chip:hover{background:var(--g-pale);border-color:var(--g-mid);color:var(--g-dark);}
+.chat-input-bar{display:flex;align-items:center;gap:10px;padding:0.85rem 1.25rem;border-top:1px solid var(--border);background:var(--white);flex-shrink:0;}
+.chat-field{flex:1;border:none;outline:none;font-family:inherit;font-size:0.9rem;color:var(--text);background:transparent;}
+.chat-field::placeholder{color:var(--text-muted);}
+.chat-send{padding:0.65rem 1.5rem;background:var(--g-dark);color:#fff;border:none;border-radius:9px;font-family:inherit;font-size:0.88rem;font-weight:600;cursor:pointer;transition:background 0.2s;}
+.chat-send:hover{background:var(--g-mid);}
+.chat-send:disabled{background:var(--text-muted);cursor:not-allowed;}
+.typing{display:flex;align-items:center;gap:4px;padding:10px 14px;}
+.typing span{width:7px;height:7px;border-radius:50%;background:var(--g-light);display:inline-block;animation:bounce 1.2s infinite;}
+.typing span:nth-child(2){animation-delay:0.2s;}
+.typing span:nth-child(3){animation-delay:0.4s;}
+@keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon"><span></span><span></span><span></span><span></span></div>
+    Hungrin
+  </div>
+  <a href="7a dashboard.html" class="nav-item"><span class="nav-icon">🏠</span> Dashboard</a>
+  <a href="7b Campaigns.html" class="nav-item"><span class="nav-icon">📣</span> Campaigns</a>
+  <a href="7c. Promotions.html" class="nav-item active"><span class="nav-icon">🎯</span> Promotions</a>
+  <a href="7d. Customers.html" class="nav-item"><span class="nav-icon">👥</span> Customers</a>
+  <a href="7e. Insights.html" class="nav-item"><span class="nav-icon">📊</span> Insights</a>
+  <a href="7f. CSV Upload Customers.html" class="nav-item"><span class="nav-icon">📂</span> CSV Upload</a>
+  <div class="sidebar-spacer"></div>
+  <a href="4. Demo.html" class="btn-demo">Book Demo</a>
+</aside>
+
+<main class="main">
+  <div class="topbar">
+    <div class="topbar-left"><h1>AI Promotions</h1></div>
+    <div class="topbar-right">
+      <div class="notif-btn">🔔<div class="notif-dot"></div></div>
+      <div class="avatar">T</div>
+    </div>
+  </div>
+
+  <div class="csv-banner">
+    <div class="csv-banner-left">
+      <div class="csv-icon">📂</div>
+      <div class="csv-info">
+        <h3>Upload Your Sales Data</h3>
+        <p>Upload a CSV from Uber Eats, Deliveroo or Just Eat for smarter AI suggestions</p>
+      </div>
+    </div>
+    <span class="csv-status" id="csv-status">✅ Data loaded</span>
+    <input type="file" id="csv-input" accept=".csv" style="display:none" onchange="handleCSV(event)">
+    <button class="csv-btn" onclick="document.getElementById('csv-input').click()">Upload CSV</button>
+  </div>
+
+  <div class="chat-wrap">
+    <div class="chat-messages" id="chat-messages">
+      <div class="msg-ai">
+        <div class="ai-avatar">🤖</div>
+        <div class="ai-bubble-wrap">
+          <div class="ai-meta">
+            <span class="ai-name">🟢 Hungrin AI</span>
+            <span class="ai-time" id="welcome-time"></span>
+          </div>
+          <div class="ai-text">Hello! I'm your AI Promotions Assistant. I can create ready-to-use promotions that you can copy straight into Uber Eats, Deliveroo or Just Eat! Upload your CSV or ask me to create a promotion!</div>
+          <div class="ai-actions">
+            <button class="ai-action-btn" onclick="quickPrompt('Create a promotion I can add to Uber Eats right now')">🚗 Uber Eats promo</button>
+            <button class="ai-action-btn" onclick="quickPrompt('Create a Deliveroo promotion for this weekend')">🛵 Deliveroo promo</button>
+            <button class="ai-action-btn" onclick="quickPrompt('Create a Just Eat bundle deal promotion')">🍽️ Just Eat promo</button>
+            <button class="ai-action-btn" onclick="quickPrompt('Create a promotion for my worst selling items')">📉 Boost slow items</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="suggestion-chips">
+      <button class="chip" onclick="quickPrompt('Create a weekend burger bundle promotion')">🍔 Burger bundle</button>
+      <button class="chip" onclick="quickPrompt('Create a student discount promotion')">🎓 Student deal</button>
+      <button class="chip" onclick="quickPrompt('Create a lunch deal for weekdays')">🥪 Lunch deal</button>
+      <button class="chip" onclick="quickPrompt('Create a rainy day comfort food promotion')">🌧️ Rainy day</button>
+      <button class="chip" onclick="quickPrompt('Create a loyalty reward promotion')">⭐ Loyalty reward</button>
+    </div>
+
+    <div class="chat-input-bar">
+      <input class="chat-field" id="chat-field" type="text" placeholder="Ask AI to create a promotion for your restaurant…" onkeydown="if(event.key==='Enter')sendMessage()">
+      <button class="chat-send" id="send-btn" onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+</main>
+
+<script>
+const API_KEY = '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';
+const MODEL = 'claude-sonnet-4-6';
+
+document.getElementById('welcome-time').textContent = new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+
+let csvData = null;
+let conversationHistory = [];
+
+function handleCSV(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    csvData = parseCSV(e.target.result);
+    document.getElementById('csv-status').style.display = 'block';
+    addAIMessage(`✅ Loaded <strong>${file.name}</strong> — ${csvData.length} products found! I can now create promotions based on your real sales data. What would you like to promote?`);
+  };
+  reader.readAsText(file);
+}
+
+function parseCSV(text) {
+  const lines = text.trim().split('\n');
+  const headers = lines[0].split(',').map(h => h.trim().replace(/"/g,''));
+  return lines.slice(1).map(line => {
+    const values = line.split(',').map(v => v.trim().replace(/"/g,''));
+    const obj = {};
+    headers.forEach((h,i) => obj[h] = values[i] || '');
+    return obj;
+  }).filter(row => Object.values(row).some(v => v));
+}
+
+function getCSVSummary() {
+  if (!csvData) return '';
+  const summary = csvData.map(row => {
+    const name = row['product_name'] || row['item'] || row['name'] || row['Product'] || Object.values(row)[0];
+    const orders = row['orders'] || row['quantity'] || row['Orders'] || '0';
+    const revenue = row['revenue'] || row['Revenue'] || '0';
+    return `${name}: ${orders} orders, £${revenue} revenue`;
+  }).join('\n');
+  return `\n\nRESTAURANT SALES DATA:\n${summary}`;
+}
+
+function getTime() {
+  return new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+}
+
+function scrollBottom() {
+  const msgs = document.getElementById('chat-messages');
+  setTimeout(() => msgs.scrollTop = msgs.scrollHeight, 50);
+}
+
+function addUserMsg(text) {
+  const msgs = document.getElementById('chat-messages');
+  const el = document.createElement('div');
+  el.className = 'msg-user';
+  el.innerHTML = `<div class="msg-user-bubble">${text}</div>`;
+  msgs.appendChild(el);
+  scrollBottom();
+}
+
+function addAIMessage(text) {
+  const msgs = document.getElementById('chat-messages');
+  const el = document.createElement('div');
+  el.className = 'msg-ai';
+  el.innerHTML = `
+    <div class="ai-avatar">🤖</div>
+    <div class="ai-bubble-wrap">
+      <div class="ai-meta"><span class="ai-name">🟢 Hungrin AI</span><span class="ai-time">${getTime()}</span></div>
+      <div class="ai-text">${text}</div>
+    </div>`;
+  msgs.appendChild(el);
+  scrollBottom();
+}
+
+function addPromoCard(promoData) {
+  const msgs = document.getElementById('chat-messages');
+  const el = document.createElement('div');
+  el.className = 'msg-ai';
+
+  const uberText = `🚗 UBER EATS PROMOTION\n${promoData.name}\n${promoData.offer}\n${promoData.details}\nTarget: ${promoData.target}`;
+  const deliverooText = `🛵 DELIVEROO PROMOTION\n${promoData.name}\n${promoData.offer}\n${promoData.details}\nTarget: ${promoData.target}`;
+  const justeatText = `🍽️ JUST EAT PROMOTION\n${promoData.name}\n${promoData.offer}\n${promoData.details}\nTarget: ${promoData.target}`;
+
+  el.innerHTML = `
+    <div class="ai-avatar">🤖</div>
+    <div class="ai-bubble-wrap">
+      <div class="ai-meta"><span class="ai-name">🟢 Hungrin AI</span><span class="ai-time">${getTime()}</span></div>
+      <div class="ai-text">${promoData.intro}</div>
+      <div class="promo-card">
+        <div class="promo-card-header">
+          <div class="promo-card-emoji">${promoData.emoji}</div>
+          <div>
+            <div class="promo-card-title">${promoData.name}</div>
+            <span class="promo-card-tag">🤖 AI Generated Promotion</span>
+          </div>
+        </div>
+        <div class="promo-card-body">
+          <div class="promo-card-row"><span class="promo-card-key">🎯 Offer:</span><span class="promo-card-val">${promoData.offer}</span></div>
+          <div class="promo-card-row"><span class="promo-card-key">📋 Details:</span><span class="promo-card-val">${promoData.details}</span></div>
+          <div class="promo-card-row"><span class="promo-card-key">👥 Target:</span><span class="promo-card-val">${promoData.target}</span></div>
+          <div class="promo-card-row"><span class="promo-card-key">📈 Expected:</span><span class="promo-card-val">${promoData.expected}</span></div>
+        </div>
+        <div class="promo-copy-section">
+          <div class="promo-copy-title">📋 Copy ready-to-use text for each platform:</div>
+          <div class="platform-copy-btns">
+            <button class="platform-copy-btn btn-uber" onclick="copyToClipboard(this, '${encodeURIComponent(uberText)}')">🚗 Copy for Uber Eats</button>
+            <button class="platform-copy-btn btn-deliveroo" onclick="copyToClipboard(this, '${encodeURIComponent(deliverooText)}')">🛵 Copy for Deliveroo</button>
+            <button class="platform-copy-btn btn-justeat" onclick="copyToClipboard(this, '${encodeURIComponent(justeatText)}')">🍽️ Copy for Just Eat</button>
+          </div>
+          <div class="copy-text-box" id="copy-preview-${Date.now()}">${promoData.name} — ${promoData.offer} — ${promoData.details}</div>
+          <button class="copy-all-btn" onclick="copyAllText(this, '${encodeURIComponent(uberText)}')">📋 Copy Full Promotion Text</button>
+        </div>
+      </div>
+    </div>`;
+  msgs.appendChild(el);
+  scrollBottom();
+}
+
+function copyToClipboard(btn, encodedText) {
+  const text = decodeURIComponent(encodedText);
+  navigator.clipboard.writeText(text).then(() => {
+    const original = btn.innerHTML;
+    btn.innerHTML = '✅ Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.innerHTML = original; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+function copyAllText(btn, encodedText) {
+  const text = decodeURIComponent(encodedText);
+  navigator.clipboard.writeText(text).then(() => {
+    const original = btn.innerHTML;
+    btn.innerHTML = '✅ Copied to clipboard!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.innerHTML = original; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+function addTyping() {
+  const msgs = document.getElementById('chat-messages');
+  const el = document.createElement('div');
+  el.className = 'msg-ai';
+  el.id = 'typing-indicator';
+  el.innerHTML = `
+    <div class="ai-avatar">🤖</div>
+    <div class="ai-bubble-wrap">
+      <div class="ai-meta"><span class="ai-name">🟢 Hungrin AI</span></div>
+      <div style="background:var(--g-faint);border:1px solid var(--border);border-radius:10px;display:inline-block;">
+        <div class="typing"><span></span><span></span><span></span></div>
+      </div>
+    </div>`;
+  msgs.appendChild(el);
+  scrollBottom();
+}
+
+function removeTyping() {
+  const t = document.getElementById('typing-indicator');
+  if (t) t.remove();
+}
+
+async function callClaudeAI(userMessage) {
+  const systemPrompt = `You are Hungrin AI, an expert restaurant growth assistant. You help restaurant owners create promotions they can add directly to Uber Eats, Deliveroo and Just Eat.
+
+When asked to create a promotion, ALWAYS respond with a JSON object in this exact format:
+{
+  "type": "promo",
+  "emoji": "🍔",
+  "intro": "Here's your ready-to-use promotion!",
+  "name": "Promotion Name",
+  "offer": "The specific offer e.g. 20% off burgers",
+  "details": "When it runs, any conditions",
+  "target": "Who it targets",
+  "expected": "Expected result e.g. +20% orders"
+}
+
+For general questions (not promotion creation), respond normally as a helpful restaurant advisor.
+Always be specific, actionable and friendly.
+${getCSVSummary()}`;
+
+  conversationHistory.push({ role: 'user', content: userMessage });
+
+  const response = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': API_KEY,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
+    body: JSON.stringify({
+      model: MODEL,
+      max_tokens: 1024,
+      system: systemPrompt,
+      messages: conversationHistory
+    })
+  });
+
+  const data = await response.json();
+  if (data.error) throw new Error(data.error.message);
+
+  const aiReply = data.content[0].text;
+  conversationHistory.push({ role: 'assistant', content: aiReply });
+  return aiReply;
+}
+
+async function processMessage(text) {
+  addUserMsg(text);
+  addTyping();
+  document.getElementById('send-btn').disabled = true;
+  document.getElementById('chat-field').disabled = true;
+
+  try {
+    const reply = await callClaudeAI(text);
+    removeTyping();
+
+    try {
+      const jsonMatch = reply.match(/\{[\s\S]*\}/);
+      if (jsonMatch) {
+        const promoData = JSON.parse(jsonMatch[0]);
+        if (promoData.type === 'promo') {
+          addPromoCard(promoData);
+        } else {
+          addAIMessage(reply.replace(/\n/g,'<br>'));
+        }
+      } else {
+        addAIMessage(reply.replace(/\n/g,'<br>'));
+      }
+    } catch(e) {
+      addAIMessage(reply.replace(/\n/g,'<br>'));
+    }
+
+  } catch (error) {
+    removeTyping();
+    addAIMessage(`⚠️ Sorry, I couldn't connect right now. Please try again. Error: ${error.message}`);
+  } finally {
+    document.getElementById('send-btn').disabled = false;
+    document.getElementById('chat-field').disabled = false;
+    document.getElementById('chat-field').focus();
+  }
+}
+
+function sendMessage() {
+  const field = document.getElementById('chat-field');
+  const val = field.value.trim();
+  if (!val) return;
+  field.value = '';
+  processMessage(val);
+}
+
+function quickPrompt(text) { processMessage(text); }
+</script>
+</body>
+</html>

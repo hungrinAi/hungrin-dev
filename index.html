@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hungrin – Coming Soon</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: linear-gradient(135deg, #1a2e28 0%, #2d7a5f 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+.card {
+  background: #fff;
+  border-radius: 24px;
+  padding: 3rem 2.5rem;
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 2rem;
+}
+.logo-icon {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+}
+.logo-icon span { background: #2d7a5f; display: block; }
+.logo-icon span:nth-child(1) { border-radius: 50% 50% 0 50%; }
+.logo-icon span:nth-child(2) { border-radius: 50% 50% 50% 0; }
+.logo-icon span:nth-child(3) { border-radius: 50% 0 50% 50%; }
+.logo-icon span:nth-child(4) { border-radius: 0 50% 50% 50%; }
+.logo-text { font-size: 1.5rem; font-weight: 700; color: #1a2e28; }
+.emoji { font-size: 3rem; margin-bottom: 1rem; display: block; }
+h1 { font-size: 1.75rem; font-weight: 700; color: #1a2e28; margin-bottom: 0.5rem; letter-spacing: -0.03em; }
+p { font-size: 0.95rem; color: #4a5e57; line-height: 1.65; margin-bottom: 2rem; }
+.field-label { font-size: 0.85rem; font-weight: 600; color: #1a2e28; display: block; text-align: left; margin-bottom: 0.5rem; }
+.input {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1.5px solid #d8ece3;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: #1a2e28;
+  background: #f2faf6;
+  outline: none;
+  margin-bottom: 1rem;
+  transition: border-color 0.2s;
+}
+.input:focus { border-color: #2d7a5f; background: #fff; }
+.input.error { border-color: #e05a5a; }
+.btn {
+  width: 100%;
+  padding: 0.9rem;
+  background: #2d7a5f;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn:hover { background: #3a9470; }
+.error-msg { color: #e05a5a; font-size: 0.85rem; margin-top: 0.5rem; display: none; }
+.success-msg { color: #2d7a5f; font-size: 0.95rem; font-weight: 600; margin-top: 1rem; display: none; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">
+    <div class="logo-icon"><span></span><span></span><span></span><span></span></div>
+    <span class="logo-text">Hungrin</span>
+  </div>
+  <span class="emoji">🚀</span>
+  <h1>Something Big is Coming!</h1>
+  <p>We're building the future of restaurant growth. Enter the team password to access the site.</p>
+  <label class="field-label">Team Password</label>
+  <input class="input" id="password" type="password" placeholder="Enter team password…" onkeydown="if(event.key==='Enter')checkPassword()">
+  <button class="btn" onclick="checkPassword()">Access Site →</button>
+  <div class="error-msg" id="error-msg">❌ Incorrect password. Please try again!</div>
+  <div class="success-msg" id="success-msg">✅ Correct! Redirecting…</div>
+</div>
+
+<script>
+function checkPassword() {
+  const input = document.getElementById('password');
+  const val = input.value.trim();
+  if (val === 'Hungrin2026!') {
+    document.getElementById('error-msg').style.display = 'none';
+    document.getElementById('success-msg').style.display = 'block';
+    setTimeout(() => {
+      window.location.href = 'landing.html';
+    }, 1500);
+  } else {
+    input.classList.add('error');
+    document.getElementById('error-msg').style.display = 'block';
+    document.getElementById('success-msg').style.display = 'none';
+  }
+}
+</script>
+</body>
+</html>

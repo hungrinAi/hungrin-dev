@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hungrin – CSV Upload</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --g-dark:#2d7a5f; --g-mid:#3a9470; --g-light:#5bb38a;
+  --g-pale:#e6f5ef; --g-faint:#f2faf6; --text:#1a2e28;
+  --text-mid:#4a5e57; --text-muted:#8aa89e; --border:#d8ece3;
+  --white:#ffffff; --sidebar-w:228px;
+}
+html,body{height:100%;overflow:auto;}
+body{font-family:'DM Sans',sans-serif;color:var(--text);background:#eaf6f0;display:flex;-webkit-font-smoothing:antialiased;}
+.sidebar{width:var(--sidebar-w);min-width:var(--sidebar-w);height:100vh;background:var(--white);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:1.4rem 0;flex-shrink:0;}
+.sidebar-logo{display:flex;align-items:center;gap:9px;padding:0 1.25rem 1.75rem;font-size:1.1rem;font-weight:700;color:var(--text);letter-spacing:-0.02em;}
+.logo-icon{width:30px;height:30px;display:grid;grid-template-columns:1fr 1fr;gap:3px;}
+.logo-icon span{background:var(--g-dark);display:block;}
+.logo-icon span:nth-child(1){border-radius:50% 50% 0 50%;}
+.logo-icon span:nth-child(2){border-radius:50% 50% 50% 0;}
+.logo-icon span:nth-child(3){border-radius:50% 0 50% 50%;}
+.logo-icon span:nth-child(4){border-radius:0 50% 50% 50%;}
+.nav-item{display:flex;align-items:center;gap:11px;padding:0.7rem 1.25rem;font-size:0.92rem;color:var(--text-mid);cursor:pointer;border-left:3px solid transparent;text-decoration:none;transition:background 0.15s,color 0.15s;}
+.nav-item:hover{background:var(--g-faint);color:var(--g-dark);}
+.nav-item.active{background:var(--g-pale);color:var(--g-dark);font-weight:600;border-left-color:var(--g-dark);}
+.nav-icon{font-size:1.05rem;width:22px;text-align:center;}
+.sidebar-spacer{flex:1;}
+.btn-demo{margin:0 1rem 0.5rem;padding:0.75rem;text-align:center;background:var(--g-dark);color:#fff;border-radius:10px;font-size:0.88rem;font-weight:600;cursor:pointer;text-decoration:none;display:block;transition:background 0.2s;}
+.btn-demo:hover{background:var(--g-mid);}
+.main{flex:1;height:100vh;display:flex;flex-direction:column;min-width:0;overflow:hidden;}
+.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:0 1.5rem;height:68px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.topbar-left h1{font-size:1.3rem;font-weight:600;letter-spacing:-0.025em;}
+.topbar-left p{font-size:0.8rem;color:var(--text-muted);margin-top:2px;}
+.topbar-right{display:flex;align-items:center;gap:10px;}
+.notif-btn{position:relative;background:var(--g-faint);border:1px solid var(--border);border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;font-size:1rem;cursor:pointer;}
+.notif-dot{position:absolute;top:4px;right:4px;width:8px;height:8px;border-radius:50%;background:#e05a5a;border:1.5px solid var(--white);}
+.avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#f0b8a0,#d4805a);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:600;color:#fff;cursor:pointer;}
+.body-grid{flex:1;display:grid;grid-template-columns:1fr 300px;min-height:0;overflow:auto;}
+.left-panel{display:flex;flex-direction:column;overflow:hidden;border-right:1px solid var(--border);}
+.left-scroll{flex:1;overflow-y:auto;padding:1.25rem 1.5rem;display:flex;flex-direction:column;gap:1.1rem;}
+
+/* STAT PILLS */
+.stat-pills{display:flex;gap:0.85rem;}
+.stat-pill{flex:1;background:var(--white);border:1px solid var(--border);border-radius:12px;padding:0.85rem 1rem;display:flex;align-items:center;gap:10px;}
+.pill-icon{font-size:1.3rem;flex-shrink:0;}
+.pill-label{font-size:0.7rem;color:var(--text-muted);}
+.pill-val{font-size:0.98rem;font-weight:700;color:var(--text);letter-spacing:-0.02em;}
+
+/* UPLOAD CARD */
+.upload-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:1.25rem;}
+.upload-card-title{font-size:0.95rem;font-weight:600;margin-bottom:1rem;}
+.platform-tabs{display:flex;gap:8px;margin-bottom:1rem;}
+.ptab{padding:6px 14px;border-radius:8px;border:1.5px solid var(--border);background:var(--white);font-family:inherit;font-size:0.8rem;font-weight:600;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;gap:6px;}
+.ptab:hover{background:var(--g-pale);border-color:var(--g-mid);}
+.ptab.active{background:var(--g-dark);color:#fff;border-color:var(--g-dark);}
+.drop-zone{border:2px dashed var(--border);border-radius:12px;padding:2rem 1rem;text-align:center;background:var(--g-faint);cursor:pointer;transition:border-color 0.2s,background 0.2s;}
+.drop-zone:hover,.drop-zone.dragover{border-color:var(--g-mid);background:var(--g-pale);}
+.drop-icon{font-size:2.5rem;margin-bottom:0.5rem;}
+.drop-text{font-size:0.82rem;color:var(--text-muted);margin-bottom:0.75rem;}
+.upload-btn{display:inline-flex;align-items:center;gap:6px;padding:0.65rem 1.4rem;background:var(--g-dark);color:#fff;border:none;border-radius:9px;font-family:inherit;font-size:0.85rem;font-weight:600;cursor:pointer;transition:background 0.2s;}
+.upload-btn:hover{background:var(--g-mid);}
+.drop-meta{font-size:0.72rem;color:var(--text-muted);margin-top:0.6rem;}
+#csv-file{display:none;}
+
+/* SUCCESS BANNER */
+.success-banner{background:var(--g-pale);border:1px solid var(--border);border-radius:10px;padding:0.85rem 1rem;display:none;align-items:center;gap:10px;margin-top:0.75rem;}
+.success-banner.show{display:flex;}
+.success-icon{font-size:1.4rem;}
+.success-info h4{font-size:0.88rem;font-weight:600;color:var(--g-dark);}
+.success-info p{font-size:0.78rem;color:var(--text-mid);}
+
+/* TABLE */
+.orders-table-card{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+.table-header{display:flex;align-items:center;justify-content:space-between;padding:0.85rem 1rem;border-bottom:1px solid var(--border);}
+.table-title{font-size:0.9rem;font-weight:600;}
+.filter-tabs{display:flex;gap:4px;}
+.ftab{padding:5px 13px;border-radius:7px;border:1px solid var(--border);background:var(--white);font-family:inherit;font-size:0.78rem;font-weight:500;color:var(--text-mid);cursor:pointer;transition:all 0.15s;}
+.ftab.active{background:var(--g-dark);color:#fff;border-color:var(--g-dark);}
+.ftab:not(.active):hover{background:var(--g-pale);color:var(--g-dark);}
+table{width:100%;border-collapse:collapse;}
+thead th{padding:0.6rem 0.9rem;text-align:left;font-size:0.72rem;font-weight:600;color:var(--text-muted);border-bottom:1px solid var(--border);background:var(--g-faint);white-space:nowrap;}
+tbody tr{border-bottom:1px solid var(--border);transition:background 0.15s;cursor:pointer;}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:hover{background:var(--g-faint);}
+tbody tr.selected{background:var(--g-pale);}
+tbody td{padding:0.75rem 0.9rem;font-size:0.82rem;color:var(--text-mid);vertical-align:middle;}
+.order-id{font-size:0.78rem;font-weight:600;color:var(--text-muted);}
+.cust-cell{display:flex;align-items:center;gap:8px;}
+.cust-av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700;color:#fff;flex-shrink:0;}
+.cust-name{font-size:0.82rem;font-weight:600;color:var(--text);white-space:nowrap;}
+.total-val{font-size:0.85rem;font-weight:700;color:var(--text);}
+.status-badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:100px;font-size:0.7rem;font-weight:600;white-space:nowrap;}
+.s-pending{background:#fef3cd;color:#8a6100;}
+.s-completed{background:#d4f0e4;color:var(--g-dark);}
+.s-cancelled{background:#fee2e2;color:#991b1b;}
+.delivery-tag{font-size:0.68rem;font-weight:800;padding:3px 6px;border-radius:5px;white-space:nowrap;}
+.d-uber{background:#000;color:#fff;}
+.d-deliveroo{background:#e6fff9;color:#007a6a;border:1px solid #b3ede7;}
+.d-justeat{background:#fff3e6;color:#cc6600;border:1px solid #ffd4a3;}
+.empty-state{padding:2.5rem;text-align:center;color:var(--text-muted);font-size:0.88rem;}
+.empty-icon{font-size:2.5rem;margin-bottom:0.5rem;}
+
+/* AI INSIGHT PANEL */
+.right-panel{background:var(--white);overflow-y:auto;display:flex;flex-direction:column;}
+.insight-panel{padding:1.25rem;display:flex;flex-direction:column;gap:1rem;flex:1;}
+.insight-title{font-size:0.95rem;font-weight:700;letter-spacing:-0.02em;}
+.insight-empty{color:var(--text-muted);font-size:0.85rem;text-align:center;padding:2rem 0;}
+.insight-card{background:var(--g-faint);border:1px solid var(--border);border-radius:10px;padding:0.85rem;}
+.insight-card h4{font-size:0.82rem;font-weight:700;color:var(--g-dark);margin-bottom:6px;}
+.insight-card p{font-size:0.78rem;color:var(--text-mid);line-height:1.55;}
+.insight-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:100px;font-size:0.72rem;font-weight:600;margin-top:6px;}
+.badge-red{background:#fee2e2;color:#991b1b;}
+.badge-green{background:#d4f0e4;color:var(--g-dark);}
+.badge-yellow{background:#fef3cd;color:#8a6100;}
+.promo-suggest-btn{width:100%;padding:0.75rem;background:var(--g-dark);color:#fff;border:none;border-radius:10px;font-family:inherit;font-size:0.85rem;font-weight:600;cursor:pointer;transition:background 0.2s;margin-top:0.5rem;}
+.promo-suggest-btn:hover{background:var(--g-mid);}
+
+/* CHAT BAR */
+.chat-bar{display:flex;align-items:center;gap:7px;padding:0.75rem 1.5rem;border-top:1px solid var(--border);background:var(--white);flex-shrink:0;}
+.chat-bar input{flex:1;border:none;outline:none;font-family:inherit;font-size:0.85rem;color:var(--text);background:transparent;}
+.chat-bar input::placeholder{color:var(--text-muted);}
+.chat-chip{padding:5px 11px;border:1px solid var(--border);border-radius:100px;background:var(--g-faint);font-family:inherit;font-size:0.72rem;color:var(--text-mid);cursor:pointer;white-space:nowrap;transition:all 0.15s;}
+.chat-chip:hover{background:var(--g-pale);color:var(--g-dark);border-color:var(--g-mid);}
+.send-btn{padding:0.55rem 1.2rem;background:var(--g-dark);color:#fff;border:none;border-radius:8px;font-family:inherit;font-size:0.82rem;font-weight:600;cursor:pointer;}
+.send-btn:hover{background:var(--g-mid);}
+
+#toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--g-dark);color:#fff;padding:0.6rem 1.2rem;border-radius:100px;font-size:0.82rem;font-weight:500;opacity:0;transform:translateY(10px);transition:opacity 0.3s,transform 0.3s;pointer-events:none;z-index:99;}
+#toast.show{opacity:1;transform:translateY(0);}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon"><span></span><span></span><span></span><span></span></div>
+    Hungrin
+  </div>
+  <a href="7a dashboard.html" class="nav-item"><span class="nav-icon">🏠</span> Dashboard</a>
+  <a href="7b Campaigns.html" class="nav-item"><span class="nav-icon">📣</span> Campaigns</a>
+  <a href="7c. Promotions.html" class="nav-item"><span class="nav-icon">🎯</span> Promotions</a>
+  <a href="7d. Customers.html" class="nav-item"><span class="nav-icon">👥</span> Customers</a>
+  <a href="7e. Insights.html" class="nav-item"><span class="nav-icon">📊</span> Insights</a>
+  <a href="7f. CSV Upload Customers.html" class="nav-item active"><span class="nav-icon">📂</span> CSV Upload</a>
+  <div class="sidebar-spacer"></div>
+  <a href="4. Demo.html" class="btn-demo">Book Demo</a>
+</aside>
+
+<main class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h1>CSV Upload & Orders</h1>
+      <p>Upload sales reports from Uber Eats, Deliveroo or Just Eat</p>
+    </div>
+    <div class="topbar-right">
+      <div class="notif-btn">🔔<div class="notif-dot"></div></div>
+      <div class="avatar">T</div>
+    </div>
+  </div>
+
+  <div class="body-grid">
+    <div class="left-panel">
+      <div class="left-scroll">
+
+        <!-- STAT PILLS -->
+        <div class="stat-pills">
+          <div class="stat-pill">
+            <div class="pill-icon">📦</div>
+            <div class="pill-body">
+              <div class="pill-label">Total Records</div>
+              <div class="pill-val" id="stat-total">0</div>
+            </div>
+          </div>
+          <div class="stat-pill">
+            <div class="pill-icon">🏆</div>
+            <div class="pill-body">
+              <div class="pill-label">Top Product</div>
+              <div class="pill-val" id="stat-top">—</div>
+            </div>
+          </div>
+          <div class="stat-pill">
+            <div class="pill-icon">⚠️</div>
+            <div class="pill-body">
+              <div class="pill-label">Needs Attention</div>
+              <div class="pill-val" id="stat-low">—</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- UPLOAD CARD -->
+        <div class="upload-card">
+          <div class="upload-card-title">📂 Upload Sales Report</div>
+          <div class="platform-tabs">
+            <button class="ptab active" onclick="setPlatform('Uber Eats',this)">🚗 Uber Eats</button>
+            <button class="ptab" onclick="setPlatform('Deliveroo',this)">🚲 Deliveroo</button>
+            <button class="ptab" onclick="setPlatform('Just Eat',this)">🍽️ Just Eat</button>
+          </div>
+          <div class="drop-zone" id="drop-zone"
+            ondragover="event.preventDefault();this.classList.add('dragover')"
+            ondragleave="this.classList.remove('dragover')"
+            ondrop="handleDrop(event)">
+            <div class="drop-icon">📊</div>
+            <div class="drop-text">Drag & drop your CSV file here or</div>
+            <button class="upload-btn" onclick="document.getElementById('csv-file').click()">⬆ Upload CSV</button>
+            <div class="drop-meta">Accepted: .csv · Max 10MB</div>
+            <input type="file" id="csv-file" accept=".csv" onchange="handleFile(event)">
+          </div>
+          <div class="success-banner" id="success-banner">
+            <div class="success-icon">✅</div>
+            <div class="success-info">
+              <h4 id="success-title">File uploaded!</h4>
+              <p id="success-desc">Your data has been loaded successfully.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- TABLE -->
+        <div class="orders-table-card">
+          <div class="table-header">
+            <div class="table-title">📋 Sales Data</div>
+            <div class="filter-tabs">
+              <button class="ftab active" onclick="setFilter('All',this)">All</button>
+              <button class="ftab" onclick="setFilter('High',this)">High</button>
+              <button class="ftab" onclick="setFilter('Low',this)">Low</button>
+            </div>
+          </div>
+          <div id="table-wrap">
+            <div class="empty-state">
+              <div class="empty-icon">📂</div>
+              <p>Upload a CSV file to see your sales data here</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CHAT BAR -->
+      <div class="chat-bar">
+        <input id="chat-input" type="text" placeholder="Ask AI about your sales data…" onkeydown="if(event.key==='Enter')handleChat(this.value)">
+        <button class="chat-chip" onclick="handleChat('What are my worst sellers?')">📉 Worst sellers</button>
+        <button class="chat-chip" onclick="handleChat('Suggest promotions')">💡 Suggest promos</button>
+        <button class="send-btn" onclick="handleChat(document.getElementById('chat-input').value)">Send</button>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+      <div class="insight-panel" id="insight-panel">
+        <div class="insight-title">🤖 AI Insights</div>
+        <div class="insight-empty" id="insight-empty">
+          Upload a CSV file and I'll analyse your sales data automatically!
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div id="toast"></div>
+
+<script>
+let csvData = [];
+let activeFilter = 'All';
+let activePlatform = 'Uber Eats';
+
+function setPlatform(p, el) {
+  activePlatform = p;
+  document.querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function handleFile(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  readCSV(file);
+}
+
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('drop-zone').classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if (file) readCSV(file);
+}
+
+function readCSV(file) {
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const text = e.target.result;
+    csvData = parseCSV(text);
+    showSuccess(file.name, csvData.length);
+    updateStats();
+    renderTable();
+    generateInsights();
+    toast('✅ ' + file.name + ' loaded — ' + csvData.length + ' records found!');
+  };
+  reader.readAsText(file);
+}
+
+function parseCSV(text) {
+  const lines = text.trim().split('\n');
+  const headers = lines[0].split(',').map(h => h.trim().replace(/"/g,''));
+  return lines.slice(1).map(line => {
+    const values = line.split(',').map(v => v.trim().replace(/"/g,''));
+    const obj = {};
+    headers.forEach((h,i) => obj[h] = values[i] || '');
+    return obj;
+  }).filter(row => Object.values(row).some(v => v));
+}
+
+function showSuccess(name, count) {
+  const banner = document.getElementById('success-banner');
+  document.getElementById('success-title').textContent = '✅ ' + name + ' uploaded!';
+  document.getElementById('success-desc').textContent = count + ' records loaded from ' + activePlatform;
+  banner.classList.add('show');
+}
+
+function getProductName(row) {
+  return row['product_name'] || row['item'] || row['name'] || row['Product'] || row['Item'] || Object.values(row)[0] || 'Unknown';
+}
+
+function getOrders(row) {
+  return parseInt(row['orders'] || row['quantity'] || row['qty'] || row['Orders'] || row['Quantity'] || 0);
+}
+
+function getRevenue(row) {
+  const val = row['revenue'] || row['Revenue'] || row['total'] || row['Total'] || '0';
+  return parseFloat(val.toString().replace(/[^0-9.]/g,'')) || 0;
+}
+
+function updateStats() {
+  document.getElementById('stat-total').textContent = csvData.length;
+  const sorted = [...csvData].sort((a,b) => getOrders(b) - getOrders(a));
+  document.getElementById('stat-top').textContent = sorted[0] ? getProductName(sorted[0]) : '—';
+  const low = sorted[sorted.length-1];
+  document.getElementById('stat-low').textContent = low ? getProductName(low) : '—';
+}
+
+function setFilter(f, el) {
+  activeFilter = f;
+  document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  renderTable();
+}
+
+function renderTable() {
+  const wrap = document.getElementById('table-wrap');
+  if (!csvData.length) {
+    wrap.innerHTML = '<div class="empty-state"><div class="empty-icon">📂</div><p>Upload a CSV file to see your sales data here</p></div>';
+    return;
+  }
+
+  const sorted = [...csvData].sort((a,b) => getOrders(b) - getOrders(a));
+  const avg = sorted.reduce((s,r) => s + getOrders(r), 0) / sorted.length;
+
+  let filtered = sorted;
+  if (activeFilter === 'High') filtered = sorted.filter(r => getOrders(r) >= avg);
+  if (activeFilter === 'Low')  filtered = sorted.filter(r => getOrders(r) < avg);
+
+  wrap.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Orders</th>
+          <th>Revenue</th>
+          <th>Platform</th>
+          <th>Performance</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${filtered.map(row => {
+          const orders = getOrders(row);
+          const revenue = getRevenue(row);
+          const platform = row['platform'] || row['Platform'] || activePlatform;
+          const isHigh = orders >= avg;
+          const badge = isHigh
+            ? '<span class="status-badge s-completed">✅ High</span>'
+            : '<span class="status-badge s-pending">⚠️ Low</span>';
+          const platformTag = platform.toLowerCase().includes('uber')
+            ? '<span class="delivery-tag d-uber">Uber Eats</span>'
+            : platform.toLowerCase().includes('deliveroo')
+            ? '<span class="delivery-tag d-deliveroo">Deliveroo</span>'
+            : '<span class="delivery-tag d-justeat">Just Eat</span>';
+          return `
+            <tr>
+              <td><strong>${getProductName(row)}</strong></td>
+              <td><span class="total-val">${orders}</span></td>
+              <td>£${revenue.toFixed(2)}</td>
+              <td>${platformTag}</td>
+              <td>${badge}</td>
+            </tr>`;
+        }).join('')}
+      </tbody>
+    </table>`;
+}
+
+function generateInsights() {
+  const panel = document.getElementById('insight-panel');
+  document.getElementById('insight-empty').style.display = 'none';
+
+  const sorted = [...csvData].sort((a,b) => getOrders(b) - getOrders(a));
+  const top3 = sorted.slice(0,3);
+  const bottom3 = sorted.slice(-3).reverse();
+  const totalOrders = sorted.reduce((s,r) => s + getOrders(r), 0);
+  const totalRevenue = sorted.reduce((s,r) => s + getRevenue(r), 0);
+
+  const cards = [
+    {
+      title: '📊 Summary',
+      content: `${csvData.length} products analysed. Total orders: <strong>${totalOrders}</strong>. Total revenue: <strong>£${totalRevenue.toFixed(2)}</strong>.`,
+      badge: null
+    },
+    {
+      title: '🏆 Top Sellers',
+      content: top3.map(r => `• ${getProductName(r)}: <strong>${getOrders(r)} orders</strong>`).join('<br>'),
+      badge: {text: 'Performing Well', cls: 'badge-green'}
+    },
+    {
+      title: '⚠️ Needs Attention',
+      content: bottom3.map(r => `• ${getProductName(r)}: <strong>${getOrders(r)} orders</strong>`).join('<br>'),
+      badge: {text: 'Low Performance', cls: 'badge-red'}
+    },
+    {
+      title: '💡 AI Recommendation',
+      content: `Consider running a promotion on <strong>${getProductName(bottom3[0])}</strong> — it has the lowest sales. A 20% discount or bundle deal could boost orders significantly.`,
+      badge: {text: 'Action Required', cls: 'badge-yellow'}
+    }
+  ];
+
+  const existing = panel.querySelectorAll('.insight-card, .promo-suggest-btn');
+  existing.forEach(e => e.remove());
+
+  cards.forEach(card => {
+    const el = document.createElement('div');
+    el.className = 'insight-card';
+    el.innerHTML = `
+      <h4>${card.title}</h4>
+      <p>${card.content}</p>
+      ${card.badge ? `<span class="insight-badge ${card.badge.cls}">${card.badge.text}</span>` : ''}`;
+    panel.appendChild(el);
+  });
+
+  const btn = document.createElement('button');
+  btn.className = 'promo-suggest-btn';
+  btn.textContent = '🚀 Go to Promotions';
+  btn.onclick = () => window.location.href = '7c. Promotions.html';
+  panel.appendChild(btn);
+}
+
+function handleChat(msg) {
+  if (!msg.trim()) return;
+  document.getElementById('chat-input').value = '';
+  const m = msg.toLowerCase();
+  let reply = '';
+  if (!csvData.length) {
+    reply = 'Please upload a CSV file first!';
+  } else {
+    const sorted = [...csvData].sort((a,b) => getOrders(b) - getOrders(a));
+    if (m.includes('worst') || m.includes('low')) {
+      const bottom = sorted.slice(-3).reverse();
+      reply = '⚠️ Worst sellers: ' + bottom.map(r => getProductName(r) + ' (' + getOrders(r) + ' orders)').join(', ');
+    } else if (m.includes('best') || m.includes('top')) {
+      const top = sorted.slice(0,3);
+      reply = '🏆 Top sellers: ' + top.map(r => getProductName(r) + ' (' + getOrders(r) + ' orders)').join(', ');
+    } else if (m.includes('promo')) {
+      reply = '💡 I recommend promoting: ' + getProductName(sorted[sorted.length-1]) + ' with a 20% discount!';
+    } else {
+      reply = '📊 You have ' + csvData.length + ' products. Top: ' + getProductName(sorted[0]) + '. Ask me about worst sellers or promotions!';
+    }
+  }
+  toast('🤖 ' + reply);
+}
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+</script>
+</body>
+</html>
