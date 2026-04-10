@@ -16,7 +16,7 @@ export function CsvUploadCard() {
           ))}
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-6 items-center">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 items-center">
         <div className="space-y-3">
           <p className="text-xs text-text-muted leading-relaxed">Import order reports from delivery platforms like:</p>
           <div className="space-y-2">

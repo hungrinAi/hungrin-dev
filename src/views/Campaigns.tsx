@@ -11,6 +11,7 @@ import {
   Zap,
   CheckCircle2
 } from 'lucide-react';
+import Image from 'next/image';
 import { AppLayout } from '@/src/components/layout/AppLayout';
 import { Card } from '@/src/components/ui/Card';
 import { Button } from '@/src/components/ui/Button';
@@ -129,19 +130,21 @@ export default function Campaigns() {
       </Card>
 
       {/* CTA Banner */}
-      <div className="bg-gradient-to-r from-[#e8f8f0] via-[#d0eedd] to-[#c0e8d4] rounded-2xl border border-border-light p-8 flex items-center justify-between relative overflow-hidden">
-        <div className="relative z-10">
+      <div className="bg-gradient-to-r from-[#e8f8f0] via-[#d0eedd] to-[#c0e8d4] rounded-2xl border border-border-light p-6 md:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 relative overflow-hidden">
+        <div className="relative z-10 flex-1">
           <h3 className="text-xl font-bold text-text-dark mb-1">Create Targeted Campaigns</h3>
-          <p className="text-sm text-text-mid mb-6">Promote your <strong>best offers like a pro</strong></p>
-          <div className="grid grid-cols-2 gap-x-12 gap-y-2">
+          <p className="text-sm text-text-mid mb-4 md:mb-6">Promote your <strong>best offers like a pro</strong></p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2">
             {['Increase repeat orders', 'Fill slow times', 'Boost online reviews', 'Maximize revenue'].map(c => (
               <div key={c} className="flex items-center gap-2 text-sm text-text-mid font-medium">
-                <CheckCircle2 className="w-4 h-4 text-g-dark" /> {c}
+                <CheckCircle2 className="w-4 h-4 text-g-dark shrink-0" /> {c}
               </div>
             ))}
           </div>
         </div>
-        <div className="text-8xl animate-bob hidden lg:block">🤖</div>
+        <div className="w-24 h-24 md:w-32 md:h-32 animate-bob hidden sm:block shrink-0">
+          <Image src="/images/robot-thumbsup.jpeg" alt="" width={128} height={128} className="w-full h-full object-cover rounded-2xl" />
+        </div>
       </div>
     </AppLayout>
   );

@@ -28,48 +28,25 @@ __turbopack_context__.s([
     ()=>Logo
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/image.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/utils.ts [app-client] (ecmascript)");
+;
+;
 ;
 const Logo = (param)=>{
     let { className } = param;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])("flex items-center gap-2", className),
         children: [
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "w-7 h-7 grid grid-cols-2 gap-[3px]",
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                        className: "bg-g-dark rounded-tl-full rounded-tr-full rounded-bl-full"
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/Logo.tsx",
-                        lineNumber: 6,
-                        columnNumber: 7
-                    }, ("TURBOPACK compile-time value", void 0)),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                        className: "bg-g-dark rounded-tl-full rounded-tr-full rounded-br-full"
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/Logo.tsx",
-                        lineNumber: 7,
-                        columnNumber: 7
-                    }, ("TURBOPACK compile-time value", void 0)),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                        className: "bg-g-dark rounded-tl-full rounded-bl-full rounded-br-full"
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/Logo.tsx",
-                        lineNumber: 8,
-                        columnNumber: 7
-                    }, ("TURBOPACK compile-time value", void 0)),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                        className: "bg-g-dark rounded-tr-full rounded-bl-full rounded-br-full"
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/Logo.tsx",
-                        lineNumber: 9,
-                        columnNumber: 7
-                    }, ("TURBOPACK compile-time value", void 0))
-                ]
-            }, void 0, true, {
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                src: "/images/robot-thumbsup.jpeg",
+                alt: "Hungrin",
+                width: 32,
+                height: 32,
+                className: "rounded-lg object-cover w-8 h-8"
+            }, void 0, false, {
                 fileName: "[project]/src/components/Logo.tsx",
-                lineNumber: 5,
+                lineNumber: 7,
                 columnNumber: 5
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -77,18 +54,17 @@ const Logo = (param)=>{
                 children: "Hungrin"
             }, void 0, false, {
                 fileName: "[project]/src/components/Logo.tsx",
-                lineNumber: 11,
+                lineNumber: 14,
                 columnNumber: 5
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/Logo.tsx",
-        lineNumber: 4,
+        lineNumber: 6,
         columnNumber: 3
     }, ("TURBOPACK compile-time value", void 0));
 };
 _c = Logo;
-;
 var _c;
 __turbopack_context__.k.register(_c, "Logo");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
@@ -109,24 +85,24 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$
 const Button = (param)=>{
     let { variant = 'primary', size = 'md', children, className, ...props } = param;
     const variants = {
-        primary: "bg-g-dark text-white hover:bg-g-mid shadow-[0_3px_12px_rgba(45,122,95,0.28)]",
-        secondary: "bg-g-pale text-g-dark hover:bg-g-mid hover:text-white shadow-sm",
-        outline: "bg-white text-g-dark border-2 border-g-dark/20 hover:border-g-dark/50 hover:bg-g-faint shadow-sm",
-        ghost: "bg-transparent text-text-mid hover:bg-g-faint hover:text-g-dark",
-        danger: "bg-red-600 text-white hover:bg-red-700 shadow-[0_3px_12px_rgba(220,38,38,0.2)]"
+        primary: 'bg-gradient-to-br from-[#2d7a5f] to-[#1e5c47] text-white ' + 'shadow-[0_4px_14px_rgba(45,122,95,0.35)] ' + 'hover:shadow-[0_6px_20px_rgba(45,122,95,0.45)] hover:-translate-y-0.5 hover:from-[#348c6c] hover:to-[#256b54]',
+        secondary: 'bg-g-pale text-g-dark border border-g-dark/10 ' + 'hover:bg-g-dark hover:text-white hover:-translate-y-0.5 shadow-sm hover:shadow-md',
+        outline: 'bg-white text-g-dark border-2 border-g-dark/25 ' + 'hover:border-g-dark hover:bg-g-faint hover:-translate-y-0.5 shadow-sm hover:shadow-md',
+        ghost: 'bg-transparent text-text-mid hover:bg-g-faint hover:text-g-dark',
+        danger: 'bg-gradient-to-br from-red-500 to-red-700 text-white ' + 'shadow-[0_4px_14px_rgba(220,38,38,0.25)] hover:shadow-[0_6px_18px_rgba(220,38,38,0.35)] hover:-translate-y-0.5'
     };
     const sizes = {
-        sm: "px-3 py-1.5 text-xs",
-        md: "px-5 py-2.5 text-sm",
-        lg: "px-8 py-3.5 text-base"
+        sm: 'px-3.5 py-1.5 text-xs',
+        md: 'px-5 py-2.5 text-sm',
+        lg: 'px-8 py-3.5 text-base'
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-        className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])("inline-flex items-center justify-center gap-2 rounded-xl font-bold transition-all active:scale-95 disabled:opacity-50 disabled:pointer-events-none", variants[variant], sizes[size], className),
+        className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])('inline-flex items-center justify-center gap-2 rounded-xl font-bold', 'transition-all duration-200 active:scale-95 active:translate-y-0', 'disabled:opacity-50 disabled:pointer-events-none disabled:translate-y-0', variants[variant], sizes[size], className),
         ...props,
         children: children
     }, void 0, false, {
         fileName: "[project]/src/components/ui/Button.tsx",
-        lineNumber: 36,
+        lineNumber: 46,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -174,6 +150,9 @@ function AuthPage(param) {
         setLoading(true);
         setTimeout(()=>{
             setLoading(false);
+            if ("TURBOPACK compile-time truthy", 1) {
+                localStorage.setItem('hungrinLoggedIn', 'true');
+            }
             router.push('/dashboard');
         }, 1500);
     };
@@ -187,7 +166,7 @@ function AuthPage(param) {
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Logo$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Logo"], {}, void 0, false, {
                             fileName: "[project]/src/views/AuthPage.tsx",
-                            lineNumber: 40,
+                            lineNumber: 43,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -198,7 +177,7 @@ function AuthPage(param) {
                                     children: mode === 'login' ? 'Welcome back!' : 'Create your account'
                                 }, void 0, false, {
                                     fileName: "[project]/src/views/AuthPage.tsx",
-                                    lineNumber: 42,
+                                    lineNumber: 45,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -206,13 +185,13 @@ function AuthPage(param) {
                                     children: mode === 'login' ? 'Log in to manage your restaurant growth.' : 'Join 1,000+ restaurants scaling with Hungrin.'
                                 }, void 0, false, {
                                     fileName: "[project]/src/views/AuthPage.tsx",
-                                    lineNumber: 45,
+                                    lineNumber: 48,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/views/AuthPage.tsx",
-                            lineNumber: 41,
+                            lineNumber: 44,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -227,7 +206,7 @@ function AuthPage(param) {
                                             children: "Restaurant Name"
                                         }, void 0, false, {
                                             fileName: "[project]/src/views/AuthPage.tsx",
-                                            lineNumber: 53,
+                                            lineNumber: 56,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -237,7 +216,7 @@ function AuthPage(param) {
                                                     className: "absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/views/AuthPage.tsx",
-                                                    lineNumber: 55,
+                                                    lineNumber: 58,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -247,19 +226,19 @@ function AuthPage(param) {
                                                     className: "w-full bg-g-faint border border-border-light rounded-xl pl-12 pr-4 py-3.5 text-sm outline-none focus:border-g-dark transition-all"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/views/AuthPage.tsx",
-                                                    lineNumber: 56,
+                                                    lineNumber: 59,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/views/AuthPage.tsx",
-                                            lineNumber: 54,
+                                            lineNumber: 57,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/views/AuthPage.tsx",
-                                    lineNumber: 52,
+                                    lineNumber: 55,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -270,7 +249,7 @@ function AuthPage(param) {
                                             children: "Email Address"
                                         }, void 0, false, {
                                             fileName: "[project]/src/views/AuthPage.tsx",
-                                            lineNumber: 66,
+                                            lineNumber: 69,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -280,7 +259,7 @@ function AuthPage(param) {
                                                     className: "absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/views/AuthPage.tsx",
-                                                    lineNumber: 68,
+                                                    lineNumber: 71,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -290,19 +269,19 @@ function AuthPage(param) {
                                                     className: "w-full bg-g-faint border border-border-light rounded-xl pl-12 pr-4 py-3.5 text-sm outline-none focus:border-g-dark transition-all"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/views/AuthPage.tsx",
-                                                    lineNumber: 69,
+                                                    lineNumber: 72,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/views/AuthPage.tsx",
-                                            lineNumber: 67,
+                                            lineNumber: 70,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/views/AuthPage.tsx",
-                                    lineNumber: 65,
+                                    lineNumber: 68,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -313,7 +292,7 @@ function AuthPage(param) {
                                             children: "Password"
                                         }, void 0, false, {
                                             fileName: "[project]/src/views/AuthPage.tsx",
-                                            lineNumber: 78,
+                                            lineNumber: 81,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -323,7 +302,7 @@ function AuthPage(param) {
                                                     className: "absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/views/AuthPage.tsx",
-                                                    lineNumber: 80,
+                                                    lineNumber: 83,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -333,19 +312,19 @@ function AuthPage(param) {
                                                     className: "w-full bg-g-faint border border-border-light rounded-xl pl-12 pr-4 py-3.5 text-sm outline-none focus:border-g-dark transition-all"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/views/AuthPage.tsx",
-                                                    lineNumber: 81,
+                                                    lineNumber: 84,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/views/AuthPage.tsx",
-                                            lineNumber: 79,
+                                            lineNumber: 82,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/views/AuthPage.tsx",
-                                    lineNumber: 77,
+                                    lineNumber: 80,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$Button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -358,19 +337,19 @@ function AuthPage(param) {
                                             className: "w-5 h-5 ml-2"
                                         }, void 0, false, {
                                             fileName: "[project]/src/views/AuthPage.tsx",
-                                            lineNumber: 92,
+                                            lineNumber: 95,
                                             columnNumber: 28
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/views/AuthPage.tsx",
-                                    lineNumber: 90,
+                                    lineNumber: 93,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/views/AuthPage.tsx",
-                            lineNumber: 50,
+                            lineNumber: 53,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -383,24 +362,24 @@ function AuthPage(param) {
                                     children: mode === 'login' ? 'Sign up' : 'Log in'
                                 }, void 0, false, {
                                     fileName: "[project]/src/views/AuthPage.tsx",
-                                    lineNumber: 98,
+                                    lineNumber: 101,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/views/AuthPage.tsx",
-                            lineNumber: 96,
+                            lineNumber: 99,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/views/AuthPage.tsx",
-                    lineNumber: 39,
+                    lineNumber: 42,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/views/AuthPage.tsx",
-                lineNumber: 38,
+                lineNumber: 41,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -410,7 +389,7 @@ function AuthPage(param) {
                         className: "absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"
                     }, void 0, false, {
                         fileName: "[project]/src/views/AuthPage.tsx",
-                        lineNumber: 110,
+                        lineNumber: 113,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -425,14 +404,14 @@ function AuthPage(param) {
                                             "Scale your restaurant ",
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                                 fileName: "[project]/src/views/AuthPage.tsx",
-                                                lineNumber: 114,
+                                                lineNumber: 117,
                                                 columnNumber: 37
                                             }, this),
                                             " like a pro."
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/views/AuthPage.tsx",
-                                        lineNumber: 113,
+                                        lineNumber: 116,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -440,13 +419,13 @@ function AuthPage(param) {
                                         children: "Hungrin helps you automate your marketing and focus on what you do best—making great food."
                                     }, void 0, false, {
                                         fileName: "[project]/src/views/AuthPage.tsx",
-                                        lineNumber: 116,
+                                        lineNumber: 119,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/views/AuthPage.tsx",
-                                lineNumber: 112,
+                                lineNumber: 115,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -465,42 +444,42 @@ function AuthPage(param) {
                                                     className: "w-5 h-5"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/views/AuthPage.tsx",
-                                                    lineNumber: 130,
+                                                    lineNumber: 133,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/views/AuthPage.tsx",
-                                                lineNumber: 129,
+                                                lineNumber: 132,
                                                 columnNumber: 17
                                             }, this),
                                             f
                                         ]
                                     }, f, true, {
                                         fileName: "[project]/src/views/AuthPage.tsx",
-                                        lineNumber: 128,
+                                        lineNumber: 131,
                                         columnNumber: 15
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/src/views/AuthPage.tsx",
-                                lineNumber: 121,
+                                lineNumber: 124,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/views/AuthPage.tsx",
-                        lineNumber: 111,
+                        lineNumber: 114,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/views/AuthPage.tsx",
-                lineNumber: 109,
+                lineNumber: 112,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/views/AuthPage.tsx",
-        lineNumber: 36,
+        lineNumber: 39,
         columnNumber: 5
     }, this);
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { Send, CheckCircle2 } from 'lucide-react';
 import { DashboardStats } from '@/src/types';
 
@@ -9,7 +10,9 @@ interface AiAssistantProps {
 export function AiAssistant({ stats }: AiAssistantProps) {
   return (
     <div className="bg-gradient-to-br from-[#e8f8f0] via-[#d4f0e2] to-[#c0e8d4] p-6 rounded-2xl border border-border-light shadow-sm relative overflow-hidden flex flex-col gap-4">
-      <div className="absolute -right-4 -bottom-4 text-8xl opacity-10 animate-bob">🤖</div>
+      <div className="absolute -right-4 -bottom-4 w-28 h-28 opacity-20 animate-bob">
+        <Image src="/images/robot-happy.jpeg" alt="" width={112} height={112} className="w-full h-full object-cover rounded-xl" />
+      </div>
       <p className="text-sm text-text-dark leading-relaxed">
         <strong>Hello!</strong> I'm your AI Growth Assistant.<br />Ready to boost your sales today?
       </p>

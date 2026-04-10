@@ -28,6 +28,9 @@ export default function AuthPage({ mode }: AuthPageProps) {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('hungrinLoggedIn', 'true');
+      }
       router.push('/dashboard');
     }, 1500);
   };
