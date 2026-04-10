@@ -1,12 +1,13 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { 
-  Send, 
-  Sparkles, 
-  Plus, 
-  Image as ImageIcon, 
-  Calendar, 
+import Image from 'next/image';
+import {
+  Send,
+  Sparkles,
+  Plus,
+  Image as ImageIcon,
+  Calendar,
   Tag,
   CheckCircle2,
   ArrowRight
@@ -73,13 +74,13 @@ export default function Promotions() {
       title="Promotions" 
       subtitle="Create and manage AI-powered promotions to drive more orders."
     >
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100vh-12rem)]">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Chat Interface */}
-        <Card className="lg:col-span-2 flex flex-col h-full">
+        <Card className="lg:col-span-2 flex flex-col min-h-[500px] lg:h-[calc(100vh-12rem)]">
           <CardHeader className="flex flex-row items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-g-pale rounded-xl flex items-center justify-center text-g-dark">
-                <Sparkles className="w-6 h-6" />
+              <div className="w-10 h-10 rounded-xl overflow-hidden shrink-0">
+                <Image src="/images/robot-thinking.jpeg" alt="AI Assistant" width={40} height={40} className="w-full h-full object-cover" />
               </div>
               <div>
                 <h3 className="text-sm font-bold text-text-dark">AI Growth Assistant</h3>
@@ -95,10 +96,13 @@ export default function Promotions() {
             {messages.map((m) => (
               <div key={m.id} className={cn("flex gap-4", m.role === 'user' ? "flex-row-reverse" : "")}>
                 <div className={cn(
-                  "w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shrink-0",
-                  m.role === 'assistant' ? "bg-g-dark text-white" : "bg-gray-200 text-gray-600"
+                  "w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shrink-0 overflow-hidden",
+                  m.role === 'assistant' ? "" : "bg-gray-200 text-gray-600"
                 )}>
-                  {m.role === 'assistant' ? '🤖' : 'U'}
+                  {m.role === 'assistant'
+                    ? <Image src="/images/robot-happy.jpeg" alt="AI" width={32} height={32} className="w-full h-full object-cover" />
+                    : 'U'
+                  }
                 </div>
                 <div className={cn("max-w-[80%] space-y-4", m.role === 'user' ? "text-right" : "")}>
                   <div className={cn(

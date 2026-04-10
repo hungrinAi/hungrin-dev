@@ -9,6 +9,7 @@ import { OrderStatsPills } from '@/src/features/orders/components/OrderStatsPill
 import { CsvUploadCard } from '@/src/features/orders/components/CsvUploadCard';
 import { OrderTable } from '@/src/features/orders/components/OrderTable';
 import { OrderDetailPanel } from '@/src/features/orders/components/OrderDetailPanel';
+import { ArrowLeft } from 'lucide-react';
 
 export default function Orders() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -21,21 +22,23 @@ export default function Orders() {
   if (error) return <div className="p-8 text-red-500">Error: {error}</div>;
   if (!summary) return null;
 
+  const showDetail = !!selectedId;
+
   return (
-    <AppLayout 
-      title="Orders" 
+    <AppLayout
+      title="Orders"
       subtitle="Manage incoming orders, track deliveries, and upload reports."
     >
-      <div className="flex h-full min-h-0 -m-8">
-        {/* Left Panel: List */}
-        <div className="flex-1 flex flex-col border-r border-border-light overflow-hidden">
-          <div className="p-6 space-y-6 overflow-y-auto">
+      <div className="flex h-full min-h-0 -m-4 md:-m-6 lg:-m-8">
+        {/* Left Panel: List — hidden on mobile when detail is open */}
+        <div className={`${showDetail ? 'hidden md:flex' : 'flex'} flex-1 flex-col border-r border-border-light overflow-hidden`}>
+          <div className="p-4 md:p-6 space-y-4 md:space-y-6 overflow-y-auto">
             <OrderStatsPills summary={summary} />
             <CsvUploadCard />
-            <OrderTable 
-              orders={orders || []} 
-              selectedId={selectedId} 
-              onSelect={setSelectedId} 
+            <OrderTable
+              orders={orders || []}
+              selectedId={selectedId}
+              onSelect={setSelectedId}
             />
           </div>
 
@@ -46,9 +49,20 @@ export default function Orders() {
           </div>
         </div>
 
-        {/* Right Panel: Detail */}
+        {/* Right Panel: Detail — full-width on mobile, fixed width on desktop */}
         {selectedOrder && (
-          <OrderDetailPanel order={selectedOrder} />
+          <div className={`${showDetail ? 'flex' : 'hidden md:flex'} flex-col w-full md:w-[340px] bg-white overflow-hidden`}>
+            {/* Mobile back button */}
+            <div className="md:hidden px-4 py-3 border-b border-border-light">
+              <button
+                onClick={() => setSelectedId(null)}
+                className="flex items-center gap-2 text-sm font-semibold text-g-dark hover:text-g-mid transition-colors"
+              >
+                <ArrowLeft className="w-4 h-4" /> Back to Orders
+              </button>
+            </div>
+            <OrderDetailPanel order={selectedOrder} />
+          </div>
         )}
       </div>
     </AppLayout>

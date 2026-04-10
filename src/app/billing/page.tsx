@@ -1,5 +1,5 @@
-import Pricing from '@/src/views/Pricing';
+import Billing from '@/src/views/Billing';
 
 export default function Page() {
-  return <Pricing />;
+  return <Billing />;
 }

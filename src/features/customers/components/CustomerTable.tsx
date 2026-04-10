@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { Search, Filter, ChevronRight, Mail, Phone } from 'lucide-react';
 import { Card, CardHeader, CardContent } from '@/src/components/ui/Card';
@@ -8,17 +10,19 @@ import { cn } from '@/src/lib/utils';
 
 interface CustomerTableProps {
   customers: CustomerSummary['customers'];
+  selectedId?: string | null;
+  onSelect?: (id: string) => void;
 }
 
-export function CustomerTable({ customers }: CustomerTableProps) {
+export function CustomerTable({ customers, selectedId, onSelect }: CustomerTableProps) {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between border-b border-border-light">
         <div className="flex items-center gap-4 flex-1">
           <div className="relative w-full max-w-md">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
-            <Input 
-              placeholder="Search customers by name or email..." 
+            <Input
+              placeholder="Search customers by name or email..."
               className="pl-10 h-10"
             />
           </div>
@@ -43,7 +47,14 @@ export function CustomerTable({ customers }: CustomerTableProps) {
             </thead>
             <tbody className="divide-y divide-border-light">
               {customers.map((customer) => (
-                <tr key={customer.id} className="hover:bg-g-faint transition-colors group">
+                <tr
+                  key={customer.id}
+                  onClick={() => onSelect?.(customer.id)}
+                  className={cn(
+                    "transition-colors cursor-pointer group",
+                    selectedId === customer.id ? "bg-g-pale" : "hover:bg-g-faint"
+                  )}
+                >
                   <td className="py-4 pl-6">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-full bg-g-pale text-g-dark font-bold flex items-center justify-center">
@@ -71,7 +82,12 @@ export function CustomerTable({ customers }: CustomerTableProps) {
                   </td>
                   <td className="py-4 text-text-muted text-xs">{customer.lastOrder}</td>
                   <td className="py-4 pr-6 text-right">
-                    <button className="p-2 hover:bg-white rounded-lg transition-all text-text-muted hover:text-g-dark">
+                    <button className={cn(
+                      "p-2 rounded-lg transition-all",
+                      selectedId === customer.id
+                        ? "bg-g-dark text-white"
+                        : "hover:bg-white text-text-muted hover:text-g-dark"
+                    )}>
                       <ChevronRight className="w-4 h-4" />
                     </button>
                   </td>
