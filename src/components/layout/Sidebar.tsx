@@ -1,5 +1,8 @@
+'use client';
+
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { 
   Home, 
   BarChart2, 
@@ -24,7 +27,7 @@ const navItems = [
 ];
 
 export const Sidebar = () => {
-  const location = useLocation();
+  const pathname = usePathname();
 
   return (
     <aside className="w-64 h-screen bg-white border-r border-border-light flex flex-col py-6 shrink-0">
@@ -34,11 +37,11 @@ export const Sidebar = () => {
 
       <nav className="flex-1 space-y-1">
         {navItems.map((item) => {
-          const isActive = location.pathname === item.path;
+          const isActive = pathname === item.path;
           return (
             <Link
               key={item.path}
-              to={item.path}
+              href={item.path}
               className={cn(
                 "flex items-center gap-3 px-6 py-3 text-sm font-medium transition-all border-l-4",
                 isActive 
@@ -54,8 +57,8 @@ export const Sidebar = () => {
       </nav>
 
       <div className="px-4 mt-auto">
-        <Link 
-          to="/demo" 
+        <Link
+          href="/demo"
           className="w-full bg-g-dark text-white py-3 rounded-xl font-semibold text-sm text-center block hover:bg-g-mid transition-all"
         >
           Book Demo
