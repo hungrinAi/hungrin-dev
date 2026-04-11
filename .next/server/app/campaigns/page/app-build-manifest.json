@@ -1,14 +1,13 @@
 {
   "pages": {
     "/campaigns/page": [
-      "static/chunks/node_modules_next_dist_8db7fb1f._.js",
-      "static/chunks/src_app_icon_svg_mjs_32921ff1._.js",
       "static/chunks/src_index_8b6fca74.css",
+      "static/chunks/node_modules_next_dist_8db7fb1f._.js",
       "static/chunks/src_app_layout_tsx_0a548d63._.js",
-      "static/chunks/node_modules_next_dist_client_components_builtin_global-error_62c88245.js",
-      "static/chunks/src_58844d1d._.js",
-      "static/chunks/node_modules_e86ccc91._.js",
-      "static/chunks/src_app_campaigns_page_tsx_62c88245._.js",
+      "static/chunks/node_modules_next_dist_client_components_builtin_global-error_e0a9c458.js",
+      "static/chunks/src_1dfe326c._.js",
+      "static/chunks/node_modules_c5b41c49._.js",
+      "static/chunks/src_app_campaigns_page_tsx_e0a9c458._.js",
       "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_57d40746._.js",
       "static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js",
       "static/chunks/node_modules_next_dist_compiled_next-devtools_index_a9cb0712.js",

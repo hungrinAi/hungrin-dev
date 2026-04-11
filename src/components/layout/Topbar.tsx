@@ -15,7 +15,7 @@ const accountMenuItems = [
   { icon: User,      label: 'My Account',         href: '/settings/account' },
   { icon: CreditCard, label: 'Billing',            href: '/billing' },
   { icon: Tag,        label: 'Pricing',            href: '/pricing' },
-  { icon: HelpCircle, label: 'Support',            href: '#' },
+  { icon: HelpCircle, label: 'Support',            href: '/support' },
   { icon: Utensils,   label: 'Linked Restaurants', href: '/settings' },
 ];
 

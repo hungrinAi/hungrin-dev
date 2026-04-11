@@ -15,8 +15,9 @@ const metadata = {
     title: 'Hungrin',
     description: 'AI-Powered Restaurant Growth',
     icons: {
-        icon: '/icon.svg',
-        shortcut: '/icon.svg'
+        icon: '/images/robot-thumbsup.jpeg',
+        shortcut: '/images/robot-thumbsup.jpeg',
+        apple: '/images/robot-thumbsup.jpeg'
     }
 };
 function RootLayout({ children }) {
@@ -27,12 +28,12 @@ function RootLayout({ children }) {
             children: children
         }, void 0, false, {
             fileName: "[project]/src/app/layout.tsx",
-            lineNumber: 20,
+            lineNumber: 21,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/layout.tsx",
-        lineNumber: 19,
+        lineNumber: 20,
         columnNumber: 5
     }, this);
 }

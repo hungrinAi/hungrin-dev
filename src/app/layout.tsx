@@ -5,8 +5,9 @@ export const metadata: Metadata = {
   title: 'Hungrin',
   description: 'AI-Powered Restaurant Growth',
   icons: {
-    icon: '/icon.svg',
-    shortcut: '/icon.svg',
+    icon: '/images/robot-thumbsup.jpeg',
+    shortcut: '/images/robot-thumbsup.jpeg',
+    apple: '/images/robot-thumbsup.jpeg',
   },
 };
 

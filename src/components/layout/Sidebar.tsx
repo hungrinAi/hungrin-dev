@@ -7,23 +7,23 @@ import {
   Home,
   BarChart2,
   Megaphone,
-  Tag,
-  Package,
+  Target,
+  FolderOpen,
+  Users,
   Settings,
-  Truck,
   X,
   Sparkles,
 } from 'lucide-react';
 import { cn } from '@/src/lib/utils';
-import { Logo } from '../Logo';
+import { Logo } from '../brand';
 
 const navItems = [
-  { icon: Home,      label: 'Dashboard',  path: '/dashboard' },
-  { icon: Megaphone, label: 'Campaigns',  path: '/campaigns' },
-  { icon: Tag,       label: 'Promotions', path: '/promotions' },
-  { icon: Truck,     label: 'Deliveries', path: '/deliveries' },
-  { icon: BarChart2, label: 'Insights',   path: '/insights' },
-  { icon: Package,   label: 'Orders',     path: '/orders' },
+  { icon: Home,       label: 'Dashboard',  path: '/dashboard' },
+  { icon: Target,     label: 'AI Promos',  path: '/promotions' },
+  { icon: FolderOpen, label: 'CSV Upload', path: '/orders' },
+  { icon: Users,      label: 'Customers',  path: '/customers' },
+  { icon: Megaphone,  label: 'Campaigns',  path: '/campaigns' },
+  { icon: BarChart2,  label: 'Insights',   path: '/insights' },
 ];
 
 interface SidebarProps {
@@ -40,9 +40,11 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
       "fixed lg:static inset-y-0 left-0 z-40 transition-transform duration-300 ease-in-out",
       isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
     )}>
-      {/* Logo */}
+      {/* Logo — links back to home */}
       <div className="px-5 mb-6 flex items-center justify-between">
-        <Logo />
+        <Link href="/" onClick={onClose} className="hover:opacity-80 transition-opacity">
+          <Logo />
+        </Link>
         <button
           onClick={onClose}
           className="lg:hidden p-1.5 text-text-muted hover:text-g-dark hover:bg-g-faint rounded-lg transition-all"
