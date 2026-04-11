@@ -84,7 +84,7 @@ export const Topbar = ({ title, subtitle, onMenuClick }: TopbarProps) => {
           </button>
 
           {dropdownOpen && (
-            <div className="absolute right-0 mt-2.5 w-56 bg-white border border-border-light rounded-2xl shadow-2xl z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-150">
+            <div className="absolute right-0 mt-2.5 w-56 max-w-[calc(100vw-1rem)] bg-white border border-border-light rounded-2xl shadow-2xl z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-150">
               {/* Profile header */}
               <div className="px-4 py-3.5 border-b border-border-light bg-gradient-to-br from-g-faint to-white">
                 <div className="flex items-center gap-3">

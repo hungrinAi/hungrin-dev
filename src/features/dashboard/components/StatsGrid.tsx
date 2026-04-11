@@ -1,5 +1,5 @@
 import React from 'react';
-import { TrendingUp, CloudSun, Utensils } from 'lucide-react';
+import { TrendingUp, CloudSun, Utensils, ShoppingBag } from 'lucide-react';
 import { DashboardStats } from '@/src/types';
 import { cn } from '@/src/lib/utils';
 
@@ -7,33 +7,91 @@ interface StatsGridProps {
   stats?: DashboardStats;
 }
 
-export function StatsGrid({ stats }: StatsGridProps) {
-  const items = [
-    { icon: TrendingUp, label: 'New Orders Today', val: stats?.newOrdersToday || 0, change: '+12%', color: 'g-dark' },
-    { icon: TrendingUp, label: 'Weekly Revenue', val: `£${stats?.weeklyRevenue || 0}`, change: '+22%', color: 'g-dark', sub: 'For customers' },
-    { icon: CloudSun, label: 'Weather effect', val: `+${stats?.weatherEffect || 0}%`, change: '↑', color: 'g-dark' },
-    { icon: Utensils, label: 'Total Orders', val: stats?.totalOrders || 0, change: '→ 34%', color: 'text-muted', sub: 'Weather effect' },
-  ];
+const CARDS = [
+  {
+    icon: ShoppingBag,
+    label: 'New Orders Today',
+    key: 'newOrdersToday' as const,
+    prefix: '',
+    change: '+12%',
+    positive: true,
+    gradient: 'from-[#e8f8f0] to-[#d0eedd]',
+    iconBg: 'bg-g-dark',
+  },
+  {
+    icon: TrendingUp,
+    label: 'Weekly Revenue',
+    key: 'weeklyRevenue' as const,
+    prefix: '£',
+    change: '+22%',
+    positive: true,
+    gradient: 'from-[#eef3ff] to-[#dde8ff]',
+    iconBg: 'bg-[#4f6ef7]',
+  },
+  {
+    icon: CloudSun,
+    label: 'Weather Effect',
+    key: 'weatherEffect' as const,
+    prefix: '+',
+    suffix: '%',
+    change: 'Impact ↑',
+    positive: true,
+    gradient: 'from-[#fff8e8] to-[#ffefc8]',
+    iconBg: 'bg-[#e5a020]',
+  },
+  {
+    icon: Utensils,
+    label: 'Total Orders',
+    key: 'totalOrders' as const,
+    prefix: '',
+    change: '→ 34%',
+    positive: false,
+    gradient: 'from-[#fdf0f8] to-[#f7ddf0]',
+    iconBg: 'bg-[#c050a0]',
+  },
+];
 
+export function StatsGrid({ stats }: StatsGridProps) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-      {items.map((s, i) => (
-        <div key={i} className="bg-white p-5 rounded-2xl border border-border-light shadow-sm hover:shadow-md transition-all flex items-center gap-4">
-          <div className="w-12 h-12 bg-g-faint rounded-xl flex items-center justify-center text-g-dark">
-            <s.icon className="w-6 h-6" />
-          </div>
-          <div className="min-w-0">
-            <p className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-0.5">{s.label}</p>
-            <div className="flex items-baseline gap-2">
-              <span className="text-lg font-bold text-text-dark">{s.val}</span>
-              <span className={cn("text-[10px] font-bold px-1.5 py-0.5 rounded", s.color === 'g-dark' ? "bg-g-pale text-g-dark" : "bg-gray-100 text-gray-500")}>
-                {s.change}
-              </span>
+    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+      {CARDS.map((card) => {
+        const raw = stats?.[card.key] ?? 0;
+        const value = `${card.prefix ?? ''}${raw}${card.suffix ?? ''}`;
+
+        return (
+          <div
+            key={card.label}
+            className={cn(
+              'relative rounded-2xl p-5 bg-gradient-to-br overflow-hidden border border-white/80',
+              'shadow-[0_2px_16px_rgba(0,0,0,0.06)] hover:shadow-[0_6px_24px_rgba(0,0,0,0.1)] transition-all duration-200 hover:-translate-y-0.5',
+              card.gradient
+            )}
+          >
+            {/* Decorative circle */}
+            <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-white/30" />
+
+            <div className="relative z-10 flex items-start justify-between">
+              <div>
+                <p className="text-[10px] font-bold text-text-mid uppercase tracking-widest mb-2">
+                  {card.label}
+                </p>
+                <p className="text-2xl font-black text-text-dark tracking-tight">{value}</p>
+                <span
+                  className={cn(
+                    'mt-2 inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full',
+                    card.positive ? 'bg-white/70 text-g-dark' : 'bg-white/70 text-text-mid'
+                  )}
+                >
+                  {card.change}
+                </span>
+              </div>
+              <div className={cn('w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-sm', card.iconBg)}>
+                <card.icon className="w-5 h-5 text-white" />
+              </div>
             </div>
-            {s.sub && <p className="text-[10px] text-text-muted mt-0.5">{s.sub}</p>}
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

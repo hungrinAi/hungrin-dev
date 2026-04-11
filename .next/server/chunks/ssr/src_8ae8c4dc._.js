@@ -789,7 +789,7 @@ const Topbar = ({ title, subtitle, onMenuClick })=>{
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0)),
                             dropdownOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "absolute right-0 mt-2.5 w-56 bg-white border border-border-light rounded-2xl shadow-2xl z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-150",
+                                className: "absolute right-0 mt-2.5 w-56 max-w-[calc(100vw-1rem)] bg-white border border-border-light rounded-2xl shadow-2xl z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-150",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "px-4 py-3.5 border-b border-border-light bg-gradient-to-br from-g-faint to-white",
@@ -1242,31 +1242,38 @@ function Campaigns() {
         subtitle: "Win back customers, increase orders, and drive revenue with targeted campaigns.",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "flex flex-wrap items-center justify-between gap-4",
+                className: "flex flex-col sm:flex-row sm:items-center justify-between gap-3",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex bg-g-faint p-1 rounded-xl border border-border-light",
-                        children: [
-                            'All',
-                            'Active',
-                            'Paused',
-                            'Ended'
-                        ].map((f)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                onClick: ()=>setFilter(f),
-                                className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["cn"])("px-6 py-2 rounded-lg text-sm font-semibold transition-all", filter === f ? "bg-g-dark text-white shadow-md" : "text-text-mid hover:bg-g-pale hover:text-g-dark"),
-                                children: f
-                            }, f, false, {
-                                fileName: "[project]/src/views/Campaigns.tsx",
-                                lineNumber: 39,
-                                columnNumber: 13
-                            }, this))
+                        className: "overflow-x-auto no-scrollbar",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex bg-g-faint p-1 rounded-xl border border-border-light w-max min-w-full sm:min-w-0",
+                            children: [
+                                'All',
+                                'Active',
+                                'Paused',
+                                'Ended'
+                            ].map((f)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>setFilter(f),
+                                    className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["cn"])("px-4 sm:px-6 py-2 rounded-lg text-sm font-semibold transition-all whitespace-nowrap", filter === f ? "bg-g-dark text-white shadow-md" : "text-text-mid hover:bg-g-pale hover:text-g-dark"),
+                                    children: f
+                                }, f, false, {
+                                    fileName: "[project]/src/views/Campaigns.tsx",
+                                    lineNumber: 41,
+                                    columnNumber: 15
+                                }, this))
+                        }, void 0, false, {
+                            fileName: "[project]/src/views/Campaigns.tsx",
+                            lineNumber: 39,
+                            columnNumber: 11
+                        }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/views/Campaigns.tsx",
-                        lineNumber: 37,
+                        lineNumber: 38,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex items-center gap-3",
+                        className: "flex items-center gap-2 shrink-0",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$Button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
                                 variant: "secondary",
@@ -1276,14 +1283,14 @@ function Campaigns() {
                                         className: "w-4 h-4"
                                     }, void 0, false, {
                                         fileName: "[project]/src/views/Campaigns.tsx",
-                                        lineNumber: 53,
+                                        lineNumber: 56,
                                         columnNumber: 13
                                     }, this),
                                     " Filter"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/views/Campaigns.tsx",
-                                lineNumber: 52,
+                                lineNumber: 55,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$Button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -1293,20 +1300,20 @@ function Campaigns() {
                                         className: "w-4 h-4"
                                     }, void 0, false, {
                                         fileName: "[project]/src/views/Campaigns.tsx",
-                                        lineNumber: 56,
+                                        lineNumber: 59,
                                         columnNumber: 13
                                     }, this),
                                     " New Campaign"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/views/Campaigns.tsx",
-                                lineNumber: 55,
+                                lineNumber: 58,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/views/Campaigns.tsx",
-                        lineNumber: 51,
+                        lineNumber: 54,
                         columnNumber: 9
                     }, this)
                 ]
@@ -1328,7 +1335,7 @@ function Campaigns() {
                                         className: "w-4 h-4 text-text-muted"
                                     }, void 0, false, {
                                         fileName: "[project]/src/views/Campaigns.tsx",
-                                        lineNumber: 65,
+                                        lineNumber: 68,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1337,13 +1344,13 @@ function Campaigns() {
                                         className: "bg-transparent border-none outline-none text-sm w-full"
                                     }, void 0, false, {
                                         fileName: "[project]/src/views/Campaigns.tsx",
-                                        lineNumber: 66,
+                                        lineNumber: 69,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/views/Campaigns.tsx",
-                                lineNumber: 64,
+                                lineNumber: 67,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -1353,40 +1360,40 @@ function Campaigns() {
                                         children: "All Types"
                                     }, void 0, false, {
                                         fileName: "[project]/src/views/Campaigns.tsx",
-                                        lineNumber: 69,
+                                        lineNumber: 72,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                         children: "Food Promo"
                                     }, void 0, false, {
                                         fileName: "[project]/src/views/Campaigns.tsx",
-                                        lineNumber: 70,
+                                        lineNumber: 73,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                         children: "Seasonal"
                                     }, void 0, false, {
                                         fileName: "[project]/src/views/Campaigns.tsx",
-                                        lineNumber: 71,
+                                        lineNumber: 74,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                         children: "Loyalty"
                                     }, void 0, false, {
                                         fileName: "[project]/src/views/Campaigns.tsx",
-                                        lineNumber: 72,
+                                        lineNumber: 75,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/views/Campaigns.tsx",
-                                lineNumber: 68,
+                                lineNumber: 71,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/views/Campaigns.tsx",
-                        lineNumber: 63,
+                        lineNumber: 66,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1399,61 +1406,61 @@ function Campaigns() {
                                         className: "bg-g-faint border-b border-border-light",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                className: "px-6 py-4 text-[10px] font-bold text-text-muted uppercase tracking-wider",
+                                                className: "px-3 md:px-6 py-3 md:py-4 text-[10px] font-bold text-text-muted uppercase tracking-wider",
                                                 children: "Name"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/views/Campaigns.tsx",
-                                                lineNumber: 80,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                className: "px-6 py-4 text-[10px] font-bold text-text-muted uppercase tracking-wider",
-                                                children: "Status"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/views/Campaigns.tsx",
-                                                lineNumber: 81,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                className: "px-6 py-4 text-[10px] font-bold text-text-muted uppercase tracking-wider",
-                                                children: "Orders"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/views/Campaigns.tsx",
-                                                lineNumber: 82,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                className: "px-6 py-4 text-[10px] font-bold text-text-muted uppercase tracking-wider",
-                                                children: "Revenue"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/views/Campaigns.tsx",
                                                 lineNumber: 83,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                className: "px-6 py-4 text-[10px] font-bold text-text-muted uppercase tracking-wider",
-                                                children: "Date"
+                                                className: "px-3 md:px-6 py-3 md:py-4 text-[10px] font-bold text-text-muted uppercase tracking-wider",
+                                                children: "Status"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/views/Campaigns.tsx",
                                                 lineNumber: 84,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                className: "px-6 py-4"
+                                                className: "px-3 md:px-6 py-3 md:py-4 text-[10px] font-bold text-text-muted uppercase tracking-wider hidden sm:table-cell",
+                                                children: "Orders"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/views/Campaigns.tsx",
                                                 lineNumber: 85,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                className: "px-3 md:px-6 py-3 md:py-4 text-[10px] font-bold text-text-muted uppercase tracking-wider hidden sm:table-cell",
+                                                children: "Revenue"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/views/Campaigns.tsx",
+                                                lineNumber: 86,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                className: "px-3 md:px-6 py-3 md:py-4 text-[10px] font-bold text-text-muted uppercase tracking-wider hidden md:table-cell",
+                                                children: "Date"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/views/Campaigns.tsx",
+                                                lineNumber: 87,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                className: "px-3 md:px-6 py-3 md:py-4"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/views/Campaigns.tsx",
+                                                lineNumber: 88,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/views/Campaigns.tsx",
-                                        lineNumber: 79,
+                                        lineNumber: 82,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/views/Campaigns.tsx",
-                                    lineNumber: 78,
+                                    lineNumber: 81,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -1462,161 +1469,162 @@ function Campaigns() {
                                             className: "hover:bg-g-faint transition-colors cursor-pointer group",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                    className: "px-6 py-4",
+                                                    className: "px-3 md:px-6 py-3 md:py-4",
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "flex items-center gap-4",
+                                                        className: "flex items-center gap-2 md:gap-4",
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                className: "w-12 h-10 bg-g-pale rounded-lg flex items-center justify-center text-2xl shrink-0",
+                                                                className: "w-9 h-9 md:w-12 md:h-10 bg-g-pale rounded-lg flex items-center justify-center text-xl md:text-2xl shrink-0",
                                                                 children: c.emoji
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/views/Campaigns.tsx",
-                                                                lineNumber: 93,
+                                                                lineNumber: 96,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "min-w-0",
                                                                 children: [
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                        className: "text-sm font-bold text-text-dark mb-0.5",
+                                                                        className: "text-sm font-bold text-text-dark mb-0.5 truncate",
                                                                         children: c.name
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/views/Campaigns.tsx",
-                                                                        lineNumber: 95,
+                                                                        lineNumber: 98,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                        className: "text-[10px] text-text-muted flex items-center gap-1",
+                                                                        className: "text-[10px] text-text-muted flex items-center gap-1 hidden sm:flex",
                                                                         children: [
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$zap$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Zap$3e$__["Zap"], {
-                                                                                className: "w-3 h-3"
+                                                                                className: "w-3 h-3 shrink-0"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/views/Campaigns.tsx",
-                                                                                lineNumber: 96,
-                                                                                columnNumber: 92
+                                                                                lineNumber: 99,
+                                                                                columnNumber: 107
                                                                             }, this),
                                                                             " ",
                                                                             c.meta
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/views/Campaigns.tsx",
-                                                                        lineNumber: 96,
+                                                                        lineNumber: 99,
                                                                         columnNumber: 25
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/views/Campaigns.tsx",
-                                                                lineNumber: 94,
+                                                                lineNumber: 97,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/views/Campaigns.tsx",
-                                                        lineNumber: 92,
+                                                        lineNumber: 95,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/views/Campaigns.tsx",
-                                                    lineNumber: 91,
+                                                    lineNumber: 94,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                    className: "px-6 py-4",
+                                                    className: "px-3 md:px-6 py-3 md:py-4",
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["cn"])("inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold", c.status === 'Active' ? "bg-g-pale text-g-dark" : c.status === 'Paused' ? "bg-yellow-50 text-yellow-700" : "bg-gray-100 text-gray-500"),
+                                                        className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["cn"])("inline-flex items-center gap-1.5 px-2 md:px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap", c.status === 'Active' ? "bg-g-pale text-g-dark" : c.status === 'Paused' ? "bg-yellow-50 text-yellow-700" : "bg-gray-100 text-gray-500"),
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                className: "w-1.5 h-1.5 rounded-full bg-current"
+                                                                className: "w-1.5 h-1.5 rounded-full bg-current shrink-0"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/views/Campaigns.tsx",
-                                                                lineNumber: 106,
+                                                                lineNumber: 109,
                                                                 columnNumber: 23
                                                             }, this),
                                                             c.status
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/views/Campaigns.tsx",
-                                                        lineNumber: 101,
+                                                        lineNumber: 104,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/views/Campaigns.tsx",
-                                                    lineNumber: 100,
+                                                    lineNumber: 103,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                    className: "px-6 py-4 text-sm font-bold text-text-dark",
+                                                    className: "px-3 md:px-6 py-3 md:py-4 text-sm font-bold text-text-dark hidden sm:table-cell",
                                                     children: c.orders
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/views/Campaigns.tsx",
-                                                    lineNumber: 110,
+                                                    lineNumber: 113,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                    className: "px-6 py-4 text-sm font-bold text-text-dark",
+                                                    className: "px-3 md:px-6 py-3 md:py-4 text-sm font-bold text-text-dark hidden sm:table-cell",
                                                     children: c.revenue
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/views/Campaigns.tsx",
-                                                    lineNumber: 111,
+                                                    lineNumber: 114,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                    className: "px-6 py-4 text-xs text-text-muted leading-tight",
+                                                    className: "px-3 md:px-6 py-3 md:py-4 text-xs text-text-muted leading-tight hidden md:table-cell",
                                                     children: [
                                                         c.startDate,
                                                         " –",
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                                             fileName: "[project]/src/views/Campaigns.tsx",
-                                                            lineNumber: 112,
-                                                            columnNumber: 98
+                                                            lineNumber: 115,
+                                                            columnNumber: 135
                                                         }, this),
                                                         c.endDate
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/views/Campaigns.tsx",
-                                                    lineNumber: 112,
+                                                    lineNumber: 115,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                    className: "px-6 py-4 text-right",
+                                                    className: "px-3 md:px-6 py-3 md:py-4 text-right",
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                        className: "p-2 text-text-muted hover:text-g-dark hover:bg-g-pale rounded-lg transition-all",
+                                                        className: "p-1.5 md:p-2 text-text-muted hover:text-g-dark hover:bg-g-pale rounded-lg transition-all",
                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$ellipsis$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MoreHorizontal$3e$__["MoreHorizontal"], {
-                                                            className: "w-5 h-5"
+                                                            className: "w-4 h-4 md:w-5 md:h-5"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/views/Campaigns.tsx",
-                                                            lineNumber: 114,
-                                                            columnNumber: 121
+                                                            lineNumber: 117,
+                                                            columnNumber: 130
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/views/Campaigns.tsx",
-                                                        lineNumber: 114,
+                                                        lineNumber: 117,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/views/Campaigns.tsx",
-                                                    lineNumber: 113,
+                                                    lineNumber: 116,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, c.id, true, {
                                             fileName: "[project]/src/views/Campaigns.tsx",
-                                            lineNumber: 90,
+                                            lineNumber: 93,
                                             columnNumber: 17
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/src/views/Campaigns.tsx",
-                                    lineNumber: 88,
+                                    lineNumber: 91,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/views/Campaigns.tsx",
-                            lineNumber: 77,
+                            lineNumber: 80,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/views/Campaigns.tsx",
-                        lineNumber: 76,
+                        lineNumber: 79,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1631,14 +1639,14 @@ function Campaigns() {
                                         children: "1"
                                     }, void 0, false, {
                                         fileName: "[project]/src/views/Campaigns.tsx",
-                                        lineNumber: 123,
+                                        lineNumber: 126,
                                         columnNumber: 57
                                     }, this),
                                     " of 2"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/views/Campaigns.tsx",
-                                lineNumber: 123,
+                                lineNumber: 126,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1651,12 +1659,12 @@ function Campaigns() {
                                             className: "w-4 h-4"
                                         }, void 0, false, {
                                             fileName: "[project]/src/views/Campaigns.tsx",
-                                            lineNumber: 125,
+                                            lineNumber: 128,
                                             columnNumber: 129
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/views/Campaigns.tsx",
-                                        lineNumber: 125,
+                                        lineNumber: 128,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1664,7 +1672,7 @@ function Campaigns() {
                                         children: "1"
                                     }, void 0, false, {
                                         fileName: "[project]/src/views/Campaigns.tsx",
-                                        lineNumber: 126,
+                                        lineNumber: 129,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1672,7 +1680,7 @@ function Campaigns() {
                                         children: "2"
                                     }, void 0, false, {
                                         fileName: "[project]/src/views/Campaigns.tsx",
-                                        lineNumber: 127,
+                                        lineNumber: 130,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1681,30 +1689,30 @@ function Campaigns() {
                                             className: "w-4 h-4"
                                         }, void 0, false, {
                                             fileName: "[project]/src/views/Campaigns.tsx",
-                                            lineNumber: 128,
+                                            lineNumber: 131,
                                             columnNumber: 114
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/views/Campaigns.tsx",
-                                        lineNumber: 128,
+                                        lineNumber: 131,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/views/Campaigns.tsx",
-                                lineNumber: 124,
+                                lineNumber: 127,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/views/Campaigns.tsx",
-                        lineNumber: 122,
+                        lineNumber: 125,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/views/Campaigns.tsx",
-                lineNumber: 62,
+                lineNumber: 65,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1718,7 +1726,7 @@ function Campaigns() {
                                 children: "Create Targeted Campaigns"
                             }, void 0, false, {
                                 fileName: "[project]/src/views/Campaigns.tsx",
-                                lineNumber: 136,
+                                lineNumber: 139,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1729,13 +1737,13 @@ function Campaigns() {
                                         children: "best offers like a pro"
                                     }, void 0, false, {
                                         fileName: "[project]/src/views/Campaigns.tsx",
-                                        lineNumber: 137,
+                                        lineNumber: 140,
                                         columnNumber: 74
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/views/Campaigns.tsx",
-                                lineNumber: 137,
+                                lineNumber: 140,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1752,7 +1760,7 @@ function Campaigns() {
                                                 className: "w-4 h-4 text-g-dark shrink-0"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/views/Campaigns.tsx",
-                                                lineNumber: 141,
+                                                lineNumber: 144,
                                                 columnNumber: 17
                                             }, this),
                                             " ",
@@ -1760,18 +1768,18 @@ function Campaigns() {
                                         ]
                                     }, c, true, {
                                         fileName: "[project]/src/views/Campaigns.tsx",
-                                        lineNumber: 140,
+                                        lineNumber: 143,
                                         columnNumber: 15
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/src/views/Campaigns.tsx",
-                                lineNumber: 138,
+                                lineNumber: 141,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/views/Campaigns.tsx",
-                        lineNumber: 135,
+                        lineNumber: 138,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1784,18 +1792,18 @@ function Campaigns() {
                             className: "w-full h-full object-cover rounded-2xl"
                         }, void 0, false, {
                             fileName: "[project]/src/views/Campaigns.tsx",
-                            lineNumber: 147,
+                            lineNumber: 150,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/views/Campaigns.tsx",
-                        lineNumber: 146,
+                        lineNumber: 149,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/views/Campaigns.tsx",
-                lineNumber: 134,
+                lineNumber: 137,
                 columnNumber: 7
             }, this)
         ]

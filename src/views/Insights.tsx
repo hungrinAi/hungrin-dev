@@ -1,19 +1,14 @@
 'use client';
 
 import React from 'react';
-import { InlineLoading } from '@/src/components/ui/Loading';
+import { PageLoading } from '@/src/components/ui/Loading';
 import { AppLayout } from '@/src/components/layout/AppLayout';
-import { useApi } from '@/src/hooks/useApi';
-import { insightsService } from '@/src/services';
-import { SalesTrends } from '@/src/features/insights/components/SalesTrends';
-import { CustomerSegments } from '@/src/features/insights/components/CustomerSegments';
-import { AiRecommendations } from '@/src/features/insights/components/AiRecommendations';
-import { TopProducts } from '@/src/features/insights/components/TopProducts';
+import { useInsights, SalesTrends, CustomerSegments, AiRecommendations, TopProducts } from '@/src/features/insights';
 
 export default function Insights() {
-  const { data: insights, loading, error } = useApi(insightsService.getInsights);
+  const { data: insights, loading, error } = useInsights();
 
-  if (loading) return <InlineLoading message="Loading insights" />;
+  if (loading) return <PageLoading message="Loading insights" />;
   if (error) return <div className="p-8 text-red-500">Error: {error}</div>;
   if (!insights) return null;
 

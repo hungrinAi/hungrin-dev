@@ -1,11 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { InlineLoading } from '@/src/components/ui/Loading';
+import { PageLoading } from '@/src/components/ui/Loading';
 import { AppLayout } from '@/src/components/layout/AppLayout';
 import { Button } from '@/src/components/ui/Button';
-import { useApi } from '@/src/hooks/useApi';
-import { orderService } from '@/src/services';
+import { useOrders } from '@/src/features/orders';
 import { OrderStatsPills } from '@/src/features/orders/components/OrderStatsPills';
 import { CsvUploadCard } from '@/src/features/orders/components/CsvUploadCard';
 import { OrderTable } from '@/src/features/orders/components/OrderTable';
@@ -14,12 +13,12 @@ import { ArrowLeft } from 'lucide-react';
 
 export default function Orders() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const { data: summary, loading, error } = useApi(orderService.getAll);
+  const { data: summary, loading, error } = useOrders();
 
   const orders = summary?.orders;
   const selectedOrder = orders?.find(o => o.id === selectedId) || orders?.[0];
 
-  if (loading) return <InlineLoading message="Loading orders" />;
+  if (loading) return <PageLoading message="Loading orders" />;
   if (error) return <div className="p-8 text-red-500">Error: {error}</div>;
   if (!summary) return null;
 

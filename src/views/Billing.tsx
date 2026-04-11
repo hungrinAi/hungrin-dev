@@ -36,13 +36,13 @@ export default function Billing() {
 
           {/* Current Plan */}
           <Card className="p-6">
-            <div className="flex items-start justify-between mb-1">
+            <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-1">
               <div>
                 <p className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-1">Current Plan</p>
                 <h2 className="text-xl font-black text-text-dark">Growth Plan</h2>
                 <p className="text-2xl font-black text-g-dark mt-1">£99<span className="text-sm font-bold text-text-muted">/month</span></p>
               </div>
-              <div className="flex gap-2">
+              <div className="flex gap-2 shrink-0">
                 <Button size="sm">Update Plan</Button>
                 <Button variant="outline" size="sm">Cancel Plan</Button>
               </div>
@@ -74,21 +74,21 @@ export default function Billing() {
               <table className="w-full text-left text-sm">
                 <thead>
                   <tr className="bg-g-faint border-b border-border-light">
-                    <th className="px-6 py-3 text-[10px] font-bold text-text-muted uppercase tracking-wider">Date</th>
-                    <th className="px-6 py-3 text-[10px] font-bold text-text-muted uppercase tracking-wider">Description</th>
-                    <th className="px-6 py-3 text-[10px] font-bold text-text-muted uppercase tracking-wider">Status</th>
-                    <th className="px-6 py-3 text-[10px] font-bold text-text-muted uppercase tracking-wider text-right">Amount</th>
+                    <th className="px-3 md:px-6 py-3 text-[10px] font-bold text-text-muted uppercase tracking-wider">Date</th>
+                    <th className="px-3 md:px-6 py-3 text-[10px] font-bold text-text-muted uppercase tracking-wider">Description</th>
+                    <th className="px-3 md:px-6 py-3 text-[10px] font-bold text-text-muted uppercase tracking-wider hidden sm:table-cell">Status</th>
+                    <th className="px-3 md:px-6 py-3 text-[10px] font-bold text-text-muted uppercase tracking-wider text-right">Amount</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border-light">
                   {billingHistory.map((row, i) => (
                     <tr key={i} className="hover:bg-g-faint/50 transition-colors">
-                      <td className="px-6 py-3 text-xs text-text-muted">{row.date}</td>
-                      <td className="px-6 py-3 text-xs font-medium text-text-dark">{row.description}</td>
-                      <td className="px-6 py-3">
+                      <td className="px-3 md:px-6 py-3 text-xs text-text-muted whitespace-nowrap">{row.date}</td>
+                      <td className="px-3 md:px-6 py-3 text-xs font-medium text-text-dark">{row.description}</td>
+                      <td className="px-3 md:px-6 py-3 hidden sm:table-cell">
                         <span className="text-[10px] font-bold bg-g-pale text-g-dark px-2 py-0.5 rounded-full">{row.status}</span>
                       </td>
-                      <td className="px-6 py-3 text-xs font-bold text-text-dark text-right">{row.amount}</td>
+                      <td className="px-3 md:px-6 py-3 text-xs font-bold text-text-dark text-right whitespace-nowrap">{row.amount}</td>
                     </tr>
                   ))}
                 </tbody>

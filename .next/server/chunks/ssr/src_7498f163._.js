@@ -484,7 +484,7 @@ const Topbar = ({ title, subtitle, onMenuClick })=>{
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0)),
                             dropdownOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "absolute right-0 mt-2.5 w-56 bg-white border border-border-light rounded-2xl shadow-2xl z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-150",
+                                className: "absolute right-0 mt-2.5 w-56 max-w-[calc(100vw-1rem)] bg-white border border-border-light rounded-2xl shadow-2xl z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-150",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "px-4 py-3.5 border-b border-border-light bg-gradient-to-br from-g-faint to-white",
@@ -859,7 +859,7 @@ function Billing() {
                                 className: "p-6",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "flex items-start justify-between mb-1",
+                                        className: "flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-1",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 children: [
@@ -904,7 +904,7 @@ function Billing() {
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "flex gap-2",
+                                                className: "flex gap-2 shrink-0",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$Button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
                                                         size: "sm",
@@ -1018,7 +1018,7 @@ function Billing() {
                                                         className: "bg-g-faint border-b border-border-light",
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                className: "px-6 py-3 text-[10px] font-bold text-text-muted uppercase tracking-wider",
+                                                                className: "px-3 md:px-6 py-3 text-[10px] font-bold text-text-muted uppercase tracking-wider",
                                                                 children: "Date"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/views/Billing.tsx",
@@ -1026,7 +1026,7 @@ function Billing() {
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                className: "px-6 py-3 text-[10px] font-bold text-text-muted uppercase tracking-wider",
+                                                                className: "px-3 md:px-6 py-3 text-[10px] font-bold text-text-muted uppercase tracking-wider",
                                                                 children: "Description"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/views/Billing.tsx",
@@ -1034,7 +1034,7 @@ function Billing() {
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                className: "px-6 py-3 text-[10px] font-bold text-text-muted uppercase tracking-wider",
+                                                                className: "px-3 md:px-6 py-3 text-[10px] font-bold text-text-muted uppercase tracking-wider hidden sm:table-cell",
                                                                 children: "Status"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/views/Billing.tsx",
@@ -1042,7 +1042,7 @@ function Billing() {
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                className: "px-6 py-3 text-[10px] font-bold text-text-muted uppercase tracking-wider text-right",
+                                                                className: "px-3 md:px-6 py-3 text-[10px] font-bold text-text-muted uppercase tracking-wider text-right",
                                                                 children: "Amount"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/views/Billing.tsx",
@@ -1066,7 +1066,7 @@ function Billing() {
                                                             className: "hover:bg-g-faint/50 transition-colors",
                                                             children: [
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                    className: "px-6 py-3 text-xs text-text-muted",
+                                                                    className: "px-3 md:px-6 py-3 text-xs text-text-muted whitespace-nowrap",
                                                                     children: row.date
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/views/Billing.tsx",
@@ -1074,7 +1074,7 @@ function Billing() {
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                    className: "px-6 py-3 text-xs font-medium text-text-dark",
+                                                                    className: "px-3 md:px-6 py-3 text-xs font-medium text-text-dark",
                                                                     children: row.description
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/views/Billing.tsx",
@@ -1082,7 +1082,7 @@ function Billing() {
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                    className: "px-6 py-3",
+                                                                    className: "px-3 md:px-6 py-3 hidden sm:table-cell",
                                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                         className: "text-[10px] font-bold bg-g-pale text-g-dark px-2 py-0.5 rounded-full",
                                                                         children: row.status
@@ -1097,7 +1097,7 @@ function Billing() {
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                    className: "px-6 py-3 text-xs font-bold text-text-dark text-right",
+                                                                    className: "px-3 md:px-6 py-3 text-xs font-bold text-text-dark text-right whitespace-nowrap",
                                                                     children: row.amount
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/views/Billing.tsx",
