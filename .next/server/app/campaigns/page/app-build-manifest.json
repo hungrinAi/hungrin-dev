@@ -2,12 +2,13 @@
   "pages": {
     "/campaigns/page": [
       "static/chunks/src_index_8b6fca74.css",
-      "static/chunks/node_modules_next_dist_8db7fb1f._.js",
+      "static/chunks/node_modules_next_dist_b47712da._.js",
+      "static/chunks/src_e842e570._.js",
       "static/chunks/src_app_layout_tsx_0a548d63._.js",
-      "static/chunks/node_modules_next_dist_client_components_builtin_global-error_e0a9c458.js",
-      "static/chunks/src_f13ae566._.js",
-      "static/chunks/node_modules_9a3c7569._.js",
-      "static/chunks/src_app_campaigns_page_tsx_e0a9c458._.js",
+      "static/chunks/node_modules_next_dist_client_components_builtin_global-error_816c1bc1.js",
+      "static/chunks/src_542addaf._.js",
+      "static/chunks/node_modules_4605c3e2._.js",
+      "static/chunks/src_app_campaigns_page_tsx_816c1bc1._.js",
       "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_57d40746._.js",
       "static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js",
       "static/chunks/node_modules_next_dist_compiled_next-devtools_index_a9cb0712.js",

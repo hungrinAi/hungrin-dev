@@ -46,8 +46,8 @@ export default function DemoPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#eaf6f0] py-20 px-6">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+    <div className="min-h-screen bg-[#eaf6f0] py-12 md:py-20 px-4 sm:px-6">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-center">
         <div className="space-y-10">
           <div className="flex flex-col gap-4">
             <BackButton href="/" label="Back to home" />
@@ -85,9 +85,9 @@ export default function DemoPage() {
           </div>
         </div>
 
-        <Card className="p-10 shadow-2xl border-2 border-white">
+        <Card className="p-6 md:p-10 shadow-2xl border-2 border-white">
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <label className="text-xs font-bold text-text-dark uppercase tracking-wider">First Name</label>
                 <input required type="text" placeholder="John" className="w-full bg-g-faint border border-border-light rounded-xl px-4 py-3.5 text-sm outline-none focus:border-g-dark transition-all" />

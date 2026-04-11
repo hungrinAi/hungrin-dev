@@ -1,11 +1,18 @@
 {
   "permissions": {
-    "additionalDirectories": [
-      "/tmp"
-    ],
     "allow": [
       "Bash(git add:*)",
-      "Bash(git commit -m ':*)"
+      "Bash(git commit -m ':*)",
+      "Bash(sed -n '8,25p' /media/lenovo/3caec51a-3cc4-4417-a9e5-e89614b99c7c/hungrin-dev/src/features/onboarding/components/Step1Restaurant.tsx)",
+      "Bash(sed -n '9,16p' /media/lenovo/3caec51a-3cc4-4417-a9e5-e89614b99c7c/hungrin-dev/src/features/onboarding/components/Step2Platforms.tsx)",
+      "Bash(sed -n '8,13p' /media/lenovo/3caec51a-3cc4-4417-a9e5-e89614b99c7c/hungrin-dev/src/features/onboarding/components/StepBreadcrumb.tsx)",
+      "Bash(ls /tmp/*.png /tmp/*.jpg /tmp/*.jpeg /tmp/*.webp)",
+      "Read(//media/lenovo/**)",
+      "Read(//var/tmp/**)",
+      "Bash(python3 -c \"from PIL import Image; print\\('PIL available'\\)\")"
+    ],
+    "additionalDirectories": [
+      "/tmp"
     ]
   }
 }
