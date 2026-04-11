@@ -49,3 +49,49 @@
 .animate-bob {
   animation: bob 3s ease-in-out infinite;
 }
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Scrollbar ─────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-border-light); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-g-light); }
+
+/* Hide scrollbar but keep scroll (for horizontal tab strips etc.) */
+.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* ── Glass card with green tint ────────────────────────────────────────────── */
+.glass-green {
+  background: rgba(242, 250, 246, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(216, 236, 227, 0.8);
+  box-shadow: 0 4px 24px rgba(45, 122, 95, 0.08), 0 1px 4px rgba(0,0,0,0.04);
+}
+
+/* ── Fancy gradient text ───────────────────────────────────────────────────── */
+.text-gradient-green {
+  background: linear-gradient(135deg, #2d7a5f 0%, #5bb38a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Page section fade-in ──────────────────────────────────────────────────── */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  animation: fadeSlideUp 0.4s ease-out both;
+}
+
+/* ── Responsive table: hide low-priority cols on small screens ─────────────── */
+@media (max-width: 640px) {
+  .table-col-optional { display: none; }
+}

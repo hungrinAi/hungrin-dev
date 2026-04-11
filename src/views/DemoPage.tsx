@@ -11,8 +11,9 @@ import {
   Sparkles,
   Play
 } from 'lucide-react';
-import { Logo } from '@/src/components/Logo';
+import { Logo } from '@/src/components/brand';
 import { Button } from '@/src/components/ui/Button';
+import { BackButton } from '@/src/components/ui/BackButton';
 import { Card } from '@/src/components/ui/Card';
 
 export default function DemoPage() {
@@ -48,7 +49,10 @@ export default function DemoPage() {
     <div className="min-h-screen bg-[#eaf6f0] py-20 px-6">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
         <div className="space-y-10">
-          <Logo />
+          <div className="flex flex-col gap-4">
+            <BackButton href="/" label="Back to home" />
+            <Logo />
+          </div>
           <div className="space-y-4">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-border-light rounded-full text-xs font-bold text-g-dark shadow-sm">
               <Sparkles className="w-4 h-4" /> Personalized Product Tour

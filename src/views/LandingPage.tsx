@@ -3,18 +3,13 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { 
-  ArrowRight, 
-  CheckCircle2, 
-  TrendingUp, 
-  Sparkles, 
-  Zap,
-  Globe,
-  Shield,
-  Clock,
-  Play
+import {
+  ArrowRight,
+  CheckCircle2,
+  Sparkles,
+  Play,
 } from 'lucide-react';
-import { Logo } from '@/src/components/Logo';
+import { Logo, HungrinIcon } from '@/src/components/brand';
 import { Button } from '@/src/components/ui/Button';
 import { Card } from '@/src/components/ui/Card';
 
@@ -35,7 +30,7 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-[#eaf6f0] selection:bg-g-pale selection:text-g-dark">
       {/* Navbar */}
-      <div className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-border-light shadow-sm">
+      <div className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-border-light shadow-sm">
         <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <Logo />
           <div className="hidden md:flex items-center gap-1">
@@ -43,7 +38,7 @@ export default function LandingPage() {
               { label: 'Features', href: '#features' },
               { label: 'Integrations', href: '#integrations' },
               { label: 'Onboarding', href: '/onboarding' },
-              { label: 'Pricing', href: '#pricing' },
+              { label: 'Pricing', href: '/pricing' },
             ].map(l => (
               <Link
                 key={l.label}
@@ -58,11 +53,12 @@ export default function LandingPage() {
           <div className="flex items-center gap-3">
             <Button
               type="button"
+              variant="outline"
               size="sm"
-              className="gap-1.5 bg-gradient-to-r from-[#23664f] to-[#2d7a5f] text-white hover:from-[#1f5745] hover:to-[#255746]"
+              className="hidden sm:inline-flex gap-1.5"
               onClick={handleDashboardClick}
             >
-              Dashboard <ArrowRight className="w-3.5 h-3.5" />
+              My Dashboard <ArrowRight className="w-3.5 h-3.5" />
             </Button>
           </div>
         </nav>
@@ -74,12 +70,12 @@ export default function LandingPage() {
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-border-light rounded-full text-xs font-bold text-g-dark shadow-sm">
             <Sparkles className="w-4 h-4" /> AI-Powered Restaurant Growth
           </div>
-          <h1 className="text-5xl md:text-7xl font-black text-text-dark leading-[1.1] tracking-tight">
-            Grow your restaurant <br />
-            <span className="text-g-dark">with AI.</span>
+          <h1 className="text-5xl md:text-6xl font-black text-text-dark leading-[1.05] tracking-tight">
+            Grow Your <span className="text-g-dark">Restaurant</span><br />
+            Orders <span className="text-g-dark">Automatically</span>
           </h1>
-          <p className="text-lg md:text-xl text-text-mid max-w-lg leading-relaxed">
-            Win back customers, increase orders, and drive revenue with targeted campaigns. No contracts, cancel anytime.
+          <p className="text-lg text-text-mid max-w-lg leading-relaxed">
+            Hungrin uses AI to boost your restaurant sales, create promotions and bring you more customers — all from one simple dashboard.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Button
@@ -88,27 +84,22 @@ export default function LandingPage() {
               className="w-full sm:w-auto bg-gradient-to-r from-[#23664f] to-[#2d7a5f] text-white hover:from-[#1f5745] hover:to-[#255746]"
               onClick={handleDashboardClick}
             >
-              Open Dashboard <ArrowRight className="w-5 h-5 ml-2" />
+              Book a Demo <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
-            <Link href="/demo">
-              <Button variant="outline" size="lg" className="w-full sm:w-auto flex items-center gap-2">
-                <Play className="w-4 h-4 fill-current" /> Book a Demo
-              </Button>
-            </Link>
           </div>
-          <div className="flex flex-wrap gap-x-8 gap-y-4 pt-4">
-            {['No credit card required', 'Works with Uber Eats, Deliveroo', 'Cancel anytime'].map(f => (
+          <div className="flex flex-wrap gap-x-8 gap-y-4 pt-2">
+            {['No credit card required', 'Works with Uber Eats, Deliveroo & Just Eat', 'Cancel anytime'].map(f => (
               <div key={f} className="flex items-center gap-2 text-sm text-text-mid font-medium">
-                <CheckCircle2 className="w-4 h-4 text-g-dark" /> {f}
+                <CheckCircle2 className="w-4 h-4 text-g-dark shrink-0" /> {f}
               </div>
             ))}
           </div>
         </div>
 
+        {/* Dashboard Mockup */}
         <div className="relative">
           <div className="absolute -top-10 -right-10 w-64 h-64 bg-g-pale rounded-full blur-3xl opacity-50" />
           <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-g-pale rounded-full blur-3xl opacity-50" />
-          {/* Dashboard preview mockup */}
           <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl border-2 border-white bg-white">
             {/* Browser chrome */}
             <div className="bg-[#f0f0f0] px-3 py-2 flex items-center gap-2 border-b border-gray-200">
@@ -125,10 +116,8 @@ export default function LandingPage() {
             <div className="flex" style={{ height: 340 }}>
               {/* Mini sidebar */}
               <div className="w-[88px] bg-white border-r border-gray-100 flex flex-col py-3 px-2 shrink-0">
-                <div className="flex items-center gap-1.5 px-1 mb-4">
-                  <div className="w-5 h-5 grid grid-cols-2 gap-0.5 shrink-0">
-                    {[0,1,2,3].map(i => <div key={i} className="bg-[#2d7a5f] rounded-[2px]" />)}
-                  </div>
+                <div className="flex items-center gap-1 px-1 mb-4">
+                  <HungrinIcon size={18} />
                   <span className="text-[9px] font-black text-[#2d7a5f]">Hungrin</span>
                 </div>
                 <div className="space-y-0.5 flex-1">
@@ -148,13 +137,11 @@ export default function LandingPage() {
               </div>
               {/* Main content */}
               <div className="flex-1 bg-[#f5faf7] p-3 overflow-hidden flex flex-col gap-2">
-                {/* Header row */}
                 <div className="flex items-start justify-between">
                   <div>
                     <p className="text-[10px] font-black text-gray-800 leading-tight">Restaurant Dashboard</p>
                     <p className="text-[8px] text-gray-400">Nearest Restaurant of Nation</p>
                   </div>
-                  {/* AI tip tooltip */}
                   <div className="bg-white rounded-xl shadow-lg border border-gray-100 px-2.5 py-2 max-w-[130px] flex items-start gap-1.5">
                     <div className="w-4 h-4 bg-[#eaf6f0] rounded-md flex items-center justify-center shrink-0">
                       <span className="text-[7px]">🤖</span>
@@ -164,7 +151,6 @@ export default function LandingPage() {
                     </p>
                   </div>
                 </div>
-                {/* Stats row */}
                 <div className="grid grid-cols-3 gap-1.5">
                   {[
                     { label: 'New Orders Today', value: '£780', badge: '+22% ↑' },
@@ -178,7 +164,6 @@ export default function LandingPage() {
                     </div>
                   ))}
                 </div>
-                {/* Chart */}
                 <div className="bg-white rounded-xl border border-gray-100 p-2.5 flex-1">
                   <div className="flex items-center justify-between mb-1.5">
                     <p className="text-[7px] font-semibold text-gray-500">Sales Performance · This Week</p>
@@ -195,7 +180,6 @@ export default function LandingPage() {
                     <path d="M0 52 C20 50, 40 44, 60 40 C80 36, 100 38, 120 32 C140 26, 160 22, 180 18 C200 14, 220 10, 240 8 L240 60 L0 60 Z" fill="url(#chartFill)" />
                   </svg>
                 </div>
-                {/* Promo banner */}
                 <div className="bg-[#2d7a5f] rounded-xl px-3 py-2 flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <span className="bg-orange-400 text-white text-[7px] font-black px-1.5 py-0.5 rounded-md">🔥 Promo</span>
@@ -212,30 +196,77 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section id="features" className="bg-white py-24">
+      {/* Quick Access Section */}
+      <section className="bg-white py-16 border-y border-border-light">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-20 space-y-4">
+          <h2 className="text-center text-xl font-black text-text-dark mb-10 tracking-tight">
+            Access Your Hungrin Pages
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { href: '/dashboard', emoji: '📊', label: 'Dashboard', sub: 'View your sales & orders', bg: 'bg-[#eaf6f0]' },
+              { href: '/promotions', emoji: '🎯', label: 'AI Promotions', sub: 'Create smart promotions', bg: 'bg-red-50' },
+              { href: '/orders', emoji: '📂', label: 'CSV Upload', sub: 'Upload sales data', bg: 'bg-yellow-50' },
+              { href: '/onboarding', emoji: '🚀', label: 'Get Started', sub: 'Set up your restaurant', bg: 'bg-orange-50' },
+            ].map(({ href, emoji, label, sub, bg }) => (
+              <Link
+                key={label}
+                href={href}
+                className={`${bg} border border-border-light rounded-2xl p-6 flex flex-col items-center text-center gap-3 hover:shadow-md hover:-translate-y-0.5 transition-all group`}
+              >
+                <span className="text-3xl">{emoji}</span>
+                <div>
+                  <p className="text-sm font-bold text-text-dark group-hover:text-g-dark transition-colors">{label}</p>
+                  <p className="text-[11px] text-text-muted mt-0.5">{sub}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section id="features" className="py-24">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16 space-y-4">
             <h2 className="text-3xl md:text-5xl font-black text-text-dark tracking-tight">
-              Everything you need to <span className="text-g-dark">scale.</span>
+              Everything You Need <span className="text-g-dark">To Grow</span>
             </h2>
             <p className="text-lg text-text-mid max-w-2xl mx-auto">
-              Our AI-powered platform helps you manage every aspect of your restaurant's growth.
+              Our AI-powered platform handles your marketing so you can focus on what you do best — great food.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
-              { icon: TrendingUp, title: 'Growth Analytics', desc: 'Track your performance with real-time data and AI-driven insights.' },
-              { icon: Zap, title: 'Automated Promos', desc: 'Launch targeted promotions that actually convert, powered by AI.' },
-              { icon: Globe, title: 'Multi-Platform', desc: 'Works seamlessly with Uber Eats, Deliveroo, and Just Eat.' },
-              { icon: Shield, title: 'Secure & Reliable', desc: 'Your data is safe with us. Enterprise-grade security for your restaurant.' },
-              { icon: Clock, title: 'Save Time', desc: 'Let our AI handle the marketing so you can focus on the food.' },
-              { icon: Sparkles, title: 'AI Assistant', desc: 'A dedicated AI growth assistant ready to help you 24/7.' },
+              {
+                icon: '🤖',
+                title: 'AI Growth Assistant',
+                desc: 'Hungrin automatically creates promotions tailored to your customers using smart criteria, date, and behaviour patterns.',
+                bg: 'bg-[#eaf6f0]',
+              },
+              {
+                icon: '🎯',
+                title: 'Promo Automation',
+                desc: 'Set up campaigns and let Hungrin handle the scheduling, promotion blasting, and ensure you make money on automation.',
+                bg: 'bg-red-50',
+              },
+              {
+                icon: '📊',
+                title: 'Real-Time Insights',
+                desc: 'Fascinating sales data and impact — understand your customers and spot recommendations to grow your sustainability.',
+                bg: 'bg-blue-50',
+              },
+              {
+                icon: '🌤️',
+                title: 'Weather Sales Insights',
+                desc: 'Hungrin uses live weather data to suggest timely promotions and help you attract order-free customers on slow days.',
+                bg: 'bg-yellow-50',
+              },
             ].map((f, i) => (
-              <Card key={i} className="p-8 hover:shadow-lg transition-all group">
-                <div className="w-14 h-14 bg-g-faint rounded-2xl flex items-center justify-center text-g-dark mb-6 group-hover:scale-110 transition-all">
-                  <f.icon className="w-7 h-7" />
+              <Card key={i} className="p-8 hover:shadow-lg transition-all group border border-border-light">
+                <div className={`w-14 h-14 ${f.bg} rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-all`}>
+                  {f.icon}
                 </div>
                 <h3 className="text-xl font-bold text-text-dark mb-3">{f.title}</h3>
                 <p className="text-text-mid leading-relaxed text-sm">{f.desc}</p>
@@ -245,26 +276,115 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Integrations / Platforms Section */}
+      <section id="integrations" className="bg-[#eaf6f0] py-24">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="space-y-8">
+            <h2 className="text-3xl md:text-5xl font-black text-text-dark leading-tight">
+              <strong>Works With Your</strong> Delivery<br />Platforms
+            </h2>
+            <p className="text-lg text-text-mid leading-relaxed max-w-md">
+              Hungrin integrates with popular delivery services so you can manage everything without switching systems.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              {[
+                { label: 'Deliveroo', dot: 'bg-[#00CCBC]' },
+                { label: 'Uber Eats', dot: 'bg-black' },
+                { label: 'Just Eat', dot: 'bg-[#FF8000]' },
+              ].map(p => (
+                <div key={p.label} className="flex items-center gap-2 bg-white border border-border-light rounded-full px-5 py-2.5 shadow-sm">
+                  <div className={`w-2.5 h-2.5 rounded-full ${p.dot}`} />
+                  <span className="text-sm font-bold text-text-dark">{p.label}</span>
+                </div>
+              ))}
+            </div>
+            <Link href="/onboarding">
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-[#23664f] to-[#2d7a5f] text-white hover:from-[#1f5745] hover:to-[#255746]"
+              >
+                Get Started Free <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
+          </div>
+
+          {/* Integrations Mockup */}
+          <div className="relative">
+            <div className="rounded-2xl overflow-hidden shadow-2xl border-2 border-white bg-white">
+              <div className="bg-[#f0f0f0] px-3 py-2 flex items-center gap-2 border-b border-gray-200">
+                <div className="flex gap-1.5">
+                  <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
+                  <div className="w-3 h-3 rounded-full bg-[#febc2e]" />
+                  <div className="w-3 h-3 rounded-full bg-[#28c840]" />
+                </div>
+                <div className="flex-1 bg-white rounded-md px-3 py-0.5 text-[10px] text-gray-400 font-medium text-center">
+                  app.hungrin.com/integrations
+                </div>
+              </div>
+              <div className="flex" style={{ height: 260 }}>
+                <div className="w-[80px] bg-white border-r border-gray-100 flex flex-col py-3 px-2 shrink-0">
+                  <div className="flex items-center gap-1 px-1 mb-4">
+                    <HungrinIcon size={16} />
+                    <span className="text-[8px] font-black text-[#2d7a5f]">Hungrin</span>
+                  </div>
+                  {['Overview', 'Orders', 'Promotions', 'Customers', 'Insights'].map((item, i) => (
+                    <div key={item} className={`flex items-center gap-1.5 px-2 py-1.5 rounded-lg ${i === 1 ? 'bg-[#eaf6f0]' : ''}`}>
+                      <div className={`w-1.5 h-1.5 rounded-full ${i === 1 ? 'bg-[#2d7a5f]' : 'bg-gray-200'}`} />
+                      <span className={`text-[7px] font-semibold ${i === 1 ? 'text-[#2d7a5f]' : 'text-gray-400'}`}>{item}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex-1 p-4 bg-[#f5faf7]">
+                  <p className="text-[11px] font-black text-gray-800 mb-3">Connected Platforms</p>
+                  <div className="space-y-2">
+                    {[
+                      { name: 'Deliveroo', dot: 'bg-[#00CCBC]', text: 'text-[#00CCBC]' },
+                      { name: 'Uber Eats', dot: 'bg-black', text: 'text-gray-800' },
+                      { name: 'Just Eat', dot: 'bg-[#FF8000]', text: 'text-[#FF8000]' },
+                    ].map(p => (
+                      <div key={p.name} className="bg-white rounded-xl px-3 py-2 flex items-center justify-between border border-gray-100">
+                        <div className="flex items-center gap-2">
+                          <div className={`w-2 h-2 rounded-full ${p.dot}`} />
+                          <span className={`text-[9px] font-bold ${p.text}`}>{p.name}</span>
+                        </div>
+                        <span className="text-[8px] font-bold bg-[#eaf6f0] text-[#2d7a5f] px-2 py-0.5 rounded-full">Live</span>
+                      </div>
+                    ))}
+                    <div className="bg-[#2d7a5f] rounded-xl px-3 py-2.5 flex items-center gap-2 mt-1">
+                      <span className="text-base">🔄</span>
+                      <div>
+                        <p className="text-[9px] font-black text-white">Sync orders in real-time</p>
+                        <p className="text-[8px] text-[#a8dfc9]">No manual entry needed</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="max-w-7xl mx-auto px-6 py-24">
         <div className="bg-g-dark rounded-[2.5rem] p-12 md:p-20 text-center text-white relative overflow-hidden shadow-2xl">
-          <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10" />
           <div className="relative z-10 space-y-8">
-            <h2 className="text-4xl md:text-6xl font-black leading-tight">
-              Ready to grow your <br /> restaurant today?
+            <h2 className="text-4xl md:text-5xl font-black leading-tight">
+              Ready To Boost Your<br />Restaurant Sales?
             </h2>
-            <p className="text-lg text-g-pale/80 max-w-2xl mx-auto font-medium">
-              Join 1,000+ restaurants using Hungrin to boost their sales and win back customers.
+            <p className="text-lg text-white/70 max-w-xl mx-auto font-medium">
+              No contract. No setup fees. Cancel anytime.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Button
-                type="button"
-                size="lg"
-                className="bg-white text-g-dark hover:bg-g-pale w-full sm:w-auto"
-                onClick={handleDashboardClick}
-              >
-                Open Dashboard
-              </Button>
+              <Link href="/onboarding">
+                <Button
+                  type="button"
+                  size="lg"
+                  className="bg-white text-g-dark hover:bg-g-pale w-full sm:w-auto font-bold"
+                >
+                  Get Started Free
+                </Button>
+              </Link>
               <Link href="/demo">
                 <Button variant="outline" size="lg" className="bg-transparent border-white text-white hover:bg-white/10 hover:border-white w-full sm:w-auto flex items-center gap-2">
                   <Play className="w-4 h-4 fill-current" /> Book a Demo

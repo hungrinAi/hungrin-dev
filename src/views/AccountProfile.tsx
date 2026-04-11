@@ -48,10 +48,34 @@ export default function AccountProfile() {
         </span>
       }
     >
+      {/* Mobile horizontal tab strip — visible below md */}
+      <div className="md:hidden -mx-4 md:-mx-6 lg:-mx-8 px-4 border-b border-border-light bg-white overflow-x-auto no-scrollbar mb-2">
+        <div className="flex gap-1 py-2 min-w-max">
+          {subNavItems.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                className={cn(
+                  "flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition-all",
+                  isActive
+                    ? "bg-g-pale text-g-dark"
+                    : "text-text-mid hover:bg-g-faint hover:text-g-dark"
+                )}
+              >
+                <item.icon className="w-4 h-4 shrink-0" />
+                {item.label}
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+
       <div className="flex gap-6 min-h-0">
-        {/* Sub-navigation sidebar */}
+        {/* Sub-navigation sidebar — desktop only */}
         <div className="w-48 shrink-0 hidden md:block">
-          <Card className="p-2 space-y-0.5">
+          <Card className="p-2 space-y-0.5 sticky top-4">
             {subNavItems.map((item) => {
               const isActive = pathname === item.href;
               return (

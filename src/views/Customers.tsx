@@ -1,19 +1,16 @@
 'use client';
 
 import React, { useState } from 'react';
+import { PageLoading } from '@/src/components/ui/Loading';
 import { AppLayout } from '@/src/components/layout/AppLayout';
-import { useApi } from '@/src/hooks/useApi';
-import { customerService } from '@/src/services';
-import { CustomerStats } from '@/src/features/customers/components/CustomerStats';
-import { CustomerTable } from '@/src/features/customers/components/CustomerTable';
-import { CustomerDetailPanel } from '@/src/features/customers/components/CustomerDetailPanel';
+import { useCustomers, CustomerStats, CustomerTable, CustomerDetailPanel } from '@/src/features/customers';
 import { ArrowLeft } from 'lucide-react';
 
 export default function Customers() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const { data: summary, loading, error } = useApi(customerService.getAll);
+  const { data: summary, loading, error } = useCustomers();
 
-  if (loading) return <div className="p-8 text-text-muted">Loading customers...</div>;
+  if (loading) return <PageLoading message="Loading customers" />;
   if (error) return <div className="p-8 text-red-500">Error: {error}</div>;
   if (!summary) return null;
 
