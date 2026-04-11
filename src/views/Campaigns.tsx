@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { InlineLoading } from '@/src/components/ui/Loading';
 import { 
   Search, 
   Filter, 
@@ -23,7 +24,7 @@ export default function Campaigns() {
   const [filter, setFilter] = useState('All');
   const { data: campaigns, loading, error } = useApi(campaignService.getAll);
 
-  if (loading) return <div className="p-8 text-text-muted">Loading campaigns...</div>;
+  if (loading) return <InlineLoading message="Loading campaigns" />;
   if (error) return <div className="p-8 text-red-500">Error: {error}</div>;
 
   return (

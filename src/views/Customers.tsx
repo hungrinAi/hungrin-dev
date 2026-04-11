@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { InlineLoading } from '@/src/components/ui/Loading';
 import { AppLayout } from '@/src/components/layout/AppLayout';
 import { useApi } from '@/src/hooks/useApi';
 import { customerService } from '@/src/services';
@@ -13,7 +14,7 @@ export default function Customers() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const { data: summary, loading, error } = useApi(customerService.getAll);
 
-  if (loading) return <div className="p-8 text-text-muted">Loading customers...</div>;
+  if (loading) return <InlineLoading message="Loading customers" />;
   if (error) return <div className="p-8 text-red-500">Error: {error}</div>;
   if (!summary) return null;
 

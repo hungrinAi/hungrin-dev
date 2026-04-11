@@ -11,6 +11,7 @@ import { PromoCard } from '@/src/features/dashboard/components/PromoCard';
 import { AiAssistant } from '@/src/features/dashboard/components/AiAssistant';
 import { ArrowRight, Zap } from 'lucide-react';
 import Link from 'next/link';
+import { PageLoading } from '@/src/components/ui/Loading';
 
 function getGreeting() {
   const h = new Date().getHours();
@@ -22,7 +23,7 @@ function getGreeting() {
 export default function Dashboard() {
   const { data: stats, loading, error } = useApi(dashboardService.getStats);
 
-  if (loading) return <div className="p-8 text-text-muted">Loading dashboard...</div>;
+  if (loading) return <PageLoading message="Loading your dashboard" />;
   if (error) return <div className="p-8 text-red-500">Error: {error}</div>;
 
   return (

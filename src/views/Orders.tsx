@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { InlineLoading } from '@/src/components/ui/Loading';
 import { AppLayout } from '@/src/components/layout/AppLayout';
 import { Button } from '@/src/components/ui/Button';
 import { useApi } from '@/src/hooks/useApi';
@@ -18,7 +19,7 @@ export default function Orders() {
   const orders = summary?.orders;
   const selectedOrder = orders?.find(o => o.id === selectedId) || orders?.[0];
 
-  if (loading) return <div className="p-8 text-text-muted">Loading orders...</div>;
+  if (loading) return <InlineLoading message="Loading orders" />;
   if (error) return <div className="p-8 text-red-500">Error: {error}</div>;
   if (!summary) return null;
 

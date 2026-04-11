@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { InlineLoading } from '@/src/components/ui/Loading';
 import { AppLayout } from '@/src/components/layout/AppLayout';
 import { useApi } from '@/src/hooks/useApi';
 import { insightsService } from '@/src/services';
@@ -12,7 +13,7 @@ import { TopProducts } from '@/src/features/insights/components/TopProducts';
 export default function Insights() {
   const { data: insights, loading, error } = useApi(insightsService.getInsights);
 
-  if (loading) return <div className="p-8 text-text-muted">Loading insights...</div>;
+  if (loading) return <InlineLoading message="Loading insights" />;
   if (error) return <div className="p-8 text-red-500">Error: {error}</div>;
   if (!insights) return null;
 
