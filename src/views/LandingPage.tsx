@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import {
   ArrowRight,
   CheckCircle2,
@@ -10,62 +10,17 @@ import {
   Play,
 } from 'lucide-react';
 import { Logo, HungrinIcon } from '@/src/components/brand';
+import { PublicNav } from '@/src/components/layout/PublicNav';
 import { Button } from '@/src/components/ui/Button';
 import { Card } from '@/src/components/ui/Card';
 
 export default function LandingPage() {
-  const router = useRouter();
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setLoggedIn(localStorage.getItem('hungrinLoggedIn') === 'true');
-    }
-  }, []);
-
-  const handleDashboardClick = () => {
-    router.push(loggedIn ? '/dashboard' : '/login');
-  };
-
   return (
     <div className="min-h-screen bg-[#eaf6f0] selection:bg-g-pale selection:text-g-dark">
-      {/* Navbar */}
-      <div className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-border-light shadow-sm">
-        <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Logo />
-          <div className="hidden md:flex items-center gap-1">
-            {[
-              { label: 'Features', href: '#features' },
-              { label: 'Integrations', href: '#integrations' },
-              { label: 'Onboarding', href: '/onboarding' },
-              { label: 'Pricing', href: '/pricing' },
-            ].map(l => (
-              <Link
-                key={l.label}
-                href={l.href}
-                className="relative px-4 py-2 text-sm font-semibold text-text-mid hover:text-g-dark transition-colors rounded-lg hover:bg-g-faint group"
-              >
-                {l.label}
-                <span className="absolute bottom-1 left-4 right-4 h-0.5 bg-g-dark rounded-full scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-200" />
-              </Link>
-            ))}
-          </div>
-          <div className="flex items-center gap-3">
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              className="hidden sm:inline-flex gap-1.5"
-              onClick={handleDashboardClick}
-            >
-              My Dashboard <ArrowRight className="w-3.5 h-3.5" />
-            </Button>
-          </div>
-        </nav>
-      </div>
+      <PublicNav />
 
       {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-6 pt-16 pb-24 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-10 sm:pt-16 pb-16 sm:pb-24 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
         <div className="space-y-8">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-border-light rounded-full text-xs font-bold text-g-dark shadow-sm">
             <Sparkles className="w-4 h-4" /> AI-Powered Restaurant Growth
@@ -78,14 +33,15 @@ export default function LandingPage() {
             Hungrin uses AI to boost your restaurant sales, create promotions and bring you more customers — all from one simple dashboard.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <Button
-              type="button"
-              size="lg"
-              className="w-full sm:w-auto bg-gradient-to-r from-[#23664f] to-[#2d7a5f] text-white hover:from-[#1f5745] hover:to-[#255746]"
-              onClick={handleDashboardClick}
-            >
-              Book a Demo <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
+            <Link href="/demo">
+              <Button
+                type="button"
+                size="lg"
+                className="w-full sm:w-auto bg-gradient-to-r from-[#23664f] to-[#2d7a5f] text-white hover:from-[#1f5745] hover:to-[#255746]"
+              >
+                Book a Demo <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </Link>
           </div>
           <div className="flex flex-wrap gap-x-8 gap-y-4 pt-2">
             {['No credit card required', 'Works with Uber Eats, Deliveroo & Just Eat', 'Cancel anytime'].map(f => (
@@ -197,8 +153,8 @@ export default function LandingPage() {
       </section>
 
       {/* Quick Access Section */}
-      <section className="bg-white py-16 border-y border-border-light">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="bg-white py-12 sm:py-16 border-y border-border-light">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <h2 className="text-center text-xl font-black text-text-dark mb-10 tracking-tight">
             Access Your Hungrin Pages
           </h2>
@@ -226,8 +182,8 @@ export default function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-24">
-        <div className="max-w-7xl mx-auto px-6">
+      <section id="features" className="py-16 sm:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-16 space-y-4">
             <h2 className="text-3xl md:text-5xl font-black text-text-dark tracking-tight">
               Everything You Need <span className="text-g-dark">To Grow</span>
@@ -238,13 +194,16 @@ export default function LandingPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* AI Growth Assistant — robot image */}
+            <Card className="p-8 hover:shadow-lg transition-all group border border-border-light">
+              <div className="w-14 h-14 bg-white rounded-2xl mb-6 group-hover:scale-110 transition-all shadow-sm border border-border-light overflow-hidden">
+                <Image src="/images/robot-thumbsup.jpeg" alt="AI Growth Assistant" width={56} height={56} className="w-full h-full object-cover" />
+              </div>
+              <h3 className="text-xl font-bold text-text-dark mb-3">AI Growth Assistant</h3>
+              <p className="text-text-mid leading-relaxed text-sm">Hungrin automatically creates promotions tailored to your customers using smart criteria, date, and behaviour patterns.</p>
+            </Card>
+
             {[
-              {
-                icon: '🤖',
-                title: 'AI Growth Assistant',
-                desc: 'Hungrin automatically creates promotions tailored to your customers using smart criteria, date, and behaviour patterns.',
-                bg: 'bg-[#eaf6f0]',
-              },
               {
                 icon: '🎯',
                 title: 'Promo Automation',
@@ -277,8 +236,8 @@ export default function LandingPage() {
       </section>
 
       {/* Integrations / Platforms Section */}
-      <section id="integrations" className="bg-[#eaf6f0] py-24">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <section id="integrations" className="bg-[#eaf6f0] py-16 sm:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div className="space-y-8">
             <h2 className="text-3xl md:text-5xl font-black text-text-dark leading-tight">
               <strong>Works With Your</strong> Delivery<br />Platforms
@@ -366,8 +325,8 @@ export default function LandingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="max-w-7xl mx-auto px-6 py-24">
-        <div className="bg-g-dark rounded-[2.5rem] p-12 md:p-20 text-center text-white relative overflow-hidden shadow-2xl">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
+        <div className="bg-g-dark rounded-[2rem] sm:rounded-[2.5rem] p-8 sm:p-12 md:p-20 text-center text-white relative overflow-hidden shadow-2xl">
           <div className="relative z-10 space-y-8">
             <h2 className="text-4xl md:text-5xl font-black leading-tight">
               Ready To Boost Your<br />Restaurant Sales?
@@ -396,7 +355,7 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="max-w-7xl mx-auto px-6 py-12 border-t border-border-light flex flex-col md:flex-row items-center justify-between gap-8">
+      <footer className="max-w-7xl mx-auto px-4 sm:px-6 py-12 border-t border-border-light flex flex-col md:flex-row items-center justify-between gap-8">
         <Logo />
         <p className="text-sm text-text-muted font-medium">© 2026 Hungrin AI. All rights reserved.</p>
         <div className="flex gap-8">

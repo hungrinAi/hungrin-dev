@@ -1,7 +1,11 @@
 export { dashboardApi } from './api';
-export type { DashboardStats } from './types';
+export type { DashboardStats, SalesPeriod } from './types';
 export { useDashboard } from './hooks/useDashboard';
+export { useSalesChart } from './hooks/useSalesChart';
+export { useAiChat } from './hooks/useAiChat';
+export { useBoostPromo } from './hooks/useBoostPromo';
 export { StatsGrid } from './components/StatsGrid';
 export { SalesChart } from './components/SalesChart';
 export { PromoCard } from './components/PromoCard';
 export { AiAssistant } from './components/AiAssistant';
+export { BoostPromoModal } from './components/BoostPromoModal';

@@ -1,5 +1,7 @@
-import React from 'react';
-import { Lightbulb, ArrowRight } from 'lucide-react';
+'use client';
+
+import React, { useState } from 'react';
+import { Lightbulb, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { Card, CardHeader, CardContent } from '@/src/components/ui/Card';
 import { Button } from '@/src/components/ui/Button';
 import { InsightsData } from '@/src/types';
@@ -9,6 +11,12 @@ interface AiRecommendationsProps {
 }
 
 export function AiRecommendations({ recommendations }: AiRecommendationsProps) {
+  const [implemented, setImplemented] = useState<Record<number, boolean>>({});
+
+  const handleImplement = (i: number) => {
+    setImplemented(prev => ({ ...prev, [i]: true }));
+  };
+
   return (
     <Card className="bg-gradient-to-br from-[#e8f8f0] to-white border-g-dark/10">
       <CardHeader className="flex flex-row items-center gap-2">
@@ -31,9 +39,19 @@ export function AiRecommendations({ recommendations }: AiRecommendationsProps) {
             </div>
             <h4 className="text-sm font-bold text-text-dark mb-1">{rec.title}</h4>
             <p className="text-xs text-text-muted mb-4">{rec.description}</p>
-            <Button variant="outline" className="w-full py-2 text-xs flex items-center justify-center gap-2">
-              Implement Now <ArrowRight className="w-3 h-3" />
-            </Button>
+            {implemented[i] ? (
+              <div className="w-full py-2 bg-g-pale rounded-xl flex items-center justify-center gap-2 text-xs font-bold text-g-dark">
+                <CheckCircle2 className="w-3.5 h-3.5" /> Implemented
+              </div>
+            ) : (
+              <Button
+                variant="outline"
+                className="w-full py-2 text-xs flex items-center justify-center gap-2"
+                onClick={() => handleImplement(i)}
+              >
+                Implement Now <ArrowRight className="w-3 h-3" />
+              </Button>
+            )}
           </div>
         ))}
       </CardContent>

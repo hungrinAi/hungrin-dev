@@ -4,6 +4,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Bell, Menu, ChevronDown, User, CreditCard, Tag, HelpCircle, Utensils, LogOut } from 'lucide-react';
 import Link from 'next/link';
 import { cn } from '@/src/lib/utils';
+import { useNotifications } from '@/src/contexts/NotificationsContext';
+import { NotificationsPanel } from '@/src/components/ui/NotificationsPanel';
 
 interface TopbarProps {
   title: React.ReactNode;
@@ -21,7 +23,10 @@ const accountMenuItems = [
 
 export const Topbar = ({ title, subtitle, onMenuClick }: TopbarProps) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [notifOpen, setNotifOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const notifRef = useRef<HTMLDivElement>(null);
+  const { unreadCount } = useNotifications();
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -51,10 +56,25 @@ export const Topbar = ({ title, subtitle, onMenuClick }: TopbarProps) => {
 
       <div className="flex items-center gap-2 md:gap-3 shrink-0">
         {/* Notification bell */}
-        <button className="relative p-2.5 bg-g-faint border border-border-light rounded-xl text-text-mid hover:text-g-dark hover:border-g-dark/30 hover:bg-g-pale transition-all active:scale-95">
-          <Bell className="w-4.5 h-4.5" style={{ width: '1.1rem', height: '1.1rem' }} />
-          <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 border-2 border-white rounded-full" />
-        </button>
+        <div className="relative" ref={notifRef}>
+          <button
+            onClick={() => setNotifOpen(o => !o)}
+            className={cn(
+              "relative p-2.5 border rounded-xl transition-all active:scale-95",
+              notifOpen
+                ? "bg-g-pale border-g-dark/30 text-g-dark"
+                : "bg-g-faint border-border-light text-text-mid hover:text-g-dark hover:border-g-dark/30 hover:bg-g-pale"
+            )}
+          >
+            <Bell style={{ width: '1.1rem', height: '1.1rem' }} />
+            {unreadCount > 0 && (
+              <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 bg-red-500 border-2 border-white rounded-full text-white text-[9px] font-black flex items-center justify-center leading-none">
+                {unreadCount > 9 ? '9+' : unreadCount}
+              </span>
+            )}
+          </button>
+          <NotificationsPanel open={notifOpen} onClose={() => setNotifOpen(false)} />
+        </div>
 
         {/* Account dropdown */}
         <div className="relative" ref={dropdownRef}>
@@ -85,7 +105,6 @@ export const Topbar = ({ title, subtitle, onMenuClick }: TopbarProps) => {
 
           {dropdownOpen && (
             <div className="absolute right-0 mt-2.5 w-56 max-w-[calc(100vw-1rem)] bg-white border border-border-light rounded-2xl shadow-2xl z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-150">
-              {/* Profile header */}
               <div className="px-4 py-3.5 border-b border-border-light bg-gradient-to-br from-g-faint to-white">
                 <div className="flex items-center gap-3">
                   <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#f0b8a0] to-[#c96a42] flex items-center justify-center text-white font-black text-xs shadow-sm shrink-0">
@@ -98,7 +117,6 @@ export const Topbar = ({ title, subtitle, onMenuClick }: TopbarProps) => {
                 </div>
               </div>
 
-              {/* Menu items */}
               <div className="py-1.5">
                 {accountMenuItems.map((item) => (
                   <Link
@@ -113,7 +131,6 @@ export const Topbar = ({ title, subtitle, onMenuClick }: TopbarProps) => {
                 ))}
               </div>
 
-              {/* Logout */}
               <div className="border-t border-border-light py-1.5">
                 <Link
                   href="/login"

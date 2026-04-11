@@ -33,7 +33,7 @@ export function PageLoading({ message = 'Loading…' }: PageLoadingProps) {
         <span className="absolute w-28 h-28 rounded-3xl bg-g-dark/15 animate-ping" style={{ animationDuration: '1.4s', animationDelay: '0.2s' }} />
 
         {/* Robot image */}
-        <div className="relative w-24 h-24 rounded-3xl overflow-hidden shadow-2xl border-4 border-white ring-4 ring-g-dark/20">
+        <div className="relative w-24 h-24 rounded-3xl overflow-hidden shadow-2xl border-4 border-white ring-4 ring-g-dark/20 bg-[#0d3d2c]">
           <Image
             src="/images/robot-thumbsup.jpeg"
             alt="Hungrin loading"
@@ -79,7 +79,7 @@ export function InlineLoading({ message = 'Loading…', className, size = 'md' }
         {/* Spinning ring */}
         <div className={cn('absolute rounded-full border-4 border-g-pale border-t-g-dark animate-spin', ringSize)} />
         {/* Robot avatar */}
-        <div className={cn('rounded-2xl overflow-hidden border-2 border-white shadow-md', imgSize)}>
+        <div className={cn('rounded-2xl overflow-hidden border-2 border-white shadow-md bg-[#0d3d2c]', imgSize)}>
           <Image
             src="/images/robot-thumbsup.jpeg"
             alt="Loading"

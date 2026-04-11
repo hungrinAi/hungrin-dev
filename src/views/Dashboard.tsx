@@ -85,7 +85,8 @@ export default function Dashboard() {
               alt=""
               width={140}
               height={140}
-              className="h-full w-auto object-cover opacity-20 md:opacity-30 rounded-r-3xl"
+              className="h-full w-auto object-cover opacity-30 md:opacity-40 rounded-r-3xl"
+              style={{ mixBlendMode: 'screen' }}
             />
           </div>
 

@@ -1,39 +1,52 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { PageLoading } from '@/src/components/ui/Loading';
 import {
-  Search,
-  Filter,
-  Plus,
-  MoreHorizontal,
-  ChevronLeft,
-  ChevronRight,
-  Zap,
-  CheckCircle2
+  Search, Filter, Plus, MoreHorizontal,
+  ChevronLeft, ChevronRight, Zap, CheckCircle2
 } from 'lucide-react';
 import Image from 'next/image';
 import { AppLayout } from '@/src/components/layout/AppLayout';
 import { Card } from '@/src/components/ui/Card';
 import { Button } from '@/src/components/ui/Button';
-import { useCampaigns } from '@/src/features/campaigns';
+import {
+  useCampaigns,
+  useCampaignActions,
+  useCampaignsView,
+  NewCampaignModal,
+  CampaignActionsMenu,
+} from '@/src/features/campaigns';
 import { cn } from '@/src/lib/utils';
 
 export default function Campaigns() {
-  const [filter, setFilter] = useState('All');
   const { data: campaigns, loading, error } = useCampaigns();
+  const { modal, targetCampaign, openNew, openActions, close } = useCampaignActions();
+  const {
+    filter,
+    search,
+    page,
+    filtered,
+    paginated,
+    totalPages,
+    setFilter,
+    setSearch,
+    setPage,
+    handleCreated,
+    handleStatusChanged,
+    handleDeleted,
+  } = useCampaignsView(campaigns ?? null);
 
   if (loading) return <PageLoading message="Loading campaigns" />;
   if (error) return <div className="p-8 text-red-500">Error: {error}</div>;
 
   return (
-    <AppLayout 
-      title="Campaigns" 
+    <AppLayout
+      title="Campaigns"
       subtitle="Win back customers, increase orders, and drive revenue with targeted campaigns."
     >
       {/* Toolbar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        {/* Filter tabs — scrollable on mobile */}
         <div className="overflow-x-auto no-scrollbar">
           <div className="flex bg-g-faint p-1 rounded-xl border border-border-light w-max min-w-full sm:min-w-0">
             {['All', 'Active', 'Paused', 'Ended'].map((f) => (
@@ -54,7 +67,7 @@ export default function Campaigns() {
           <Button variant="secondary" size="sm">
             <Filter className="w-4 h-4" /> Filter
           </Button>
-          <Button size="sm">
+          <Button size="sm" onClick={openNew}>
             <Plus className="w-4 h-4" /> New Campaign
           </Button>
         </div>
@@ -65,7 +78,13 @@ export default function Campaigns() {
         <div className="p-5 border-b border-border-light flex items-center gap-4">
           <div className="flex-1 flex items-center gap-3 bg-g-faint border border-border-light rounded-xl px-4 py-2.5">
             <Search className="w-4 h-4 text-text-muted" />
-            <input type="text" placeholder="Search campaigns…" className="bg-transparent border-none outline-none text-sm w-full" />
+            <input
+              type="text"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              placeholder="Search campaigns…"
+              className="bg-transparent border-none outline-none text-sm w-full"
+            />
           </div>
           <select className="bg-white border border-border-light rounded-xl px-4 py-2.5 text-sm outline-none">
             <option>All Types</option>
@@ -88,14 +107,20 @@ export default function Campaigns() {
               </tr>
             </thead>
             <tbody className="divide-y divide-border-light">
-              {campaigns?.map((c) => (
+              {paginated.length === 0 ? (
+                <tr>
+                  <td colSpan={6} className="px-6 py-10 text-center text-sm text-text-muted">
+                    No campaigns match your filter.
+                  </td>
+                </tr>
+              ) : paginated.map((c) => (
                 <tr key={c.id} className="hover:bg-g-faint transition-colors cursor-pointer group">
                   <td className="px-3 md:px-6 py-3 md:py-4">
                     <div className="flex items-center gap-2 md:gap-4">
                       <div className="w-9 h-9 md:w-12 md:h-10 bg-g-pale rounded-lg flex items-center justify-center text-xl md:text-2xl shrink-0">{c.emoji}</div>
                       <div className="min-w-0">
                         <p className="text-sm font-bold text-text-dark mb-0.5 truncate">{c.name}</p>
-                        <p className="text-[10px] text-text-muted flex items-center gap-1 hidden sm:flex"><Zap className="w-3 h-3 shrink-0" /> {c.meta}</p>
+                        <p className="text-[10px] text-text-muted hidden sm:flex items-center gap-1"><Zap className="w-3 h-3 shrink-0" /> {c.meta}</p>
                       </div>
                     </div>
                   </td>
@@ -113,7 +138,12 @@ export default function Campaigns() {
                   <td className="px-3 md:px-6 py-3 md:py-4 text-sm font-bold text-text-dark hidden sm:table-cell">{c.revenue}</td>
                   <td className="px-3 md:px-6 py-3 md:py-4 text-xs text-text-muted leading-tight hidden md:table-cell">{c.startDate} –<br />{c.endDate}</td>
                   <td className="px-3 md:px-6 py-3 md:py-4 text-right">
-                    <button className="p-1.5 md:p-2 text-text-muted hover:text-g-dark hover:bg-g-pale rounded-lg transition-all"><MoreHorizontal className="w-4 h-4 md:w-5 md:h-5" /></button>
+                    <button
+                      onClick={() => openActions(c)}
+                      className="p-1.5 md:p-2 text-text-muted hover:text-g-dark hover:bg-g-pale rounded-lg transition-all"
+                    >
+                      <MoreHorizontal className="w-4 h-4 md:w-5 md:h-5" />
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -122,12 +152,39 @@ export default function Campaigns() {
         </div>
 
         <div className="p-5 bg-g-faint border-t border-border-light flex items-center justify-between">
-          <div className="text-xs text-text-muted">Page <strong className="text-text-dark">1</strong> of 2</div>
+          <div className="text-xs text-text-muted">
+            Page <strong className="text-text-dark">{page}</strong> of {totalPages}
+            {filtered.length !== paginated.length && (
+              <span className="ml-1">({filtered.length} results)</span>
+            )}
+          </div>
           <div className="flex items-center gap-2">
-            <button disabled className="p-2 border border-border-light rounded-lg bg-white text-text-muted disabled:opacity-40"><ChevronLeft className="w-4 h-4" /></button>
-            <button className="w-8 h-8 rounded-lg bg-g-dark text-white text-xs font-bold">1</button>
-            <button className="w-8 h-8 rounded-lg bg-white border border-border-light text-text-mid text-xs font-bold hover:bg-g-pale">2</button>
-            <button className="p-2 border border-border-light rounded-lg bg-white text-text-mid hover:bg-g-pale"><ChevronRight className="w-4 h-4" /></button>
+            <button
+              disabled={page === 1}
+              onClick={() => setPage(p => p - 1)}
+              className="p-2 border border-border-light rounded-lg bg-white text-text-muted disabled:opacity-40"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map(n => (
+              <button
+                key={n}
+                onClick={() => setPage(n)}
+                className={cn(
+                  "w-8 h-8 rounded-lg text-xs font-bold",
+                  n === page ? "bg-g-dark text-white" : "bg-white border border-border-light text-text-mid hover:bg-g-pale"
+                )}
+              >
+                {n}
+              </button>
+            ))}
+            <button
+              disabled={page === totalPages}
+              onClick={() => setPage(p => p + 1)}
+              className="p-2 border border-border-light rounded-lg bg-white text-text-mid hover:bg-g-pale disabled:opacity-40"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
           </div>
         </div>
       </Card>
@@ -144,11 +201,28 @@ export default function Campaigns() {
               </div>
             ))}
           </div>
+          <Button className="mt-6" onClick={openNew}>
+            <Plus className="w-4 h-4" /> Create Campaign
+          </Button>
         </div>
-        <div className="w-24 h-24 md:w-32 md:h-32 animate-bob hidden sm:block shrink-0">
-          <Image src="/images/robot-thumbsup.jpeg" alt="" width={128} height={128} className="w-full h-full object-cover rounded-2xl" />
+        <div className="w-24 h-24 md:w-32 md:h-32 animate-bob hidden sm:block shrink-0 rounded-2xl overflow-hidden bg-[#0d3d2c]">
+          <Image src="/images/robot-thumbsup.jpeg" alt="" width={128} height={128} className="w-full h-full object-cover" />
         </div>
       </div>
+
+      {/* Modals */}
+      <NewCampaignModal
+        open={modal === 'new'}
+        onClose={close}
+        onCreated={(c) => { handleCreated(c); close(); }}
+      />
+      <CampaignActionsMenu
+        open={modal === 'actions'}
+        onClose={close}
+        campaign={targetCampaign ?? undefined}
+        onStatusChanged={(id, status) => { handleStatusChanged(id, status); close(); }}
+        onDeleted={(id) => { handleDeleted(id); close(); }}
+      />
     </AppLayout>
   );
 }
