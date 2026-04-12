@@ -104,3 +104,28 @@ export type BoostDuration = 'Day' | 'Week' | 'Month';
 
 export const ALL_PLATFORMS: Platform[] = ['Google', 'Uber Eats', 'Just Eat', 'Deliveroo'];
 export const DURATIONS: BoostDuration[] = ['Day', 'Week', 'Month'];
+
+// ─── Dashboard view helpers ───────────────────────────────────────────────────
+
+export function getGreeting(): string {
+  const h = new Date().getHours();
+  if (h < 12) return 'Good Morning';
+  if (h < 18) return 'Good Afternoon';
+  return 'Good Evening';
+}
+
+export interface QuickLink {
+  href: string;
+  emoji: string;
+  label: string;
+  sub: string;
+  gradient: string;
+  hoverRing: string;
+}
+
+export const QUICK_LINKS: QuickLink[] = [
+  { href: '/promotions', emoji: '🎯', label: 'AI Promos',  sub: 'Create smart promotions', gradient: 'from-[#e8f8f0] to-[#d0eedd]', hoverRing: 'hover:ring-g-dark/30'       },
+  { href: '/orders',     emoji: '📂', label: 'CSV Upload', sub: 'Upload sales data',        gradient: 'from-[#eef3ff] to-[#dde8ff]', hoverRing: 'hover:ring-[#4f6ef7]/30'   },
+  { href: '/customers',  emoji: '👥', label: 'Customers',  sub: 'View your base',           gradient: 'from-[#fdf0f8] to-[#f7ddf0]', hoverRing: 'hover:ring-[#c050a0]/30'   },
+  { href: '/insights',   emoji: '📊', label: 'Insights',   sub: 'Revenue & trends',         gradient: 'from-[#fff8e8] to-[#ffefc8]', hoverRing: 'hover:ring-[#e5a020]/30'   },
+];

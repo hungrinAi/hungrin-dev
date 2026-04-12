@@ -11,10 +11,8 @@ import { Modal } from '@/src/components/ui/Modal';
 import { SuccessState } from '@/src/components/ui/SuccessState';
 import { cn } from '@/src/lib/utils';
 import { useNotifications } from '@/src/contexts/NotificationsContext';
-import { usePromoChat, usePromoModals, QUICK_ACTIONS } from '@/src/features/promotions';
+import { usePromoChat, usePromoModals, QUICK_ACTIONS, PRICE_RE } from '@/src/features/promotions';
 import type { PromoCardData } from '@/src/features/promotions';
-
-const PRICE_RE = /^[£$€]?\d+(\.\d{1,2})?$/;
 
 export default function Promotions() {
   const router = useRouter();

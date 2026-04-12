@@ -1,5 +1,7 @@
 import type { PromoMessage, ChatSession } from '../types';
 
+export const PRICE_RE = /^[£$€]?\d+(\.\d{1,2})?$/;
+
 export const INITIAL_MESSAGES: PromoMessage[] = [
   {
     id: '1',

@@ -13,6 +13,7 @@ export {
   PHONE_RE,
   ACCOUNT_SUB_NAV,
   ACCOUNT_PLATFORMS,
+  AVATAR_PRESETS,
 } from './data/constants';
 export type {
   SettingsNavItem,

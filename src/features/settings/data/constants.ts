@@ -79,3 +79,12 @@ export const ACCOUNT_PLATFORMS: AccountPlatform[] = [
   { id: 'uber', name: 'Uber Eats', color: 'bg-black', letter: 'U', connected: true },
   { id: 'justeat', name: 'Just Eat', color: 'bg-[#FF8000]', letter: 'J', connected: false },
 ];
+
+// ─── Profile photo preset avatars ─────────────────────────────────────────────
+
+export const AVATAR_PRESETS: string[] = [
+  '/images/robot-thumbsup.jpeg',
+  '/images/robot-happy.jpeg',
+  '/images/robot-thinking.jpeg',
+  '/images/robot-burger.jpeg',
+];
