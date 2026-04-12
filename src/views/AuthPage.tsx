@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Mail, Lock, User, ArrowRight, CheckCircle2, Utensils } from 'lucide-react';
+import { Mail, Lock, ArrowRight, CheckCircle2, Utensils } from 'lucide-react';
 import { Logo } from '@/components/brand';
 import { Button } from '@/components/ui/Button';
 import { BackButton } from '@/components/ui/BackButton';
@@ -15,7 +15,6 @@ interface AuthPageProps {
   mode: 'login' | 'register';
 }
 
-// ─── Field configs per mode ───────────────────────────────────────────────────
 const loginRules = {
   email: composeValidators(required(), email()),
   password: required('Password is required'),
@@ -27,7 +26,6 @@ const registerRules = {
   password: composeValidators(required(), strongPassword),
 };
 
-// ─── Icon wrapper used for all icon-prefixed inputs ───────────────────────────
 const FieldWrapper = ({ icon: Icon, children }: { icon: React.ElementType; children: React.ReactNode }) => (
   <div className="relative">
     <Icon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted pointer-events-none" />
@@ -35,7 +33,6 @@ const FieldWrapper = ({ icon: Icon, children }: { icon: React.ElementType; child
   </div>
 );
 
-// ─── Shared input class ───────────────────────────────────────────────────────
 const inputClass = (error?: string) =>
   `w-full bg-g-faint border ${error ? 'border-red-500 focus:border-red-500' : 'border-border-light focus:border-g-dark'} rounded-xl pl-12 pr-4 py-3.5 text-sm outline-none transition-all`;
 
@@ -43,13 +40,11 @@ export default function AuthPage({ mode }: AuthPageProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  // ── Login form ──────────────────────────────────────────────────────────────
   const loginForm = useForm({
     initialValues: { email: '', password: '' },
     rules: loginRules,
   });
 
-  // ── Register form ───────────────────────────────────────────────────────────
   const registerForm = useForm({
     initialValues: { restaurantName: '', email: '', password: '' },
     rules: registerRules,
@@ -57,23 +52,66 @@ export default function AuthPage({ mode }: AuthPageProps) {
 
   const form = mode === 'login' ? loginForm : registerForm;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.validateAll()) return;
 
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      if (typeof window !== 'undefined') {
+    try {
+      if (mode === 'login') {
+        const response = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: loginForm.values.email,
+            password: loginForm.values.password,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          alert(data.message || 'Login failed');
+          return;
+        }
+
         localStorage.setItem(STORAGE_KEYS.LOGGED_IN, 'true');
+        localStorage.setItem('hungrin_user', JSON.stringify(data.user));
+        router.push(ROUTES.DASHBOARD);
+
+      } else {
+        const response = await fetch('/api/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: registerForm.values.restaurantName,
+            email: registerForm.values.email,
+            password: registerForm.values.password,
+            restaurantName: registerForm.values.restaurantName,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          alert(data.message || 'Registration failed');
+          return;
+        }
+
+        localStorage.setItem(STORAGE_KEYS.LOGGED_IN, 'true');
+        localStorage.setItem('hungrin_user', JSON.stringify(data.user));
+        router.push(ROUTES.DASHBOARD);
       }
-      router.push(ROUTES.DASHBOARD);
-    }, 1200);
+    } catch (error) {
+      alert('Something went wrong. Please try again!');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="min-h-screen bg-[#eaf6f0] flex">
-      {/* ── Left Panel: Form ─────────────────────────────────────────────────── */}
+      {/* Left Panel */}
       <div className="flex-1 flex flex-col justify-center px-8 md:px-24 py-12 bg-white">
         <div className="max-w-md w-full mx-auto space-y-10">
           <div className="flex flex-col gap-6">
@@ -93,7 +131,6 @@ export default function AuthPage({ mode }: AuthPageProps) {
           </div>
 
           <form onSubmit={handleSubmit} noValidate className="space-y-5">
-            {/* Restaurant Name — register only */}
             {mode === 'register' && (
               <div className="space-y-1.5">
                 <label className="text-xs font-bold text-text-dark uppercase tracking-wider">
@@ -118,7 +155,6 @@ export default function AuthPage({ mode }: AuthPageProps) {
               </div>
             )}
 
-            {/* Email */}
             <div className="space-y-1.5">
               <label className="text-xs font-bold text-text-dark uppercase tracking-wider">
                 Email Address
@@ -139,7 +175,6 @@ export default function AuthPage({ mode }: AuthPageProps) {
               )}
             </div>
 
-            {/* Password */}
             <div className="space-y-1.5">
               <label className="text-xs font-bold text-text-dark uppercase tracking-wider">
                 Password
@@ -182,7 +217,7 @@ export default function AuthPage({ mode }: AuthPageProps) {
         </div>
       </div>
 
-      {/* ── Right Panel: Marketing ───────────────────────────────────────────── */}
+      {/* Right Panel */}
       <div className="hidden lg:flex flex-1 bg-g-dark p-20 flex-col justify-center text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10" />
         <div className="relative z-10 space-y-12 max-w-lg">

@@ -1260,7 +1260,11 @@ __turbopack_context__.s([
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/api.ts [app-ssr] (ecmascript)");
 ;
 const dashboardApi = {
-    getStats: ()=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["apiRequest"])('/dashboard/stats')
+    getStats: ()=>{
+        const user = ("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : {};
+        const userId = user?.id || '';
+        return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["apiRequest"])(`/dashboard/stats?userId=${userId}`);
+    }
 };
 }),
 "[project]/src/hooks/useApi.ts [app-ssr] (ecmascript)", ((__turbopack_context__) => {
@@ -3148,7 +3152,7 @@ function AiAssistant({ stats }) {
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "flex flex-wrap gap-2",
-                children: stats?.aiSuggestions.map((a)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                children: (stats?.aiSuggestions || []).map((a)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         onClick: ()=>sendSuggestion(a.replace(/^\+\s*/, '')),
                         disabled: isTyping,
                         className: "px-3 py-1.5 bg-white/60 border border-g-dark/10 rounded-full text-[10px] font-bold text-g-dark hover:bg-white transition-all disabled:opacity-40 disabled:cursor-not-allowed",

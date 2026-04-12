@@ -111,7 +111,7 @@ export function AiAssistant({ stats }: AiAssistantProps) {
 
       {/* Suggestion chips */}
       <div className="flex flex-wrap gap-2">
-        {stats?.aiSuggestions.map((a) => (
+        {(stats?.aiSuggestions || []).map((a) => (
           <button
             key={a}
             onClick={() => sendSuggestion(a.replace(/^\+\s*/, ''))}
