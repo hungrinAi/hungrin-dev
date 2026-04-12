@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 3, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"","debugId":null}},
-    {"offset": {"line": 55, "column": 0}, "map": {"version":3,"sources":["file:///media/lenovo/3caec51a-3cc4-4417-a9e5-e89614b99c7c/hungrin-dev/src/app/api/campaigns/route.ts"],"sourcesContent":["import { NextResponse } from 'next/server';\n\nconst mockCampaigns = [\n  {\n    id: '1',\n    name: 'Summer Burger Fest',\n    emoji: '🍔',\n    meta: '20% off all bundles',\n    status: 'Active',\n    orders: 142,\n    revenue: '£1,846',\n    startDate: '2024-06-01',\n    endDate: '2024-08-31'\n  },\n  {\n    id: '2',\n    name: 'Weekend Wings',\n    emoji: '🍗',\n    meta: 'Buy 1 Get 1 Free',\n    status: 'Paused',\n    orders: 85,\n    revenue: '£425',\n    startDate: '2024-07-01',\n    endDate: '2024-07-31'\n  },\n];\n\nexport async function GET() {\n  return NextResponse.json(mockCampaigns);\n}\n"],"names":[],"mappings":";;;;AAAA;;AAEA,MAAM,gBAAgB;IACpB;QACE,IAAI;QACJ,MAAM;QACN,OAAO;QACP,MAAM;QACN,QAAQ;QACR,QAAQ;QACR,SAAS;QACT,WAAW;QACX,SAAS;IACX;IACA;QACE,IAAI;QACJ,MAAM;QACN,OAAO;QACP,MAAM;QACN,QAAQ;QACR,QAAQ;QACR,SAAS;QACT,WAAW;QACX,SAAS;IACX;CACD;AAEM,eAAe;IACpB,OAAO,gJAAY,CAAC,IAAI,CAAC;AAC3B","debugId":null}}]
-}
