@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
-import Campaign from '@/models/Campaign';
+import Promotion from '@/models/Promotion';
 
 export async function GET(request: NextRequest) {
   try {
@@ -9,6 +9,7 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const userId = searchParams.get('userId');
     const status = searchParams.get('status');
+    const platform = searchParams.get('platform');
 
     if (!userId) {
       return NextResponse.json(
@@ -19,25 +20,24 @@ export async function GET(request: NextRequest) {
 
     const query: any = { userId };
     if (status) query.status = status;
+    if (platform) query.platform = platform;
 
-    const campaigns = await Campaign.find(query).sort({ createdAt: -1 });
+    const promotions = await Promotion.find(query).sort({ createdAt: -1 });
 
-    const totalCampaigns = campaigns.length;
-    const activeCampaigns = campaigns.filter(c => c.status === 'active').length;
-    const totalReach = campaigns.reduce((sum, c) => sum + c.reach, 0);
-    const totalClicks = campaigns.reduce((sum, c) => sum + c.clicks, 0);
+    const totalPromotions = promotions.length;
+    const activePromotions = promotions.filter(p => p.status === 'active').length;
+    const draftPromotions = promotions.filter(p => p.status === 'draft').length;
 
     return NextResponse.json({
-      campaigns,
+      promotions,
       summary: {
-        totalCampaigns,
-        activeCampaigns,
-        totalReach,
-        totalClicks,
+        totalPromotions,
+        activePromotions,
+        draftPromotions,
       },
     });
   } catch (error) {
-    console.error('Campaigns error:', error);
+    console.error('Promotions error:', error);
     return NextResponse.json(
       { message: 'Internal server error' },
       { status: 500 }
@@ -50,30 +50,32 @@ export async function POST(request: NextRequest) {
     await connectDB();
 
     const body = await request.json();
-    const { userId, restaurantId, name, description, platform, budget, startDate, endDate } = body;
+    const { userId, restaurantId, name, offer, details, target, platform, expectedResult, startDate, endDate } = body;
 
-    if (!userId || !name) {
+    if (!userId || !name || !offer) {
       return NextResponse.json(
         { message: 'Required fields missing' },
         { status: 400 }
       );
     }
 
-    const campaign = await Campaign.create({
+    const promotion = await Promotion.create({
       userId,
       restaurantId,
       name,
-      description,
+      offer,
+      details,
+      target,
       platform,
-      budget,
+      expectedResult,
       startDate,
       endDate,
       status: 'draft',
     });
 
-    return NextResponse.json(campaign, { status: 201 });
+    return NextResponse.json(promotion, { status: 201 });
   } catch (error) {
-    console.error('Create campaign error:', error);
+    console.error('Create promotion error:', error);
     return NextResponse.json(
       { message: 'Internal server error' },
       { status: 500 }
@@ -86,31 +88,31 @@ export async function PATCH(request: NextRequest) {
     await connectDB();
 
     const body = await request.json();
-    const { campaignId, status } = body;
+    const { promotionId, status } = body;
 
-    if (!campaignId) {
+    if (!promotionId) {
       return NextResponse.json(
-        { message: 'Campaign ID is required' },
+        { message: 'Promotion ID is required' },
         { status: 400 }
       );
     }
 
-    const campaign = await Campaign.findByIdAndUpdate(
-      campaignId,
+    const promotion = await Promotion.findByIdAndUpdate(
+      promotionId,
       { status },
       { new: true }
     );
 
-    if (!campaign) {
+    if (!promotion) {
       return NextResponse.json(
-        { message: 'Campaign not found' },
+        { message: 'Promotion not found' },
         { status: 404 }
       );
     }
 
-    return NextResponse.json(campaign);
+    return NextResponse.json(promotion);
   } catch (error) {
-    console.error('Update campaign error:', error);
+    console.error('Update promotion error:', error);
     return NextResponse.json(
       { message: 'Internal server error' },
       { status: 500 }

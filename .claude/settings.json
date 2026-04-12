@@ -9,7 +9,8 @@
       "Bash(ls /tmp/*.png /tmp/*.jpg /tmp/*.jpeg /tmp/*.webp)",
       "Read(//media/lenovo/**)",
       "Read(//var/tmp/**)",
-      "Bash(python3 -c \"from PIL import Image; print\\('PIL available'\\)\")"
+      "Bash(python3 -c \"from PIL import Image; print\\('PIL available'\\)\")",
+      "Bash(git merge:*)"
     ],
     "additionalDirectories": [
       "/tmp"
