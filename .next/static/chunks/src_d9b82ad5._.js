@@ -1727,7 +1727,11 @@ __turbopack_context__.s([
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/api.ts [app-client] (ecmascript)");
 ;
 const ordersApi = {
-    getAll: ()=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["apiRequest"])('/orders'),
+    getAll: ()=>{
+        const user = ("TURBOPACK compile-time truthy", 1) ? JSON.parse(localStorage.getItem('hungrin_user') || '{}') : "TURBOPACK unreachable";
+        const userId = (user === null || user === void 0 ? void 0 : user.id) || '';
+        return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["apiRequest"])("/orders?userId=".concat(userId));
+    },
     getById: (id)=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["apiRequest"])("/orders/".concat(id)),
     updateStatus: (id, status)=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["apiRequest"])("/orders/".concat(id, "/status"), {
             method: 'PATCH',
@@ -1793,7 +1797,7 @@ function useApi(apiFunc) {
     }["useApi.useEffect"], dependencies);
     return state;
 }
-_s(useApi, "gAeSYv5hJXRA6CDxxoYc2vFjTMA=");
+_s(useApi, "b2jhlEWy/QYTt80or7rD6vv8oqI=");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
 }
@@ -2568,14 +2572,14 @@ function Modal(param) {
     ]);
     if (!open) return null;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "jsx-2429637be7d47542" + " " + "fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 sm:p-6",
+        className: "jsx-33f6e897547c1dc2" + " " + "fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 sm:p-6",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 style: {
                     animation: 'fadeIn 150ms ease'
                 },
                 onClick: onClose,
-                className: "jsx-2429637be7d47542" + " " + "absolute inset-0 bg-black/50 backdrop-blur-[2px]"
+                className: "jsx-33f6e897547c1dc2" + " " + "absolute inset-0 bg-black/50 backdrop-blur-[2px]"
             }, void 0, false, {
                 fileName: "[project]/src/components/ui/Modal.tsx",
                 lineNumber: 43,
@@ -2585,13 +2589,13 @@ function Modal(param) {
                 style: {
                     animation: 'modalSlideUp 200ms cubic-bezier(0.34, 1.56, 0.64, 1)'
                 },
-                className: "jsx-2429637be7d47542" + " " + ((0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])('relative z-10 w-full bg-white rounded-2xl shadow-2xl overflow-hidden', 'ring-1 ring-black/5', SIZES[size], className) || ""),
+                className: "jsx-33f6e897547c1dc2" + " " + ((0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])('relative z-10 w-full bg-white rounded-2xl shadow-2xl overflow-hidden', 'ring-1 ring-black/5', SIZES[size], className) || ""),
                 children: [
                     title && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "jsx-2429637be7d47542" + " " + "flex items-center justify-between px-6 py-4 border-b border-border-light bg-gradient-to-r from-g-faint/60 to-white",
+                        className: "jsx-33f6e897547c1dc2" + " " + "flex items-center justify-between px-6 py-4 border-b border-border-light bg-gradient-to-r from-g-faint/60 to-white",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                className: "jsx-2429637be7d47542" + " " + "text-[15px] font-bold text-text-dark leading-tight",
+                                className: "jsx-33f6e897547c1dc2" + " " + "text-[15px] font-bold text-text-dark leading-tight",
                                 children: title
                             }, void 0, false, {
                                 fileName: "[project]/src/components/ui/Modal.tsx",
@@ -2601,7 +2605,7 @@ function Modal(param) {
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 onClick: onClose,
                                 "aria-label": "Close",
-                                className: "jsx-2429637be7d47542" + " " + "p-1.5 rounded-xl text-text-muted hover:bg-g-pale hover:text-g-dark transition-all ml-4 shrink-0",
+                                className: "jsx-33f6e897547c1dc2" + " " + "p-1.5 rounded-xl text-text-muted hover:bg-g-pale hover:text-g-dark transition-all ml-4 shrink-0",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
                                     className: "w-4 h-4"
                                 }, void 0, false, {
@@ -2621,7 +2625,7 @@ function Modal(param) {
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "jsx-2429637be7d47542" + " " + ((0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])('p-6', !title && 'pt-5') || ""),
+                        className: "jsx-33f6e897547c1dc2" + " " + ((0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])('p-6', !title && 'pt-5') || ""),
                         children: children
                     }, void 0, false, {
                         fileName: "[project]/src/components/ui/Modal.tsx",
@@ -2635,7 +2639,7 @@ function Modal(param) {
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$styled$2d$jsx$2f$style$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                id: "2429637be7d47542",
+                id: "33f6e897547c1dc2",
                 children: "@keyframes fadeIn{0%{opacity:0}to{opacity:1}}@keyframes modalSlideUp{0%{opacity:0;transform:translateY(12px)scale(.97)}to{opacity:1;transform:translateY(0)scale(1)}}"
             }, void 0, false, void 0, this)
         ]

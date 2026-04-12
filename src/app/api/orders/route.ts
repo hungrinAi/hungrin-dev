@@ -8,43 +8,45 @@ export async function GET(request: NextRequest) {
 
     const { searchParams } = new URL(request.url);
     const userId = searchParams.get('userId');
-    const status = searchParams.get('status');
-    const platform = searchParams.get('platform');
 
     if (!userId) {
       return NextResponse.json({
+        pending: 0,
+        completed: 0,
+        todayRevenue: 0,
         orders: [],
-        summary: {
-          totalOrders: 0,
-          completedOrders: 0,
-          pendingOrders: 0,
-          cancelledOrders: 0,
-          totalRevenue: 0,
-        },
       });
     }
 
-    const query: any = { userId };
-    if (status) query.status = status;
-    if (platform) query.platform = platform;
+    const orders = await Order.find({ userId }).sort({ createdAt: -1 });
 
-    const orders = await Order.find(query).sort({ createdAt: -1 });
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const todayOrders = orders.filter(o => new Date(o.createdAt) >= today);
+    const todayRevenue = todayOrders.reduce((sum, o) => sum + o.totalAmount, 0);
 
-    const totalOrders = orders.length;
-    const completedOrders = orders.filter(o => o.status === 'completed').length;
-    const pendingOrders = orders.filter(o => o.status === 'pending').length;
-    const cancelledOrders = orders.filter(o => o.status === 'cancelled').length;
-    const totalRevenue = orders.reduce((sum, o) => sum + o.totalAmount, 0);
+    const formattedOrders = orders.map(o => ({
+      id: o._id.toString(),
+      customer: o.items?.[0]?.name || 'Customer',
+      customerName: o.items?.[0]?.name || 'Customer',
+      initials: 'CU',
+      items: o.items.map((item: any) => item.name),
+      total: o.totalAmount,
+      time: new Date(o.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      status: o.status,
+      createdAt: o.createdAt,
+      deliveryPlatform: o.platform.toLowerCase().includes('uber') ? 'uber' : 'deliveroo',
+      subtotal: o.totalAmount,
+      deliveryFee: 0,
+      tips: 0,
+      fullTotal: o.totalAmount,
+    }));
 
     return NextResponse.json({
-      orders,
-      summary: {
-        totalOrders,
-        completedOrders,
-        pendingOrders,
-        cancelledOrders,
-        totalRevenue,
-      },
+      pending: orders.filter(o => o.status === 'pending').length,
+      completed: orders.filter(o => o.status === 'completed').length,
+      todayRevenue,
+      orders: formattedOrders,
     });
   } catch (error) {
     console.error('Orders error:', error);

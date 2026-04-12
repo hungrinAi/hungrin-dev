@@ -10,12 +10,28 @@ export async function GET(request: NextRequest) {
     const userId = searchParams.get('userId');
 
     if (!userId) {
-      return NextResponse.json([], { status: 200 });
+      return NextResponse.json({
+        customers: [],
+        summary: {
+          totalCustomers: 0,
+          vipCustomers: 0,
+          newCustomers: 0,
+          totalSpend: 0,
+        },
+      });
     }
 
     const customers = await Customer.find({ userId }).sort({ createdAt: -1 });
 
-    return NextResponse.json(customers);
+    return NextResponse.json({
+      customers,
+      summary: {
+        totalCustomers: customers.length,
+        vipCustomers: customers.filter((c: any) => c.status === 'vip').length,
+        newCustomers: customers.filter((c: any) => c.status === 'new').length,
+        totalSpend: customers.reduce((sum: number, c: any) => sum + c.totalSpend, 0),
+      },
+    });
   } catch (error) {
     console.error('Customers error:', error);
     return NextResponse.json(

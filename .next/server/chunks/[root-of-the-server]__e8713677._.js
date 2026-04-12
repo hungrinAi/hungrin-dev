@@ -1,5 +1,5 @@
 module.exports = [
-"[project]/.next-internal/server/app/api/customers/route/actions.js [app-rsc] (server actions loader, ecmascript)", ((__turbopack_context__, module, exports) => {
+"[project]/.next-internal/server/app/api/insights/route/actions.js [app-rsc] (server actions loader, ecmascript)", ((__turbopack_context__, module, exports) => {
 
 }),
 "[externals]/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js [external] (next/dist/compiled/next-server/app-route-turbo.runtime.dev.js, cjs)", ((__turbopack_context__, module, exports) => {
@@ -98,6 +98,73 @@ async function connectDB() {
 }
 const __TURBOPACK__default__export__ = connectDB;
 }),
+"[project]/src/models/Order.ts [app-route] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/mongoose [external] (mongoose, cjs)");
+;
+const OrderSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$29$__["Schema"]({
+    userId: {
+        type: __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$29$__["Schema"].Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    restaurantId: {
+        type: __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$29$__["Schema"].Types.ObjectId,
+        ref: 'Restaurant',
+        required: true
+    },
+    platform: {
+        type: String,
+        enum: [
+            'Uber Eats',
+            'Deliveroo',
+            'Just Eat'
+        ],
+        required: true
+    },
+    orderNumber: {
+        type: String,
+        required: true
+    },
+    items: [
+        {
+            name: {
+                type: String,
+                required: true
+            },
+            quantity: {
+                type: Number,
+                required: true
+            },
+            price: {
+                type: Number,
+                required: true
+            }
+        }
+    ],
+    totalAmount: {
+        type: Number,
+        required: true
+    },
+    status: {
+        type: String,
+        enum: [
+            'pending',
+            'completed',
+            'cancelled'
+        ],
+        default: 'pending'
+    }
+}, {
+    timestamps: true
+});
+const __TURBOPACK__default__export__ = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$29$__["default"].models.Order || __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$29$__["default"].model('Order', OrderSchema);
+}),
 "[project]/src/models/Customer.ts [app-route] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
@@ -163,18 +230,18 @@ const CustomerSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mon
 });
 const __TURBOPACK__default__export__ = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$29$__["default"].models.Customer || __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$29$__["default"].model('Customer', CustomerSchema);
 }),
-"[project]/src/app/api/customers/route.ts [app-route] (ecmascript)", ((__turbopack_context__) => {
+"[project]/src/app/api/insights/route.ts [app-route] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
 __turbopack_context__.s([
     "GET",
-    ()=>GET,
-    "POST",
-    ()=>POST
+    ()=>GET
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/server.js [app-route] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$mongodb$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/mongodb.ts [app-route] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$models$2f$Order$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/models/Order.ts [app-route] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$models$2f$Customer$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/models/Customer.ts [app-route] (ecmascript)");
+;
 ;
 ;
 ;
@@ -185,63 +252,158 @@ async function GET(request) {
         const userId = searchParams.get('userId');
         if (!userId) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                customers: [],
-                summary: {
-                    totalCustomers: 0,
-                    vipCustomers: 0,
-                    newCustomers: 0,
-                    totalSpend: 0
-                }
+                customerSegments: [
+                    {
+                        name: 'Loyal',
+                        value: 0
+                    },
+                    {
+                        name: 'Returning',
+                        value: 0
+                    },
+                    {
+                        name: 'New',
+                        value: 0
+                    },
+                    {
+                        name: 'VIP',
+                        value: 0
+                    }
+                ],
+                salesTrend: [
+                    {
+                        name: 'Mon',
+                        sales: 0
+                    },
+                    {
+                        name: 'Tue',
+                        sales: 0
+                    },
+                    {
+                        name: 'Wed',
+                        sales: 0
+                    },
+                    {
+                        name: 'Thu',
+                        sales: 0
+                    },
+                    {
+                        name: 'Fri',
+                        sales: 0
+                    },
+                    {
+                        name: 'Sat',
+                        sales: 0
+                    },
+                    {
+                        name: 'Sun',
+                        sales: 0
+                    }
+                ],
+                recommendations: [],
+                topProducts: []
             });
         }
-        const customers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$models$2f$Customer$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].find({
+        const orders = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$models$2f$Order$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].find({
             userId
         }).sort({
             createdAt: -1
         });
-        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-            customers,
-            summary: {
-                totalCustomers: customers.length,
-                vipCustomers: customers.filter((c)=>c.status === 'vip').length,
-                newCustomers: customers.filter((c)=>c.status === 'new').length,
-                totalSpend: customers.reduce((sum, c)=>sum + c.totalSpend, 0)
+        const customers = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$models$2f$Customer$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].find({
+            userId
+        });
+        // Customer segments
+        const loyal = customers.filter((c)=>c.totalOrders >= 5).length;
+        const returning = customers.filter((c)=>c.totalOrders >= 2 && c.totalOrders < 5).length;
+        const newCustomers = customers.filter((c)=>c.totalOrders < 2).length;
+        const vip = customers.filter((c)=>c.status === 'vip').length;
+        const customerSegments = [
+            {
+                name: 'Loyal',
+                value: loyal || 0
+            },
+            {
+                name: 'Returning',
+                value: returning || 0
+            },
+            {
+                name: 'New',
+                value: newCustomers || 0
+            },
+            {
+                name: 'VIP',
+                value: vip || 0
             }
+        ];
+        // Sales trend (last 7 days)
+        const days = [
+            'Mon',
+            'Tue',
+            'Wed',
+            'Thu',
+            'Fri',
+            'Sat',
+            'Sun'
+        ];
+        const salesTrend = days.map((day, index)=>{
+            const dayOrders = orders.filter((o)=>new Date(o.createdAt).getDay() === (index + 1) % 7);
+            return {
+                name: day,
+                sales: dayOrders.reduce((sum, o)=>sum + o.totalAmount, 0)
+            };
         });
-    } catch (error) {
-        console.error('Customers error:', error);
-        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-            message: 'Internal server error'
-        }, {
-            status: 500
-        });
-    }
-}
-async function POST(request) {
-    try {
-        await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$mongodb$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"])();
-        const body = await request.json();
-        const { userId, restaurantId, name, email, phone, platform } = body;
-        if (!userId || !name || !email) {
-            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                message: 'Required fields missing'
-            }, {
-                status: 400
+        // Top products
+        const productMap = {};
+        orders.forEach((order)=>{
+            order.items.forEach((item)=>{
+                if (!productMap[item.name]) {
+                    productMap[item.name] = {
+                        sales: 0,
+                        revenue: 0
+                    };
+                }
+                productMap[item.name].sales += item.quantity;
+                productMap[item.name].revenue += item.price * item.quantity;
             });
-        }
-        const customer = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$models$2f$Customer$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].create({
-            userId,
-            restaurantId,
-            name,
-            email,
-            phone,
-            platform
         });
-        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json(customer, {
-            status: 201
+        const topProducts = Object.entries(productMap).map(([name, data])=>({
+                name,
+                category: 'Main',
+                sales: data.sales,
+                revenue: data.revenue.toFixed(2),
+                growth: '+0%',
+                trend: '+0%',
+                emoji: '🍔'
+            })).sort((a, b)=>b.sales - a.sales).slice(0, 4);
+        // Recommendations
+        const recommendations = [
+            {
+                id: '1',
+                title: 'Boost Your Sales',
+                description: 'Upload your CSV data to get personalised AI recommendations.',
+                category: 'Sales',
+                impact: 'High',
+                text: 'Upload your CSV data to get personalised AI recommendations.'
+            }
+        ];
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+            customerSegments,
+            salesTrend,
+            recommendations,
+            topProducts: topProducts.length > 0 ? topProducts : [
+                {
+                    name: 'No products yet',
+                    category: 'Main',
+                    sales: 0,
+                    revenue: '0',
+                    growth: '0%',
+                    trend: '0%',
+                    emoji: '🍔'
+                }
+            ]
         });
     } catch (error) {
-        console.error('Create customer error:', error);
+        console.error('Insights error:', error);
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             message: 'Internal server error'
         }, {
@@ -252,4 +414,4 @@ async function POST(request) {
 }),
 ];
 
-//# sourceMappingURL=%5Broot-of-the-server%5D__ea703ea0._.js.map
+//# sourceMappingURL=%5Broot-of-the-server%5D__e8713677._.js.map

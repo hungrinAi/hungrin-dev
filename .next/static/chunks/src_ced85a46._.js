@@ -1685,7 +1685,11 @@ __turbopack_context__.s([
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/api.ts [app-client] (ecmascript)");
 ;
 const insightsApi = {
-    getAll: ()=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["apiRequest"])('/insights')
+    getAll: ()=>{
+        const user = ("TURBOPACK compile-time truthy", 1) ? JSON.parse(localStorage.getItem('hungrin_user') || '{}') : "TURBOPACK unreachable";
+        const userId = (user === null || user === void 0 ? void 0 : user.id) || '';
+        return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["apiRequest"])("/insights?userId=".concat(userId));
+    }
 };
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
@@ -1744,7 +1748,7 @@ function useApi(apiFunc) {
     }["useApi.useEffect"], dependencies);
     return state;
 }
-_s(useApi, "gAeSYv5hJXRA6CDxxoYc2vFjTMA=");
+_s(useApi, "b2jhlEWy/QYTt80or7rD6vv8oqI=");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
 }

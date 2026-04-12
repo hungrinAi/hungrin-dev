@@ -1565,7 +1565,11 @@ __turbopack_context__.s([
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/api.ts [app-ssr] (ecmascript)");
 ;
 const insightsApi = {
-    getAll: ()=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["apiRequest"])('/insights')
+    getAll: ()=>{
+        const user = ("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : {};
+        const userId = user?.id || '';
+        return (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["apiRequest"])(`/insights?userId=${userId}`);
+    }
 };
 }),
 "[project]/src/hooks/useApi.ts [app-ssr] (ecmascript)", ((__turbopack_context__) => {

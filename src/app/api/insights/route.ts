@@ -11,87 +11,97 @@ export async function GET(request: NextRequest) {
     const userId = searchParams.get('userId');
 
     if (!userId) {
-      return NextResponse.json(
-        { message: 'User ID is required' },
-        { status: 400 }
-      );
+      return NextResponse.json({
+        customerSegments: [
+          { name: 'Loyal', value: 0 },
+          { name: 'Returning', value: 0 },
+          { name: 'New', value: 0 },
+          { name: 'VIP', value: 0 },
+        ],
+        salesTrend: [
+          { name: 'Mon', sales: 0 },
+          { name: 'Tue', sales: 0 },
+          { name: 'Wed', sales: 0 },
+          { name: 'Thu', sales: 0 },
+          { name: 'Fri', sales: 0 },
+          { name: 'Sat', sales: 0 },
+          { name: 'Sun', sales: 0 },
+        ],
+        recommendations: [],
+        topProducts: [],
+      });
     }
 
-    // Get all orders
     const orders = await Order.find({ userId }).sort({ createdAt: -1 });
+    const customers = await Customer.find({ userId });
 
-    // Total stats
-    const totalRevenue = orders.reduce((sum, o) => sum + o.totalAmount, 0);
-    const totalOrders = orders.length;
-    const avgOrderValue = totalOrders > 0 ? totalRevenue / totalOrders : 0;
+    // Customer segments
+    const loyal = customers.filter(c => c.totalOrders >= 5).length;
+    const returning = customers.filter(c => c.totalOrders >= 2 && c.totalOrders < 5).length;
+    const newCustomers = customers.filter(c => c.totalOrders < 2).length;
+    const vip = customers.filter(c => c.status === 'vip').length;
 
-    // Platform breakdown
-    const platforms = ['Uber Eats', 'Deliveroo', 'Just Eat'];
-    const platformStats = platforms.map(platform => {
-      const platformOrders = orders.filter(o => o.platform === platform);
-      const revenue = platformOrders.reduce((sum, o) => sum + o.totalAmount, 0);
+    const customerSegments = [
+      { name: 'Loyal', value: loyal || 0 },
+      { name: 'Returning', value: returning || 0 },
+      { name: 'New', value: newCustomers || 0 },
+      { name: 'VIP', value: vip || 0 },
+    ];
+
+    // Sales trend (last 7 days)
+    const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    const salesTrend = days.map((day, index) => {
+      const dayOrders = orders.filter(o => new Date(o.createdAt).getDay() === (index + 1) % 7);
       return {
-        platform,
-        orders: platformOrders.length,
-        revenue,
-        share: totalRevenue > 0 ? ((revenue / totalRevenue) * 100).toFixed(1) : '0',
+        name: day,
+        sales: dayOrders.reduce((sum, o) => sum + o.totalAmount, 0),
       };
     });
 
-    // Weekly revenue trend (last 8 weeks)
-    const weeklyTrend = Array.from({ length: 8 }, (_, i) => {
-      const weekStart = new Date();
-      weekStart.setDate(weekStart.getDate() - (7 * (7 - i)));
-      weekStart.setHours(0, 0, 0, 0);
-      const weekEnd = new Date(weekStart);
-      weekEnd.setDate(weekEnd.getDate() + 7);
-
-      const weekOrders = orders.filter(o => {
-        const orderDate = new Date(o.createdAt);
-        return orderDate >= weekStart && orderDate < weekEnd;
+    // Top products
+    const productMap: { [key: string]: { sales: number; revenue: number } } = {};
+    orders.forEach(order => {
+      order.items.forEach((item: any) => {
+        if (!productMap[item.name]) {
+          productMap[item.name] = { sales: 0, revenue: 0 };
+        }
+        productMap[item.name].sales += item.quantity;
+        productMap[item.name].revenue += item.price * item.quantity;
       });
-
-      return {
-        week: `W${i + 1}`,
-        revenue: weekOrders.reduce((sum, o) => sum + o.totalAmount, 0),
-        orders: weekOrders.length,
-      };
     });
 
-    // Customer stats
-    const totalCustomers = await Customer.countDocuments({ userId });
-    const repeatCustomers = await Customer.countDocuments({
-      userId,
-      totalOrders: { $gt: 1 },
-    });
-    const repeatRate = totalCustomers > 0
-      ? ((repeatCustomers / totalCustomers) * 100).toFixed(1)
-      : '0';
+    const topProducts = Object.entries(productMap)
+      .map(([name, data]) => ({
+        name,
+        category: 'Main',
+        sales: data.sales,
+        revenue: data.revenue.toFixed(2),
+        growth: '+0%',
+        trend: '+0%',
+        emoji: '🍔',
+      }))
+      .sort((a, b) => b.sales - a.sales)
+      .slice(0, 4);
 
-    // Peak day analysis
-    const dayStats = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day, index) => {
-      const dayOrders = orders.filter(o => new Date(o.createdAt).getDay() === index);
-      return {
-        day,
-        orders: dayOrders.length,
-        revenue: dayOrders.reduce((sum, o) => sum + o.totalAmount, 0),
-      };
-    });
-
-    const peakDay = dayStats.reduce((max, day) => day.orders > max.orders ? day : max, dayStats[0]);
+    // Recommendations
+    const recommendations = [
+      {
+        id: '1',
+        title: 'Boost Your Sales',
+        description: 'Upload your CSV data to get personalised AI recommendations.',
+        category: 'Sales',
+        impact: 'High',
+        text: 'Upload your CSV data to get personalised AI recommendations.',
+      },
+    ];
 
     return NextResponse.json({
-      stats: {
-        totalRevenue,
-        totalOrders,
-        avgOrderValue: avgOrderValue.toFixed(2),
-        totalCustomers,
-        repeatRate,
-        peakDay: peakDay.day,
-      },
-      platformStats,
-      weeklyTrend,
-      dayStats,
+      customerSegments,
+      salesTrend,
+      recommendations,
+      topProducts: topProducts.length > 0 ? topProducts : [
+        { name: 'No products yet', category: 'Main', sales: 0, revenue: '0', growth: '0%', trend: '0%', emoji: '🍔' },
+      ],
     });
   } catch (error) {
     console.error('Insights error:', error);

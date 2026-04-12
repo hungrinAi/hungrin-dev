@@ -1,5 +1,5 @@
 module.exports = [
-"[project]/.next-internal/server/app/api/campaigns/route/actions.js [app-rsc] (server actions loader, ecmascript)", ((__turbopack_context__, module, exports) => {
+"[project]/.next-internal/server/app/api/orders/route/actions.js [app-rsc] (server actions loader, ecmascript)", ((__turbopack_context__, module, exports) => {
 
 }),
 "[externals]/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js [external] (next/dist/compiled/next-server/app-route-turbo.runtime.dev.js, cjs)", ((__turbopack_context__, module, exports) => {
@@ -98,7 +98,7 @@ async function connectDB() {
 }
 const __TURBOPACK__default__export__ = connectDB;
 }),
-"[project]/src/models/Campaign.ts [app-route] (ecmascript)", ((__turbopack_context__) => {
+"[project]/src/models/Order.ts [app-route] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
 __turbopack_context__.s([
@@ -107,7 +107,7 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/mongoose [external] (mongoose, cjs)");
 ;
-const CampaignSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$29$__["Schema"]({
+const OrderSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$29$__["Schema"]({
     userId: {
         type: __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$29$__["Schema"].Types.ObjectId,
         ref: 'User',
@@ -115,76 +115,68 @@ const CampaignSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mon
     },
     restaurantId: {
         type: __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$29$__["Schema"].Types.ObjectId,
-        ref: 'Restaurant'
-    },
-    name: {
-        type: String,
+        ref: 'Restaurant',
         required: true
-    },
-    description: {
-        type: String,
-        default: ''
     },
     platform: {
         type: String,
         enum: [
             'Uber Eats',
             'Deliveroo',
-            'Just Eat',
-            'All'
+            'Just Eat'
         ],
-        default: 'All'
+        required: true
+    },
+    orderNumber: {
+        type: String,
+        required: true
+    },
+    items: [
+        {
+            name: {
+                type: String,
+                required: true
+            },
+            quantity: {
+                type: Number,
+                required: true
+            },
+            price: {
+                type: Number,
+                required: true
+            }
+        }
+    ],
+    totalAmount: {
+        type: Number,
+        required: true
     },
     status: {
         type: String,
         enum: [
-            'active',
-            'paused',
-            'draft'
+            'pending',
+            'completed',
+            'cancelled'
         ],
-        default: 'draft'
-    },
-    reach: {
-        type: Number,
-        default: 0
-    },
-    clicks: {
-        type: Number,
-        default: 0
-    },
-    conversions: {
-        type: Number,
-        default: 0
-    },
-    budget: {
-        type: Number,
-        default: 0
-    },
-    startDate: {
-        type: Date
-    },
-    endDate: {
-        type: Date
+        default: 'pending'
     }
 }, {
     timestamps: true
 });
-const __TURBOPACK__default__export__ = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$29$__["default"].models.Campaign || __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$29$__["default"].model('Campaign', CampaignSchema);
+const __TURBOPACK__default__export__ = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$29$__["default"].models.Order || __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$29$__["default"].model('Order', OrderSchema);
 }),
-"[project]/src/app/api/campaigns/route.ts [app-route] (ecmascript)", ((__turbopack_context__) => {
+"[project]/src/app/api/orders/route.ts [app-route] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
 __turbopack_context__.s([
     "GET",
     ()=>GET,
-    "PATCH",
-    ()=>PATCH,
     "POST",
     ()=>POST
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/server.js [app-route] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$mongodb$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/mongodb.ts [app-route] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$models$2f$Campaign$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/models/Campaign.ts [app-route] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$models$2f$Order$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/models/Order.ts [app-route] (ecmascript)");
 ;
 ;
 ;
@@ -193,22 +185,50 @@ async function GET(request) {
         await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$mongodb$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"])();
         const { searchParams } = new URL(request.url);
         const userId = searchParams.get('userId');
-        const status = searchParams.get('status');
         if (!userId) {
-            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json([], {
-                status: 200
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                pending: 0,
+                completed: 0,
+                todayRevenue: 0,
+                orders: []
             });
         }
-        const query = {
+        const orders = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$models$2f$Order$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].find({
             userId
-        };
-        if (status) query.status = status;
-        const campaigns = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$models$2f$Campaign$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].find(query).sort({
+        }).sort({
             createdAt: -1
         });
-        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json(campaigns);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const todayOrders = orders.filter((o)=>new Date(o.createdAt) >= today);
+        const todayRevenue = todayOrders.reduce((sum, o)=>sum + o.totalAmount, 0);
+        const formattedOrders = orders.map((o)=>({
+                id: o._id.toString(),
+                customer: o.items?.[0]?.name || 'Customer',
+                customerName: o.items?.[0]?.name || 'Customer',
+                initials: 'CU',
+                items: o.items.map((item)=>item.name),
+                total: o.totalAmount,
+                time: new Date(o.createdAt).toLocaleTimeString([], {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                }),
+                status: o.status,
+                createdAt: o.createdAt,
+                deliveryPlatform: o.platform.toLowerCase().includes('uber') ? 'uber' : 'deliveroo',
+                subtotal: o.totalAmount,
+                deliveryFee: 0,
+                tips: 0,
+                fullTotal: o.totalAmount
+            }));
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+            pending: orders.filter((o)=>o.status === 'pending').length,
+            completed: orders.filter((o)=>o.status === 'completed').length,
+            todayRevenue,
+            orders: formattedOrders
+        });
     } catch (error) {
-        console.error('Campaigns error:', error);
+        console.error('Orders error:', error);
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             message: 'Internal server error'
         }, {
@@ -220,64 +240,28 @@ async function POST(request) {
     try {
         await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$mongodb$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"])();
         const body = await request.json();
-        const { userId, restaurantId, name, description, platform, budget, startDate, endDate } = body;
-        if (!userId || !name) {
+        const { userId, restaurantId, platform, orderNumber, items, totalAmount } = body;
+        if (!userId || !platform || !orderNumber || !items || !totalAmount) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
                 message: 'Required fields missing'
             }, {
                 status: 400
             });
         }
-        const campaign = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$models$2f$Campaign$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].create({
+        const order = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$models$2f$Order$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].create({
             userId,
             restaurantId,
-            name,
-            description,
             platform,
-            budget,
-            startDate,
-            endDate,
-            status: 'draft'
+            orderNumber,
+            items,
+            totalAmount,
+            status: 'pending'
         });
-        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json(campaign, {
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json(order, {
             status: 201
         });
     } catch (error) {
-        console.error('Create campaign error:', error);
-        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-            message: 'Internal server error'
-        }, {
-            status: 500
-        });
-    }
-}
-async function PATCH(request) {
-    try {
-        await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$mongodb$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"])();
-        const body = await request.json();
-        const { campaignId, status } = body;
-        if (!campaignId) {
-            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                message: 'Campaign ID is required'
-            }, {
-                status: 400
-            });
-        }
-        const campaign = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$models$2f$Campaign$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].findByIdAndUpdate(campaignId, {
-            status
-        }, {
-            new: true
-        });
-        if (!campaign) {
-            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                message: 'Campaign not found'
-            }, {
-                status: 404
-            });
-        }
-        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json(campaign);
-    } catch (error) {
-        console.error('Update campaign error:', error);
+        console.error('Create order error:', error);
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             message: 'Internal server error'
         }, {
@@ -288,4 +272,4 @@ async function PATCH(request) {
 }),
 ];
 
-//# sourceMappingURL=%5Broot-of-the-server%5D__5754ff40._.js.map
+//# sourceMappingURL=%5Broot-of-the-server%5D__2a99cf51._.js.map
