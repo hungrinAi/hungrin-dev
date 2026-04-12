@@ -9,24 +9,27 @@ export function Step4Live() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col items-center text-center gap-4 py-4">
+        {/* Robot — white bg, Hungrin hex icon */}
         <div className="relative">
-          <div className="w-28 h-28 rounded-3xl overflow-hidden shadow-2xl border-4 border-[#d1f0e4] bg-[#0d3d2c]">
+          <div className="w-28 h-28 rounded-3xl overflow-hidden shadow-2xl border-4 border-[#d1f0e4] bg-white">
             <Image
-              src="/images/robot-happy.jpeg"
+              src="/assets/logo-icon.svg"
               alt="Hungrin is live"
               width={112}
               height={112}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain p-2"
             />
           </div>
-          <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-g-dark rounded-full flex items-center justify-center border-2 border-white">
+          <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-g-dark rounded-full flex items-center justify-center border-2 border-white shadow-md">
             <Check className="w-4 h-4 text-white" />
           </div>
         </div>
+
         <div className="inline-flex items-center gap-2 bg-[#f0faf5] border border-[#d1f0e4] rounded-full px-5 py-2.5">
           <span className="w-2.5 h-2.5 rounded-full bg-g-dark animate-pulse" />
-          <span className="text-sm font-black text-g-dark">You're Live!</span>
+          <span className="text-sm font-black text-g-dark">You&apos;re Live!</span>
         </div>
+
         <div>
           <h1 className="text-2xl font-black text-text-dark">Hungrin is active</h1>
           <p className="text-sm text-text-muted mt-2 max-w-sm">

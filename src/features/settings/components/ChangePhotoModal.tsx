@@ -6,18 +6,12 @@ import { Upload, Check, Camera } from 'lucide-react';
 import { Modal } from '@/src/components/ui/Modal';
 import { Button } from '@/src/components/ui/Button';
 import { cn } from '@/src/lib/utils';
+import { AVATAR_PRESETS } from '../data/constants';
 
 interface ChangePhotoModalProps {
   open: boolean;
   onClose: () => void;
 }
-
-const PRESETS = [
-  '/images/robot-thumbsup.jpeg',
-  '/images/robot-happy.jpeg',
-  '/images/robot-thinking.jpeg',
-  '/images/robot-burger.jpeg',
-];
 
 export function ChangePhotoModal({ open, onClose }: ChangePhotoModalProps) {
   const [selected, setSelected] = useState('/images/robot-thumbsup.jpeg');
@@ -61,7 +55,7 @@ export function ChangePhotoModal({ open, onClose }: ChangePhotoModalProps) {
 
           {/* Preset avatars */}
           <div className="grid grid-cols-4 gap-2">
-            {PRESETS.map(src => (
+            {AVATAR_PRESETS.map(src => (
               <button
                 key={src}
                 onClick={() => setSelected(src)}

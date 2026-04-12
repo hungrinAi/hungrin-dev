@@ -1,13 +1,13 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
-import { ChevronLeft, Check, CreditCard, MessageCircle, Plus, ToggleLeft, ToggleRight, XCircle } from 'lucide-react';
-import { useState } from 'react';
-import { AppLayout } from '@/src/components/layout/AppLayout';
+import { Check, CreditCard, MessageCircle, Plus, ToggleLeft, ToggleRight, XCircle } from 'lucide-react';
+import { SettingsShell } from '@/src/components/layout/SettingsShell';
 import { Card } from '@/src/components/ui/Card';
 import { Button } from '@/src/components/ui/Button';
+import { StatusBadge } from '@/src/components/ui/StatusBadge';
+import { Pagination } from '@/src/components/ui/Pagination';
 import {
   useBillingModals,
   useBillingState,
@@ -41,17 +41,7 @@ export default function Billing() {
   } = useBillingState();
 
   return (
-    <AppLayout
-      title={
-        <span className="flex items-center gap-1.5 text-sm font-bold">
-          <Link href="/settings" className="text-text-muted hover:text-g-dark transition-all flex items-center gap-1">
-            <ChevronLeft className="w-4 h-4" /> Settings
-          </Link>
-          <span className="text-border-light">/</span>
-          <span className="text-text-dark">Billing</span>
-        </span>
-      }
-    >
+    <SettingsShell active="Billing">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
         {/* Left column */}
@@ -123,7 +113,7 @@ export default function Billing() {
                       <td className="px-3 md:px-6 py-3 text-xs text-text-muted whitespace-nowrap">{row.date}</td>
                       <td className="px-3 md:px-6 py-3 text-xs font-medium text-text-dark">{currentPlan.name} Plan</td>
                       <td className="px-3 md:px-6 py-3 hidden sm:table-cell">
-                        <span className="text-[10px] font-bold bg-g-pale text-g-dark px-2 py-0.5 rounded-full">{row.status}</span>
+                        <StatusBadge status={row.status} dot={false} />
                       </td>
                       <td className="px-3 md:px-6 py-3 text-xs font-bold text-text-dark text-right whitespace-nowrap">{currentPlan.price}</td>
                     </tr>
@@ -131,24 +121,13 @@ export default function Billing() {
                 </tbody>
               </table>
             </div>
-            <div className="px-6 py-3 bg-g-faint border-t border-border-light flex items-center justify-between">
-              <p className="text-xs text-text-muted">Page <strong>{page}</strong> of {BILLING_PAGES_TOTAL}</p>
-              <div className="flex gap-1">
-                <button
-                  onClick={() => setPage(p => Math.max(1, p - 1))}
-                  disabled={page === 1}
-                  className="px-3 py-1.5 text-[10px] font-bold bg-white border border-border-light rounded-lg text-text-muted hover:bg-g-pale transition-all disabled:opacity-40"
-                >
-                  ← Prev
-                </button>
-                <button
-                  onClick={() => setPage(p => Math.min(BILLING_PAGES_TOTAL, p + 1))}
-                  disabled={page === BILLING_PAGES_TOTAL}
-                  className="px-3 py-1.5 text-[10px] font-bold bg-white border border-border-light rounded-lg text-text-mid hover:bg-g-pale transition-all disabled:opacity-40"
-                >
-                  Next →
-                </button>
-              </div>
+            <div className="px-6 py-3 bg-g-faint border-t border-border-light">
+              <Pagination
+                page={page}
+                total={BILLING_PAGES_TOTAL}
+                onChange={(p) => setPage(() => p)}
+                variant="simple"
+              />
             </div>
           </Card>
         </div>
@@ -234,12 +213,20 @@ export default function Billing() {
       </div>
 
       {/* Help Banner */}
-      <div className="bg-gradient-to-r from-g-pale to-[#d4f0e0] border border-border-light rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl overflow-hidden shrink-0 bg-[#0d3d2c]">
-            <Image src="/images/robot-thinking.jpeg" alt="" width={48} height={48} className="w-full h-full object-cover" />
+      <div className="bg-gradient-to-r from-g-pale to-[#d4f0e0] border border-border-light rounded-2xl p-6 flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
+        {/* Robot — centred on mobile, left-aligned on sm+ */}
+        <div className="flex flex-col sm:flex-row items-center gap-4">
+          <div className="w-16 h-16 sm:w-12 sm:h-12 rounded-2xl overflow-hidden shrink-0 bg-white border border-border-light flex items-center justify-center">
+            <Image
+              src="/images/robot-thinking.jpeg"
+              alt="Support robot"
+              width={64}
+              height={64}
+              className="w-full h-full object-cover object-center"
+              style={{ mixBlendMode: 'multiply' }}
+            />
           </div>
-          <div>
+          <div className="text-center sm:text-left">
             <p className="text-sm font-bold text-text-dark">Need help with your billing?</p>
             <p className="text-xs text-text-muted">Contact support or email us at billing@hungrin.com</p>
           </div>
@@ -277,6 +264,6 @@ export default function Billing() {
         onClose={close}
         onConfirmed={() => { handleContactConfirmed(); close(); }}
       />
-    </AppLayout>
+    </SettingsShell>
   );
 }

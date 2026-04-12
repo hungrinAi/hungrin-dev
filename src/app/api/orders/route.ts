@@ -1,85 +1,38 @@
 import { NextRequest, NextResponse } from 'next/server';
-import connectDB from '@/lib/mongodb';
-import Order from '@/models/Order';
+import connectDB from '@/src/lib/mongodb';
+import { orderService } from '@/src/services/orderService';
+import { isMockMode, MOCK_ORDERS_SUMMARY } from '@/src/lib/mockData';
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
+  if (isMockMode()) return NextResponse.json(MOCK_ORDERS_SUMMARY);
+
+  const { searchParams } = new URL(_request.url);
+  const userId   = searchParams.get('userId');
+  const status   = searchParams.get('status')   ?? undefined;
+  const platform = searchParams.get('platform') ?? undefined;
+
   try {
     await connectDB();
-
-    const { searchParams } = new URL(request.url);
-    const userId = searchParams.get('userId');
-    const status = searchParams.get('status');
-    const platform = searchParams.get('platform');
-
-    if (!userId) {
-      return NextResponse.json(
-        { message: 'User ID is required' },
-        { status: 400 }
-      );
-    }
-
-    // Build query
-    const query: any = { userId };
-    if (status) query.status = status;
-    if (platform) query.platform = platform;
-
-    const orders = await Order.find(query).sort({ createdAt: -1 });
-
-    const totalOrders = orders.length;
-    const completedOrders = orders.filter(o => o.status === 'completed').length;
-    const pendingOrders = orders.filter(o => o.status === 'pending').length;
-    const cancelledOrders = orders.filter(o => o.status === 'cancelled').length;
-    const totalRevenue = orders.reduce((sum, o) => sum + o.totalAmount, 0);
-
-    return NextResponse.json({
-      orders,
-      summary: {
-        totalOrders,
-        completedOrders,
-        pendingOrders,
-        cancelledOrders,
-        totalRevenue,
-      },
-    });
+    if (!userId) return NextResponse.json(MOCK_ORDERS_SUMMARY);
+    const data = await orderService.getOrders(userId, { status, platform });
+    return NextResponse.json(data);
   } catch (error) {
-    console.error('Orders error:', error);
-    return NextResponse.json(
-      { message: 'Internal server error' },
-      { status: 500 }
-    );
+    console.warn('[orders] DB unavailable, returning mock data:', (error as Error).message);
+    return NextResponse.json(MOCK_ORDERS_SUMMARY);
   }
 }
 
 export async function POST(request: NextRequest) {
   try {
     await connectDB();
-
-    const body = await request.json();
-    const { userId, restaurantId, platform, orderNumber, items, totalAmount } = body;
-
+    const { userId, restaurantId, platform, orderNumber, items, totalAmount } = await request.json();
     if (!userId || !platform || !orderNumber || !items || !totalAmount) {
-      return NextResponse.json(
-        { message: 'Required fields missing' },
-        { status: 400 }
-      );
+      return NextResponse.json({ message: 'Required fields missing' }, { status: 400 });
     }
-
-    const order = await Order.create({
-      userId,
-      restaurantId,
-      platform,
-      orderNumber,
-      items,
-      totalAmount,
-      status: 'pending',
-    });
-
+    const order = await orderService.createOrder({ userId, restaurantId, platform, orderNumber, items, totalAmount });
     return NextResponse.json(order, { status: 201 });
   } catch (error) {
-    console.error('Create order error:', error);
-    return NextResponse.json(
-      { message: 'Internal server error' },
-      { status: 500 }
-    );
+    console.error('[orders] Create order error:', error);
+    return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
   }
 }

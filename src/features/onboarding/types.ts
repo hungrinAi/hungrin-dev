@@ -31,4 +31,7 @@ export interface OnboardingForm {
   restaurantType: string;
   avgOrdersPerDay: string;
   platforms: string[];
+  emailForParsing: string;
+  emailConsent: boolean;
+  csvFileName: string;
 }

@@ -14,6 +14,7 @@ import {
   StepBreadcrumb,
   Step1Restaurant,
   Step2Platforms,
+  Step3Email,
   Step3Promo,
   Step4Live,
 } from '@/src/features/onboarding';
@@ -31,6 +32,7 @@ export default function Onboarding() {
     clearFieldError,
     togglePlatform,
     handleContinue,
+    skipStep,
     handleBack,
     nextSlide,
     setSlide,
@@ -44,19 +46,25 @@ export default function Onboarding() {
       {/* Right Panel */}
       <div className="flex-1 flex flex-col min-h-screen bg-white">
         {/* Top bar */}
-        <header className="flex items-center justify-between px-6 py-4 border-b border-border-light lg:px-10">
-          <div className="lg:hidden">
-            <Logo />
+        <header className="flex items-center gap-4 px-6 py-4 border-b border-border-light lg:px-10">
+          {/* Logo — mobile only */}
+          <div className="lg:hidden shrink-0">
+            <Logo size={38} />
           </div>
+
+          {/* Step counter — desktop only */}
           <div className="hidden lg:flex items-center gap-1.5 text-xs font-bold text-text-muted">
             <span className="text-g-dark text-sm">Step {step}</span>
             <span>of {totalSteps}</span>
           </div>
+
+          {/* Login link — pushed to right */}
           <Link
             href={ROUTES.LOGIN}
-            className="ml-auto inline-flex items-center rounded-full border border-border-light bg-white px-4 py-2 text-xs font-bold text-text-dark shadow-sm transition-all hover:border-g-dark hover:text-g-dark"
+            className="ml-auto shrink-0 inline-flex items-center rounded-full border border-border-light bg-white px-4 py-2 text-xs font-bold text-text-dark shadow-sm transition-all hover:border-g-dark hover:text-g-dark whitespace-nowrap"
           >
-            Already have an account? Log in
+            Already have an account?&nbsp;
+            <span className="text-g-dark">Log in</span>
           </Link>
         </header>
 
@@ -91,8 +99,23 @@ export default function Onboarding() {
                 onTogglePlatform={togglePlatform}
               />
             )}
-            {step === 3 && <Step3Promo onLaunch={handleContinue} />}
-            {step === 4 && <Step4Live />}
+            {step === 3 && (
+              <Step3Email
+                form={form}
+                errors={fieldErrors}
+                onUpdate={updateField}
+                onClearError={clearFieldError}
+                onSkip={skipStep}
+              />
+            )}
+            {step === 4 && (
+              <Step3Promo
+                form={form}
+                onLaunch={handleContinue}
+                onSkip={skipStep}
+              />
+            )}
+            {step === 5 && <Step4Live />}
           </div>
         </div>
 

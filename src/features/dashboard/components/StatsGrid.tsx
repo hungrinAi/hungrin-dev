@@ -1,60 +1,16 @@
 import React from 'react';
-import { TrendingUp, CloudSun, Utensils, ShoppingBag } from 'lucide-react';
 import { DashboardStats } from '@/src/types';
 import { cn } from '@/src/lib/utils';
+import { STATS_CARDS } from '../data/constants';
 
 interface StatsGridProps {
   stats?: DashboardStats;
 }
 
-const CARDS = [
-  {
-    icon: ShoppingBag,
-    label: 'New Orders Today',
-    key: 'newOrdersToday' as const,
-    prefix: '',
-    change: '+12%',
-    positive: true,
-    gradient: 'from-[#e8f8f0] to-[#d0eedd]',
-    iconBg: 'bg-g-dark',
-  },
-  {
-    icon: TrendingUp,
-    label: 'Weekly Revenue',
-    key: 'weeklyRevenue' as const,
-    prefix: '£',
-    change: '+22%',
-    positive: true,
-    gradient: 'from-[#eef3ff] to-[#dde8ff]',
-    iconBg: 'bg-[#4f6ef7]',
-  },
-  {
-    icon: CloudSun,
-    label: 'Weather Effect',
-    key: 'weatherEffect' as const,
-    prefix: '+',
-    suffix: '%',
-    change: 'Impact ↑',
-    positive: true,
-    gradient: 'from-[#fff8e8] to-[#ffefc8]',
-    iconBg: 'bg-[#e5a020]',
-  },
-  {
-    icon: Utensils,
-    label: 'Total Orders',
-    key: 'totalOrders' as const,
-    prefix: '',
-    change: '→ 34%',
-    positive: false,
-    gradient: 'from-[#fdf0f8] to-[#f7ddf0]',
-    iconBg: 'bg-[#c050a0]',
-  },
-];
-
 export function StatsGrid({ stats }: StatsGridProps) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
-      {CARDS.map((card) => {
+      {STATS_CARDS.map((card) => {
         const raw = stats?.[card.key] ?? 0;
         const value = `${card.prefix ?? ''}${raw}${card.suffix ?? ''}`;
 

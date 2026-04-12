@@ -8,7 +8,12 @@ const INITIAL_FORM: OnboardingForm = {
   restaurantType: '',
   avgOrdersPerDay: '',
   platforms: [],
+  emailForParsing: '',
+  emailConsent: false,
+  csvFileName: '',
 };
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export function useOnboarding() {
   const [step, setStep] = useState(1);
@@ -52,12 +57,28 @@ export function useOnboarding() {
         errors.platforms = 'Please select at least one delivery platform';
     }
 
+    if (step === 3) {
+      // Email step — email is required only if consent is given
+      if (form.emailConsent && !EMAIL_RE.test(form.emailForParsing)) {
+        errors.emailForParsing = 'Please enter a valid email address';
+      }
+      if (form.emailForParsing && !form.emailConsent) {
+        errors.emailConsent = 'Please tick the box to give Hungrin permission to read your emails';
+      }
+      // Step 3 is optional — user can proceed without filling anything
+    }
+
     setFieldErrors(errors);
     return Object.keys(errors).length === 0;
   };
 
   const handleContinue = () => {
     if (validateStep()) setStep(s => s + 1);
+  };
+
+  const skipStep = () => {
+    setFieldErrors({});
+    setStep(s => s + 1);
   };
 
   const handleBack = () => {
@@ -79,6 +100,7 @@ export function useOnboarding() {
     togglePlatform,
     validateStep,
     handleContinue,
+    skipStep,
     handleBack,
     nextSlide,
     setSlide,
