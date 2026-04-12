@@ -1,4 +1,4 @@
-import Billing from '@/src/views/Billing';
+import Billing from '@/views/Billing';
 
 export default function Page() {
   return <Billing />;

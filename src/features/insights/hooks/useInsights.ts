@@ -1,4 +1,4 @@
-import { useApi } from '@/src/hooks/useApi';
+import { useApi } from '@/hooks/useApi';
 import { insightsApi } from '../api';
 import type { InsightsData } from '../types';
 

@@ -5,9 +5,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronLeft, Check, CreditCard, MessageCircle, Plus, ToggleLeft, ToggleRight, XCircle } from 'lucide-react';
 import { useState } from 'react';
-import { AppLayout } from '@/src/components/layout/AppLayout';
-import { Card } from '@/src/components/ui/Card';
-import { Button } from '@/src/components/ui/Button';
+import { AppLayout } from '@/components/layout/AppLayout';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 import {
   useBillingModals,
   useBillingState,
@@ -20,7 +20,7 @@ import {
   PLAN_FEATURES,
   SUBSCRIPTION_EXTRAS,
   BILLING_PAGES_TOTAL,
-} from '@/src/features/billing';
+} from '@/features/billing';
 
 export default function Billing() {
   const [weatherInsights, setWeatherInsights] = useState(true);

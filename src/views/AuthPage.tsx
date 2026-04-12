@@ -4,12 +4,12 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Mail, Lock, User, ArrowRight, CheckCircle2, Utensils } from 'lucide-react';
-import { Logo } from '@/src/components/brand';
-import { Button } from '@/src/components/ui/Button';
-import { BackButton } from '@/src/components/ui/BackButton';
-import { useForm } from '@/src/hooks/useForm';
-import { composeValidators, required, email, minLength, strongPassword } from '@/src/lib/validators';
-import { ROUTES, STORAGE_KEYS } from '@/src/lib/constants';
+import { Logo } from '@/components/brand';
+import { Button } from '@/components/ui/Button';
+import { BackButton } from '@/components/ui/BackButton';
+import { useForm } from '@/hooks/useForm';
+import { composeValidators, required, email, minLength, strongPassword } from '@/lib/validators';
+import { ROUTES, STORAGE_KEYS } from '@/lib/constants';
 
 interface AuthPageProps {
   mode: 'login' | 'register';

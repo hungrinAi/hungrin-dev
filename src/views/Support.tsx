@@ -2,11 +2,11 @@
 
 import React, { useState, useRef } from 'react';
 import { MessageCircle, Zap, ExternalLink } from 'lucide-react';
-import { AppLayout } from '@/src/components/layout/AppLayout';
-import { Card } from '@/src/components/ui/Card';
+import { AppLayout } from '@/components/layout/AppLayout';
+import { Card } from '@/components/ui/Card';
 import { LifeBuoy } from 'lucide-react';
-import { cn } from '@/src/lib/utils';
-import { FAQS, CHANNELS, FaqItem, ContactForm, LiveChatModal } from '@/src/features/support';
+import { cn } from '@/lib/utils';
+import { FAQS, CHANNELS, FaqItem, ContactForm, LiveChatModal } from '@/features/support';
 
 export default function Support() {
   const [liveChatOpen, setLiveChatOpen] = useState(false);

@@ -1,15 +1,15 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { PageLoading } from '@/src/components/ui/Loading';
-import { AppLayout } from '@/src/components/layout/AppLayout';
-import { Button } from '@/src/components/ui/Button';
-import { useOrders } from '@/src/features/orders';
-import { OrderStatsPills } from '@/src/features/orders/components/OrderStatsPills';
-import { CsvUploadCard } from '@/src/features/orders/components/CsvUploadCard';
-import { OrderTable } from '@/src/features/orders/components/OrderTable';
-import { OrderDetailPanel } from '@/src/features/orders/components/OrderDetailPanel';
-import { useNotifications } from '@/src/contexts/NotificationsContext';
+import { PageLoading } from '@/components/ui/Loading';
+import { AppLayout } from '@/components/layout/AppLayout';
+import { Button } from '@/components/ui/Button';
+import { useOrders } from '@/features/orders';
+import { OrderStatsPills } from '@/features/orders/components/OrderStatsPills';
+import { CsvUploadCard } from '@/features/orders/components/CsvUploadCard';
+import { OrderTable } from '@/features/orders/components/OrderTable';
+import { OrderDetailPanel } from '@/features/orders/components/OrderDetailPanel';
+import { useNotifications } from '@/contexts/NotificationsContext';
 import { ArrowLeft, Send } from 'lucide-react';
 
 // Inner component — rendered inside AppLayout so NotificationsProvider is available

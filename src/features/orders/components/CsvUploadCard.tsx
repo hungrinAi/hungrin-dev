@@ -2,8 +2,8 @@
 
 import React, { useState, useRef } from 'react';
 import { Upload, CheckCircle2, X } from 'lucide-react';
-import { Card } from '@/src/components/ui/Card';
-import { cn } from '@/src/lib/utils';
+import { Card } from '@/components/ui/Card';
+import { cn } from '@/lib/utils';
 
 const FILTERS = ['All', 'Pending', 'Completed'];
 

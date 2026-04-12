@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react';
 import { Phone, CheckCircle2, Check, Clock } from 'lucide-react';
-import { Button } from '@/src/components/ui/Button';
-import { Modal } from '@/src/components/ui/Modal';
-import { cn } from '@/src/lib/utils';
-import { OrderSummary } from '@/src/types';
+import { Button } from '@/components/ui/Button';
+import { Modal } from '@/components/ui/Modal';
+import { cn } from '@/lib/utils';
+import { OrderSummary } from '@/types';
 
 interface OrderDetailPanelProps {
   order: OrderSummary['orders'][0];

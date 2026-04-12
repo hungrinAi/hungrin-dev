@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react';
 import { CreditCard, Lock } from 'lucide-react';
-import { Modal } from '@/src/components/ui/Modal';
-import { Button } from '@/src/components/ui/Button';
-import { FormField, inputCls } from '@/src/components/ui/FormField';
-import { SuccessState } from '@/src/components/ui/SuccessState';
+import { Modal } from '@/components/ui/Modal';
+import { Button } from '@/components/ui/Button';
+import { FormField, inputCls } from '@/components/ui/FormField';
+import { SuccessState } from '@/components/ui/SuccessState';
 
 interface UpdatePaymentModalProps {
   open: boolean;

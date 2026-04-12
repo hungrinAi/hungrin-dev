@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import { Send } from 'lucide-react';
-import { Button } from '@/src/components/ui/Button';
-import { cn } from '@/src/lib/utils';
+import { Button } from '@/components/ui/Button';
+import { cn } from '@/lib/utils';
 
 const inputCls = (error?: string) =>
   cn(

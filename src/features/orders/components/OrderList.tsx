@@ -1,10 +1,10 @@
 import React from 'react';
 import { Search, Filter, ChevronRight } from 'lucide-react';
-import { Card, CardHeader, CardContent } from '@/src/components/ui/Card';
-import { Badge } from '@/src/components/ui/Badge';
-import { Input } from '@/src/components/ui/Input';
-import { OrderSummary } from '@/src/types';
-import { cn } from '@/src/lib/utils';
+import { Card, CardHeader, CardContent } from '@/components/ui/Card';
+import { Badge } from '@/components/ui/Badge';
+import { Input } from '@/components/ui/Input';
+import { OrderSummary } from '@/types';
+import { cn } from '@/lib/utils';
 
 interface OrderListProps {
   orders: OrderSummary['orders'];

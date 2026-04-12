@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { PageLoading } from '@/src/components/ui/Loading';
-import { AppLayout } from '@/src/components/layout/AppLayout';
-import { useCustomers, CustomerStats, CustomerTable, CustomerDetailPanel } from '@/src/features/customers';
+import { PageLoading } from '@/components/ui/Loading';
+import { AppLayout } from '@/components/layout/AppLayout';
+import { useCustomers, CustomerStats, CustomerTable, CustomerDetailPanel } from '@/features/customers';
 import { ArrowLeft } from 'lucide-react';
 
 export default function Customers() {

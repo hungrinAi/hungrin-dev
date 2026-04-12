@@ -2,9 +2,9 @@
 
 import React, { useState } from 'react';
 import { Lightbulb, ArrowRight, CheckCircle2 } from 'lucide-react';
-import { Card, CardHeader, CardContent } from '@/src/components/ui/Card';
-import { Button } from '@/src/components/ui/Button';
-import { InsightsData } from '@/src/types';
+import { Card, CardHeader, CardContent } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
+import { InsightsData } from '@/types';
 
 interface AiRecommendationsProps {
   recommendations: InsightsData['recommendations'];

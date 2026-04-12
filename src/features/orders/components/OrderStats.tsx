@@ -1,6 +1,6 @@
 import React from 'react';
 import { Clock, CheckCircle2, TrendingUp } from 'lucide-react';
-import { OrderSummary } from '@/src/types';
+import { OrderSummary } from '@/types';
 
 interface OrderStatsProps {
   summary?: OrderSummary;

@@ -1,6 +1,6 @@
 import React from 'react';
-import { cn } from '@/src/lib/utils';
-import { OrderSummary } from '@/src/types';
+import { cn } from '@/lib/utils';
+import { OrderSummary } from '@/types';
 
 interface OrderStatsPillsProps {
   summary: OrderSummary;

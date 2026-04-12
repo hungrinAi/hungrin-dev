@@ -1,6 +1,6 @@
 import React from 'react';
 import { Users, ShoppingBag, TrendingUp } from 'lucide-react';
-import { CustomerSummary } from '@/src/types';
+import { CustomerSummary } from '@/types';
 
 interface CustomerStatsProps {
   summary?: CustomerSummary;

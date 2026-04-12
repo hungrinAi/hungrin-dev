@@ -2,8 +2,8 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Logo } from '@/src/components/brand';
-import { cn } from '@/src/lib/utils';
+import { Logo } from '@/components/brand';
+import { cn } from '@/lib/utils';
 import { LEFT_SLIDES } from '../data/constants';
 
 interface LeftPanelProps {

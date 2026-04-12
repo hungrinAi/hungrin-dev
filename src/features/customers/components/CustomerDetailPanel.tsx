@@ -2,12 +2,12 @@
 
 import React, { useState } from 'react';
 import { X, Mail, Phone, ShoppingBag, Star, Clock, TrendingUp } from 'lucide-react';
-import { Customer } from '@/src/types';
-import { Badge } from '@/src/components/ui/Badge';
-import { cn } from '@/src/lib/utils';
+import { Customer } from '@/types';
+import { Badge } from '@/components/ui/Badge';
+import { cn } from '@/lib/utils';
 import { SendPromoModal } from './SendPromoModal';
 import { SendEmailModal } from './SendEmailModal';
-import { useNotifications } from '@/src/contexts/NotificationsContext';
+import { useNotifications } from '@/contexts/NotificationsContext';
 
 interface CustomerDetailPanelProps {
   customer: Customer;

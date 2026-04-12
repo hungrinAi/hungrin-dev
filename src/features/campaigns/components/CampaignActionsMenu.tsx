@@ -2,9 +2,9 @@
 
 import React, { useState } from 'react';
 import { Pause, Play, Pencil, Trash2, X, AlertTriangle, Check, ArrowLeft } from 'lucide-react';
-import { Modal } from '@/src/components/ui/Modal';
-import { Button } from '@/src/components/ui/Button';
-import { cn } from '@/src/lib/utils';
+import { Modal } from '@/components/ui/Modal';
+import { Button } from '@/components/ui/Button';
+import { cn } from '@/lib/utils';
 import type { Campaign } from '../types';
 
 interface CampaignActionsMenuProps {

@@ -10,9 +10,9 @@ import {
   AreaChart,
   Area
 } from 'recharts';
-import { Card, CardHeader, CardContent } from '@/src/components/ui/Card';
-import { cn } from '@/src/lib/utils';
-import { DashboardStats } from '@/src/types';
+import { Card, CardHeader, CardContent } from '@/components/ui/Card';
+import { cn } from '@/lib/utils';
+import { DashboardStats } from '@/types';
 import { useSalesChart } from '../hooks/useSalesChart';
 
 interface SalesChartProps {

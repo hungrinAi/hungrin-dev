@@ -1,4 +1,4 @@
-import { apiRequest } from '@/src/lib/api';
+import { apiRequest } from '@/lib/api';
 import type { DashboardStats } from './types';
 
 /** All HTTP calls for the Dashboard feature. */

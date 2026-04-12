@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNotifications } from '@/src/contexts/NotificationsContext';
+import { useNotifications } from '@/contexts/NotificationsContext';
 import { useSaveFeedback } from './useSaveFeedback';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

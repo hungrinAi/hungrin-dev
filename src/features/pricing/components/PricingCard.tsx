@@ -2,9 +2,9 @@
 
 import React from 'react';
 import { Check, Star } from 'lucide-react';
-import { Button } from '@/src/components/ui/Button';
-import { Card } from '@/src/components/ui/Card';
-import { cn } from '@/src/lib/utils';
+import { Button } from '@/components/ui/Button';
+import { Card } from '@/components/ui/Card';
+import { cn } from '@/lib/utils';
 import type { PricingPlan } from '../types';
 
 interface PricingCardProps {

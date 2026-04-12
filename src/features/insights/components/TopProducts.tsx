@@ -1,7 +1,7 @@
 import React from 'react';
-import { Card, CardHeader, CardContent } from '@/src/components/ui/Card';
-import { Badge } from '@/src/components/ui/Badge';
-import { InsightsData } from '@/src/types';
+import { Card, CardHeader, CardContent } from '@/components/ui/Card';
+import { Badge } from '@/components/ui/Badge';
+import { InsightsData } from '@/types';
 
 interface TopProductsProps {
   products: InsightsData['topProducts'];

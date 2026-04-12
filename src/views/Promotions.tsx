@@ -4,15 +4,15 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Send, Sparkles, Calendar, Tag, CheckCircle2, ArrowRight, Pencil, Check, X, Plus, Trash2, MessageSquare } from 'lucide-react';
-import { AppLayout } from '@/src/components/layout/AppLayout';
-import { Card, CardHeader } from '@/src/components/ui/Card';
-import { Button } from '@/src/components/ui/Button';
-import { Modal } from '@/src/components/ui/Modal';
-import { SuccessState } from '@/src/components/ui/SuccessState';
-import { cn } from '@/src/lib/utils';
-import { useNotifications } from '@/src/contexts/NotificationsContext';
-import { usePromoChat, usePromoModals, QUICK_ACTIONS } from '@/src/features/promotions';
-import type { PromoCardData } from '@/src/features/promotions';
+import { AppLayout } from '@/components/layout/AppLayout';
+import { Card, CardHeader } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
+import { Modal } from '@/components/ui/Modal';
+import { SuccessState } from '@/components/ui/SuccessState';
+import { cn } from '@/lib/utils';
+import { useNotifications } from '@/contexts/NotificationsContext';
+import { usePromoChat, usePromoModals, QUICK_ACTIONS } from '@/features/promotions';
+import type { PromoCardData } from '@/features/promotions';
 
 const PRICE_RE = /^[£$€]?\d+(\.\d{1,2})?$/;
 

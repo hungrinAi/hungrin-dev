@@ -148,7 +148,7 @@ function Providers(param) {
         children: children
     }, void 0, false, {
         fileName: "[project]/src/app/providers.tsx",
-        lineNumber: 6,
+        lineNumber: 5,
         columnNumber: 10
     }, this);
 }

@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { MessageCircle, X } from 'lucide-react';
-import { Card } from '@/src/components/ui/Card';
-import { cn } from '@/src/lib/utils';
+import { Card } from '@/components/ui/Card';
+import { cn } from '@/lib/utils';
 import type { AiMessage } from '../types';
 
 interface AiChatPanelProps {

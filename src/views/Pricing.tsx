@@ -3,9 +3,9 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { Send, HelpCircle, Phone, MessageCircle } from 'lucide-react';
-import { AppLayout } from '@/src/components/layout/AppLayout';
-import { Button } from '@/src/components/ui/Button';
-import { ROUTES } from '@/src/lib/constants';
+import { AppLayout } from '@/components/layout/AppLayout';
+import { Button } from '@/components/ui/Button';
+import { ROUTES } from '@/lib/constants';
 import {
   PRICING_PLANS,
   usePricingChat,
@@ -15,7 +15,7 @@ import {
   AiChatPanel,
   ContactSalesModal,
   PricingSidebar,
-} from '@/src/features/pricing';
+} from '@/features/pricing';
 
 export default function Pricing() {
   const router = useRouter();

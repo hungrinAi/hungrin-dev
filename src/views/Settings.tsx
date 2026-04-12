@@ -3,17 +3,17 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Save, ToggleLeft, ToggleRight, Trash2, Check } from 'lucide-react';
-import { AppLayout } from '@/src/components/layout/AppLayout';
-import { Card } from '@/src/components/ui/Card';
-import { Button } from '@/src/components/ui/Button';
-import { cn } from '@/src/lib/utils';
+import { AppLayout } from '@/components/layout/AppLayout';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
+import { cn } from '@/lib/utils';
 import {
   useSettingsForm,
   DeleteAccountModal,
   SETTINGS_NAV,
   PLATFORM_LIST,
   NOTIFICATION_LIST,
-} from '@/src/features/settings';
+} from '@/features/settings';
 
 const inputCls = "w-full bg-g-faint border border-border-light rounded-xl px-4 py-2.5 text-sm outline-none focus:border-g-dark focus:ring-2 focus:ring-g-pale transition-all";
 const labelCls = "block text-xs font-bold text-text-dark mb-1.5";

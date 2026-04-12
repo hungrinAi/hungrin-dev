@@ -2,9 +2,9 @@
 
 import React, { useState } from 'react';
 import { CheckCircle2, Plus } from 'lucide-react';
-import { Modal } from '@/src/components/ui/Modal';
-import { Button } from '@/src/components/ui/Button';
-import { SuccessState } from '@/src/components/ui/SuccessState';
+import { Modal } from '@/components/ui/Modal';
+import { Button } from '@/components/ui/Button';
+import { SuccessState } from '@/components/ui/SuccessState';
 
 interface AddOnModalProps {
   open: boolean;

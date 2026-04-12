@@ -1,4 +1,4 @@
-import Orders from '@/src/views/Orders';
+import Orders from '@/views/Orders';
 
 export default function Page() {
   return <Orders />;

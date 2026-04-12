@@ -3,8 +3,8 @@
 import React, { KeyboardEvent } from 'react';
 import Image from 'next/image';
 import { Send, CheckCircle2, Loader2 } from 'lucide-react';
-import { DashboardStats } from '@/src/types';
-import { cn } from '@/src/lib/utils';
+import { DashboardStats } from '@/types';
+import { cn } from '@/lib/utils';
 import { useAiChat } from '../hooks/useAiChat';
 
 interface AiAssistantProps {

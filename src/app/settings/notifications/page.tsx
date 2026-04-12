@@ -1,4 +1,4 @@
-import AccountProfile from '@/src/views/AccountProfile';
+import AccountProfile from '@/views/AccountProfile';
 
 export default function Page() {
   return <AccountProfile />;

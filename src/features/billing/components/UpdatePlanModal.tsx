@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react';
 import { Check, Zap } from 'lucide-react';
-import { Modal } from '@/src/components/ui/Modal';
-import { Button } from '@/src/components/ui/Button';
-import { SuccessState } from '@/src/components/ui/SuccessState';
-import { cn } from '@/src/lib/utils';
+import { Modal } from '@/components/ui/Modal';
+import { Button } from '@/components/ui/Button';
+import { SuccessState } from '@/components/ui/SuccessState';
+import { cn } from '@/lib/utils';
 
 export const PLANS = [
   {

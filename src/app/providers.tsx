@@ -1,7 +1,14 @@
 'use client';
 
-import { NotificationsProvider } from '@/src/contexts/NotificationsContext';
+import { NotificationsProvider } from '@/contexts/NotificationsContext';
+import { AuthProvider } from '@/contexts/AuthContext';
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  return <NotificationsProvider>{children}</NotificationsProvider>;
+  return (
+    <AuthProvider>
+      <NotificationsProvider>
+        {children}
+      </NotificationsProvider>
+    </AuthProvider>
+  );
 }

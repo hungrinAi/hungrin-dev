@@ -3,11 +3,11 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { AppLayout } from '@/src/components/layout/AppLayout';
-import { useDashboard, StatsGrid, SalesChart, PromoCard, AiAssistant } from '@/src/features/dashboard';
+import { AppLayout } from '@/components/layout/AppLayout';
+import { useDashboard, StatsGrid, SalesChart, PromoCard, AiAssistant } from '@/features/dashboard';
 import { ArrowRight, Sparkles, Zap } from 'lucide-react';
-import { PageLoading } from '@/src/components/ui/Loading';
-import { cn } from '@/src/lib/utils';
+import { PageLoading } from '@/components/ui/Loading';
+import { cn } from '@/lib/utils';
 
 function getGreeting() {
   const h = new Date().getHours();

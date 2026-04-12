@@ -1,7 +1,7 @@
 import React from 'react';
-import { Card } from '@/src/components/ui/Card';
-import { cn } from '@/src/lib/utils';
-import { OrderSummary } from '@/src/types';
+import { Card } from '@/components/ui/Card';
+import { cn } from '@/lib/utils';
+import { OrderSummary } from '@/types';
 
 interface OrderTableProps {
   orders: OrderSummary['orders'];

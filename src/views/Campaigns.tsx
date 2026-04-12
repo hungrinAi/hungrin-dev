@@ -1,23 +1,23 @@
 'use client';
 
 import React from 'react';
-import { PageLoading } from '@/src/components/ui/Loading';
+import { PageLoading } from '@/components/ui/Loading';
 import {
   Search, Filter, Plus, MoreHorizontal,
   ChevronLeft, ChevronRight, Zap, CheckCircle2
 } from 'lucide-react';
 import Image from 'next/image';
-import { AppLayout } from '@/src/components/layout/AppLayout';
-import { Card } from '@/src/components/ui/Card';
-import { Button } from '@/src/components/ui/Button';
+import { AppLayout } from '@/components/layout/AppLayout';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 import {
   useCampaigns,
   useCampaignActions,
   useCampaignsView,
   NewCampaignModal,
   CampaignActionsMenu,
-} from '@/src/features/campaigns';
-import { cn } from '@/src/lib/utils';
+} from '@/features/campaigns';
+import { cn } from '@/lib/utils';
 
 export default function Campaigns() {
   const { data: campaigns, loading, error } = useCampaigns();

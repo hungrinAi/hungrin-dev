@@ -9,10 +9,10 @@ import {
   Sparkles,
   Play,
 } from 'lucide-react';
-import { Logo, HungrinIcon } from '@/src/components/brand';
-import { PublicNav } from '@/src/components/layout/PublicNav';
-import { Button } from '@/src/components/ui/Button';
-import { Card } from '@/src/components/ui/Card';
+import { Logo, HungrinIcon } from '@/components/brand';
+import { PublicNav } from '@/components/layout/PublicNav';
+import { Button } from '@/components/ui/Button';
+import { Card } from '@/components/ui/Card';
 
 export default function LandingPage() {
   return (

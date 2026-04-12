@@ -1,4 +1,4 @@
-import { useApi } from '@/src/hooks/useApi';
+import { useApi } from '@/hooks/useApi';
 import { dashboardApi } from '../api';
 import type { DashboardStats } from '../types';
 

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { cn } from '@/src/lib/utils';
+import { cn } from '@/lib/utils';
 import { RESTAURANT_TYPES, AVG_ORDERS } from '../data/constants';
 import type { OnboardingForm } from '../types';
 

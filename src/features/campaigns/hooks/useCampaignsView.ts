@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNotifications } from '@/src/contexts/NotificationsContext';
+import { useNotifications } from '@/contexts/NotificationsContext';
 import type { Campaign } from '../types';
 
 const PAGE_SIZE = 5;

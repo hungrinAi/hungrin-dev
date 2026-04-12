@@ -1,2 +1,2 @@
-/** @deprecated Import from '@/src/lib/api' directly. */
-export { apiRequest } from '@/src/lib/api';
+/** @deprecated Import from '@/lib/api' directly. */
+export { apiRequest } from '@/lib/api';

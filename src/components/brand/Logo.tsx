@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { cn } from '@/src/lib/utils';
+import { cn } from '@/lib/utils';
 
 /** Standalone hex icon — always visible, dark bg baked into the SVG */
 export const HungrinIcon = ({ size = 32, className }: { size?: number; className?: string }) => (

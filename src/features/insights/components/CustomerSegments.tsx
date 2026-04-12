@@ -7,8 +7,8 @@ import {
   ResponsiveContainer,
   Legend
 } from 'recharts';
-import { Card, CardHeader, CardContent } from '@/src/components/ui/Card';
-import { InsightsData } from '@/src/types';
+import { Card, CardHeader, CardContent } from '@/components/ui/Card';
+import { InsightsData } from '@/types';
 
 interface CustomerSegmentsProps {
   data: InsightsData['customerSegments'];

@@ -1,7 +1,7 @@
 import React from 'react';
 import { TrendingUp, CloudSun, Utensils, ShoppingBag } from 'lucide-react';
-import { DashboardStats } from '@/src/types';
-import { cn } from '@/src/lib/utils';
+import { DashboardStats } from '@/types';
+import { cn } from '@/lib/utils';
 
 interface StatsGridProps {
   stats?: DashboardStats;

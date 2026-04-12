@@ -3,8 +3,8 @@
 import React from 'react';
 import Image from 'next/image';
 import { Check } from 'lucide-react';
-import { Card } from '@/src/components/ui/Card';
-import { cn } from '@/src/lib/utils';
+import { Card } from '@/components/ui/Card';
+import { cn } from '@/lib/utils';
 
 const RECOMMENDATION_POINTS = [
   '→ Growth Plan',

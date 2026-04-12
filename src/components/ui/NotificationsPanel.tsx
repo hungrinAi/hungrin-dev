@@ -2,8 +2,8 @@
 
 import React, { useRef, useEffect } from 'react';
 import { Bell, CheckCheck, Trash2, Info, CheckCircle2, AlertTriangle, X } from 'lucide-react';
-import { useNotifications, type AppNotification } from '@/src/contexts/NotificationsContext';
-import { cn } from '@/src/lib/utils';
+import { useNotifications, type AppNotification } from '@/contexts/NotificationsContext';
+import { cn } from '@/lib/utils';
 
 const TYPE_STYLES: Record<AppNotification['type'], { icon: React.ElementType; bg: string; iconColor: string; dot: string }> = {
   success: { icon: CheckCircle2, bg: 'bg-g-pale', iconColor: 'text-g-dark', dot: 'bg-g-dark' },

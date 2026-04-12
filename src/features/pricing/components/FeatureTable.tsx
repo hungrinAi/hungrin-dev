@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { Check } from 'lucide-react';
-import { Card } from '@/src/components/ui/Card';
-import { cn } from '@/src/lib/utils';
+import { Card } from '@/components/ui/Card';
+import { cn } from '@/lib/utils';
 import { FEATURE_ROWS } from '../data/constants';
 
 export function FeatureTable() {

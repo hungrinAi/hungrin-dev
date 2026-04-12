@@ -1,4 +1,4 @@
-import Insights from '@/src/views/Insights';
+import Insights from '@/views/Insights';
 
 export default function Page() {
   return <Insights />;

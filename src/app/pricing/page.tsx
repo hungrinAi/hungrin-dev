@@ -1,4 +1,4 @@
-import Pricing from '@/src/views/Pricing';
+import Pricing from '@/views/Pricing';
 
 export default function Page() {
   return <Pricing />;

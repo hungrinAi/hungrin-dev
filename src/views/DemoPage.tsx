@@ -11,10 +11,10 @@ import {
   Sparkles,
   Play
 } from 'lucide-react';
-import { Logo } from '@/src/components/brand';
-import { Button } from '@/src/components/ui/Button';
-import { BackButton } from '@/src/components/ui/BackButton';
-import { Card } from '@/src/components/ui/Card';
+import { Logo } from '@/components/brand';
+import { Button } from '@/components/ui/Button';
+import { BackButton } from '@/components/ui/BackButton';
+import { Card } from '@/components/ui/Card';
 
 export default function DemoPage() {
   const [submitted, setSubmitted] = useState(false);

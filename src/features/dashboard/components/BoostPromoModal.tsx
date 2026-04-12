@@ -2,9 +2,9 @@
 
 import React from 'react';
 import { Rocket, CheckCircle2, Zap } from 'lucide-react';
-import { Modal } from '@/src/components/ui/Modal';
-import { Button } from '@/src/components/ui/Button';
-import { cn } from '@/src/lib/utils';
+import { Modal } from '@/components/ui/Modal';
+import { Button } from '@/components/ui/Button';
+import { cn } from '@/lib/utils';
 import type { DashboardStats } from '../types';
 import type { Platform, BoostDuration } from '../hooks/useBoostPromo';
 

@@ -1,4 +1,4 @@
-import DemoPage from '@/src/views/DemoPage';
+import DemoPage from '@/views/DemoPage';
 
 export default function Page() {
   return <DemoPage />;

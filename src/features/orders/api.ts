@@ -1,4 +1,4 @@
-import { apiRequest } from '@/src/lib/api';
+import { apiRequest } from '@/lib/api';
 import type { Order, OrderSummary } from './types';
 
 /** All HTTP calls for the Orders feature. */

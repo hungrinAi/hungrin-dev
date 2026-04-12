@@ -1,4 +1,4 @@
-import { useApi } from '@/src/hooks/useApi';
+import { useApi } from '@/hooks/useApi';
 import { customersApi } from '../api';
 import type { CustomerSummary } from '../types';
 

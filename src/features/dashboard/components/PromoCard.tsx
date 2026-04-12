@@ -2,10 +2,10 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Card, CardHeader, CardContent } from '@/src/components/ui/Card';
-import { Button } from '@/src/components/ui/Button';
-import { cn } from '@/src/lib/utils';
-import { DashboardStats } from '@/src/types';
+import { Card, CardHeader, CardContent } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
+import { cn } from '@/lib/utils';
+import { DashboardStats } from '@/types';
 import { useBoostPromo } from '../hooks/useBoostPromo';
 import { BoostPromoModal } from './BoostPromoModal';
 

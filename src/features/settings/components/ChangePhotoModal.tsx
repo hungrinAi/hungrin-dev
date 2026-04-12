@@ -3,9 +3,9 @@
 import React, { useState, useRef } from 'react';
 import Image from 'next/image';
 import { Upload, Check, Camera } from 'lucide-react';
-import { Modal } from '@/src/components/ui/Modal';
-import { Button } from '@/src/components/ui/Button';
-import { cn } from '@/src/lib/utils';
+import { Modal } from '@/components/ui/Modal';
+import { Button } from '@/components/ui/Button';
+import { cn } from '@/lib/utils';
 
 interface ChangePhotoModalProps {
   open: boolean;

@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react';
 import { AlertTriangle } from 'lucide-react';
-import { Modal } from '@/src/components/ui/Modal';
-import { Button } from '@/src/components/ui/Button';
-import { SuccessState } from '@/src/components/ui/SuccessState';
-import { inputCls } from '@/src/components/ui/FormField';
+import { Modal } from '@/components/ui/Modal';
+import { Button } from '@/components/ui/Button';
+import { SuccessState } from '@/components/ui/SuccessState';
+import { inputCls } from '@/components/ui/FormField';
 
 interface CancelPlanModalProps {
   open: boolean;

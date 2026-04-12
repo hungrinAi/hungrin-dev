@@ -2,11 +2,11 @@
 
 import React, { useState } from 'react';
 import { Zap } from 'lucide-react';
-import { Modal } from '@/src/components/ui/Modal';
-import { Button } from '@/src/components/ui/Button';
-import { SuccessState } from '@/src/components/ui/SuccessState';
-import { cn } from '@/src/lib/utils';
-import type { Customer } from '@/src/types';
+import { Modal } from '@/components/ui/Modal';
+import { Button } from '@/components/ui/Button';
+import { SuccessState } from '@/components/ui/SuccessState';
+import { cn } from '@/lib/utils';
+import type { Customer } from '@/types';
 
 interface SendPromoModalProps {
   open: boolean;

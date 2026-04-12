@@ -3,9 +3,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Bell, Menu, ChevronDown, User, CreditCard, Tag, HelpCircle, Utensils, LogOut } from 'lucide-react';
 import Link from 'next/link';
-import { cn } from '@/src/lib/utils';
-import { useNotifications } from '@/src/contexts/NotificationsContext';
-import { NotificationsPanel } from '@/src/components/ui/NotificationsPanel';
+import { cn } from '@/lib/utils';
+import { useNotifications } from '@/contexts/NotificationsContext';
+import { NotificationsPanel } from '@/components/ui/NotificationsPanel';
 
 interface TopbarProps {
   title: React.ReactNode;

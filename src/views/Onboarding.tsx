@@ -4,9 +4,9 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
-import { Logo } from '@/src/components/brand';
-import { Button } from '@/src/components/ui/Button';
-import { ROUTES, STORAGE_KEYS } from '@/src/lib/constants';
+import { Logo } from '@/components/brand';
+import { Button } from '@/components/ui/Button';
+import { ROUTES, STORAGE_KEYS } from '@/lib/constants';
 import {
   STEPS,
   useOnboarding,
@@ -16,7 +16,7 @@ import {
   Step2Platforms,
   Step3Promo,
   Step4Live,
-} from '@/src/features/onboarding';
+} from '@/features/onboarding';
 
 export default function Onboarding() {
   const router = useRouter();

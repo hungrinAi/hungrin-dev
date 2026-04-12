@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Sidebar } from './Sidebar';
 import { Topbar } from './Topbar';
-import { STORAGE_KEYS, ROUTES } from '@/src/lib/constants';
+import { STORAGE_KEYS, ROUTES } from '@/lib/constants';
 
 interface AppLayoutProps {
   children: React.ReactNode;

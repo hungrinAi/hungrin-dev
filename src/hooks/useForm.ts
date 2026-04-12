@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import type { Validator } from '@/src/lib/validators';
+import type { Validator } from '@/lib/validators';
 
 type FieldRules<T extends Record<string, string>> = Partial<{
   [K in keyof T]: Validator;

@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import { PageLoading } from '@/src/components/ui/Loading';
-import { AppLayout } from '@/src/components/layout/AppLayout';
-import { useInsights, SalesTrends, CustomerSegments, AiRecommendations, TopProducts } from '@/src/features/insights';
+import { PageLoading } from '@/components/ui/Loading';
+import { AppLayout } from '@/components/layout/AppLayout';
+import { useInsights, SalesTrends, CustomerSegments, AiRecommendations, TopProducts } from '@/features/insights';
 
 export default function Insights() {
   const { data: insights, loading, error } = useInsights();

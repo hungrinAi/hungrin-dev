@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Modal } from '@/src/components/ui/Modal';
-import { Button } from '@/src/components/ui/Button';
-import { SuccessState } from '@/src/components/ui/SuccessState';
-import { cn } from '@/src/lib/utils';
+import { Modal } from '@/components/ui/Modal';
+import { Button } from '@/components/ui/Button';
+import { SuccessState } from '@/components/ui/SuccessState';
+import { cn } from '@/lib/utils';
 
 const inputCls =
   'w-full bg-g-faint border border-border-light rounded-xl px-4 py-2.5 text-sm outline-none focus:border-g-dark transition-all';

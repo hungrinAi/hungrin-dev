@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import { AlertTriangle } from 'lucide-react';
-import { Modal } from '@/src/components/ui/Modal';
-import { Button } from '@/src/components/ui/Button';
+import { Modal } from '@/components/ui/Modal';
+import { Button } from '@/components/ui/Button';
 
 interface DeleteAccountModalProps {
   open: boolean;

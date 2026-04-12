@@ -8,15 +8,15 @@ import {
   User, CreditCard, Users, Bell, ChevronLeft,
   Camera, Save, Check, Trash2
 } from 'lucide-react';
-import { AppLayout } from '@/src/components/layout/AppLayout';
-import { Card } from '@/src/components/ui/Card';
-import { Button } from '@/src/components/ui/Button';
-import { cn } from '@/src/lib/utils';
+import { AppLayout } from '@/components/layout/AppLayout';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
+import { cn } from '@/lib/utils';
 import {
   useSaveFeedback,
   DeleteAccountModal,
   ChangePhotoModal,
-} from '@/src/features/settings';
+} from '@/features/settings';
 
 const subNavItems = [
   { label: 'Account', href: '/settings/account', icon: User },

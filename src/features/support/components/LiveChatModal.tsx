@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { Send, Loader2 } from 'lucide-react';
-import { Modal } from '@/src/components/ui/Modal';
-import { cn } from '@/src/lib/utils';
+import { Modal } from '@/components/ui/Modal';
+import { cn } from '@/lib/utils';
 import { useLiveChat } from '../hooks/useLiveChat';
 
 interface LiveChatModalProps {

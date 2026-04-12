@@ -1,4 +1,4 @@
-import Support from '@/src/views/Support';
+import Support from '@/views/Support';
 
 export default function Page() {
   return <Support />;
