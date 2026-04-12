@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import connectDB from '@/lib/mongodb';
-import Promotion from '@/models/Promotion';
+import connectDB from '@/src/lib/mongodb';
+import Promotion from '@/src/models/Promotion';
 
 export async function GET(request: NextRequest) {
   try {
