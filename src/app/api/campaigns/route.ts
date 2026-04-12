@@ -11,10 +11,7 @@ export async function GET(request: NextRequest) {
     const status = searchParams.get('status');
 
     if (!userId) {
-      return NextResponse.json(
-        { message: 'User ID is required' },
-        { status: 400 }
-      );
+      return NextResponse.json([], { status: 200 });
     }
 
     const query: any = { userId };
@@ -22,20 +19,7 @@ export async function GET(request: NextRequest) {
 
     const campaigns = await Campaign.find(query).sort({ createdAt: -1 });
 
-    const totalCampaigns = campaigns.length;
-    const activeCampaigns = campaigns.filter(c => c.status === 'active').length;
-    const totalReach = campaigns.reduce((sum, c) => sum + c.reach, 0);
-    const totalClicks = campaigns.reduce((sum, c) => sum + c.clicks, 0);
-
-    return NextResponse.json({
-      campaigns,
-      summary: {
-        totalCampaigns,
-        activeCampaigns,
-        totalReach,
-        totalClicks,
-      },
-    });
+    return NextResponse.json(campaigns);
   } catch (error) {
     console.error('Campaigns error:', error);
     return NextResponse.json(

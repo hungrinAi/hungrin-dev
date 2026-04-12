@@ -12,13 +12,18 @@ export async function GET(request: NextRequest) {
     const platform = searchParams.get('platform');
 
     if (!userId) {
-      return NextResponse.json(
-        { message: 'User ID is required' },
-        { status: 400 }
-      );
+      return NextResponse.json({
+        orders: [],
+        summary: {
+          totalOrders: 0,
+          completedOrders: 0,
+          pendingOrders: 0,
+          cancelledOrders: 0,
+          totalRevenue: 0,
+        },
+      });
     }
 
-    // Build query
     const query: any = { userId };
     if (status) query.status = status;
     if (platform) query.platform = platform;

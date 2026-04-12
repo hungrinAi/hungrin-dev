@@ -1,7 +1,6 @@
 {
-  "/api/auth/register/route": "app/api/auth/register/route.js",
-  "/api/dashboard/stats/route": "app/api/dashboard/stats/route.js",
-  "/dashboard/page": "app/dashboard/page.js",
-  "/page": "app/page.js",
-  "/register/page": "app/register/page.js"
+  "/api/campaigns/route": "app/api/campaigns/route.js",
+  "/api/customers/route": "app/api/customers/route.js",
+  "/campaigns/page": "app/campaigns/page.js",
+  "/customers/page": "app/customers/page.js"
 }
