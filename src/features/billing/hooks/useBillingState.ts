@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNotifications } from '@/src/contexts/NotificationsContext';
-import { PLANS } from '../components/UpdatePlanModal';
+import { PLANS } from '../data/constants';
 
 export function useBillingState() {
   const { addNotification } = useNotifications();

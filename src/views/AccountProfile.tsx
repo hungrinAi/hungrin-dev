@@ -4,10 +4,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import {
-  User, CreditCard, Users, Bell, ChevronLeft,
-  Camera, Save, Check, Trash2
-} from 'lucide-react';
+import { ChevronLeft, Camera, Save, Check, Trash2 } from 'lucide-react';
 import { AppLayout } from '@/src/components/layout/AppLayout';
 import { Card } from '@/src/components/ui/Card';
 import { Button } from '@/src/components/ui/Button';
@@ -16,31 +13,18 @@ import {
   useSaveFeedback,
   DeleteAccountModal,
   ChangePhotoModal,
+  inputCls,
+  labelCls,
+  EMAIL_RE,
+  PHONE_RE,
+  ACCOUNT_SUB_NAV,
+  ACCOUNT_PLATFORMS,
 } from '@/src/features/settings';
-
-const subNavItems = [
-  { label: 'Account', href: '/settings/account', icon: User },
-  { label: 'Billing', href: '/billing', icon: CreditCard },
-  { label: 'Team', href: '/settings/team', icon: Users },
-  { label: 'Notifications', href: '/settings/notifications', icon: Bell },
-];
-
-const inputCls = "w-full bg-g-faint border border-border-light rounded-xl px-4 py-2.5 text-sm outline-none focus:border-g-dark focus:ring-2 focus:ring-g-pale transition-all";
-const labelCls = "block text-xs font-bold text-text-dark mb-1.5";
-
-const PLATFORMS = [
-  { id: 'deliveroo', name: 'Deliveroo', color: 'bg-[#00CCBC]', letter: 'D', connected: true },
-  { id: 'uber', name: 'Uber Eats', color: 'bg-black', letter: 'U', connected: true },
-  { id: 'justeat', name: 'Just Eat', color: 'bg-[#FF8000]', letter: 'J', connected: false },
-];
-
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const PHONE_RE = /^\+?[\d\s\-().]{7,}$/;
 
 export default function AccountProfile() {
   const pathname = usePathname();
   const [platforms, setPlatforms] = useState<Record<string, boolean>>(
-    Object.fromEntries(PLATFORMS.map(p => [p.id, p.connected]))
+    Object.fromEntries(ACCOUNT_PLATFORMS.map(p => [p.id, p.connected]))
   );
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showPhotoModal, setShowPhotoModal] = useState(false);
@@ -92,7 +76,7 @@ export default function AccountProfile() {
       {/* Mobile horizontal tab strip */}
       <div className="md:hidden -mx-4 md:-mx-6 lg:-mx-8 px-4 border-b border-border-light bg-white overflow-x-auto no-scrollbar mb-2">
         <div className="flex gap-1 py-2 min-w-max">
-          {subNavItems.map((item) => {
+          {ACCOUNT_SUB_NAV.map((item) => {
             const isActive = pathname === item.href;
             return (
               <Link
@@ -115,7 +99,7 @@ export default function AccountProfile() {
         {/* Sub-navigation sidebar — desktop only */}
         <div className="w-48 shrink-0 hidden md:block">
           <Card className="p-2 space-y-0.5 sticky top-4">
-            {subNavItems.map((item) => {
+            {ACCOUNT_SUB_NAV.map((item) => {
               const isActive = pathname === item.href;
               return (
                 <Link
@@ -252,7 +236,7 @@ export default function AccountProfile() {
               Connected Platforms
             </h3>
             <div className="space-y-3">
-              {PLATFORMS.map((p) => (
+              {ACCOUNT_PLATFORMS.map((p) => (
                 <div key={p.id} className="flex items-center justify-between p-4 rounded-2xl border-2 border-border-light transition-all">
                   <div className="flex items-center gap-4">
                     <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center text-white text-sm font-black shrink-0", p.color)}>

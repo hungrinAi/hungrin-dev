@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNotifications } from '@/src/contexts/NotificationsContext';
 import type { Campaign } from '../types';
-
-const PAGE_SIZE = 5;
+import { PAGE_SIZE } from '../data/constants';
 
 export function useCampaignsView(campaigns: Campaign[] | null) {
   const { addNotification } = useNotifications();

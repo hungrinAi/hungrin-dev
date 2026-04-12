@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Send, Sparkles, Calendar, Tag, CheckCircle2, ArrowRight, Pencil, Check, X, Plus, Trash2, MessageSquare } from 'lucide-react';
@@ -19,9 +19,26 @@ const PRICE_RE = /^[£$€]?\d+(\.\d{1,2})?$/;
 export default function Promotions() {
   const router = useRouter();
   const { addNotification } = useNotifications();
-  const { sessions, activeId, messages, input, setInput, scrollRef, handleSend, newSession, switchSession, deleteSession } = usePromoChat();
+  const { sessions, activeId, messages, input, setInput, scrollRef, handleSend, newSession, switchSession, renameSession, deleteSession } = usePromoChat();
   const modals = usePromoModals();
   const [editErrors, setEditErrors] = useState<{ title?: string; price?: string }>({});
+  const [renamingId, setRenamingId] = useState<string | null>(null);
+  const [renameValue, setRenameValue] = useState('');
+  const renameInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (renamingId && renameInputRef.current) renameInputRef.current.focus();
+  }, [renamingId]);
+
+  const startRename = (id: string, currentName: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setRenamingId(id);
+    setRenameValue(currentName);
+  };
+
+  const commitRename = () => {
+    if (renamingId) { renameSession(renamingId, renameValue); setRenamingId(null); }
+  };
 
   return (
     <AppLayout
@@ -69,30 +86,78 @@ export default function Promotions() {
           </div>
           <div className="flex-1 overflow-y-auto divide-y divide-border-light">
             {sessions.map(s => (
-              <button
+              <div
                 key={s.id}
-                onClick={() => switchSession(s.id)}
+                onClick={() => { if (renamingId !== s.id) switchSession(s.id); }}
                 className={cn(
-                  'w-full text-left px-4 py-3 flex flex-col gap-0.5 group transition-colors relative',
+                  'w-full text-left px-4 py-3 flex flex-col gap-0.5 group transition-colors relative cursor-pointer',
                   activeId === s.id ? 'bg-g-pale' : 'hover:bg-g-faint/60'
                 )}
               >
-                <div className="flex items-center gap-2 pr-6">
+                <div className="flex items-center gap-2 pr-14">
                   <MessageSquare className={cn('w-3 h-3 shrink-0', activeId === s.id ? 'text-g-dark' : 'text-text-muted')} />
-                  <p className={cn('text-xs font-bold truncate', activeId === s.id ? 'text-g-dark' : 'text-text-dark')}>
-                    {s.name}
-                  </p>
+                  {renamingId === s.id ? (
+                    <input
+                      ref={renameInputRef}
+                      value={renameValue}
+                      onChange={e => setRenameValue(e.target.value)}
+                      onKeyDown={e => {
+                        if (e.key === 'Enter') commitRename();
+                        if (e.key === 'Escape') setRenamingId(null);
+                        e.stopPropagation();
+                      }}
+                      onClick={e => e.stopPropagation()}
+                      className="flex-1 text-xs font-bold text-g-dark bg-white border border-g-dark/30 rounded px-1.5 py-0.5 outline-none min-w-0"
+                    />
+                  ) : (
+                    <p className={cn('text-xs font-bold truncate', activeId === s.id ? 'text-g-dark' : 'text-text-dark')}>
+                      {s.name}
+                    </p>
+                  )}
                 </div>
-                <p className="text-[10px] text-text-muted truncate pl-5">{s.preview}</p>
-                {sessions.length > 1 && (
-                  <button
-                    onClick={e => { e.stopPropagation(); deleteSession(s.id); }}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 p-1 rounded-md hover:bg-red-50 hover:text-red-500 text-text-muted transition-all"
-                  >
-                    <Trash2 className="w-3 h-3" />
-                  </button>
+                {renamingId !== s.id && (
+                  <p className="text-[10px] text-text-muted truncate pl-5">{s.preview}</p>
                 )}
-              </button>
+
+                {/* Action buttons — shown on hover */}
+                <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-all">
+                  {renamingId === s.id ? (
+                    <>
+                      <button
+                        onClick={e => { e.stopPropagation(); commitRename(); }}
+                        className="p-1 rounded-md bg-g-pale text-g-dark hover:bg-g-dark hover:text-white transition-all"
+                      >
+                        <Check className="w-3 h-3" />
+                      </button>
+                      <button
+                        onClick={e => { e.stopPropagation(); setRenamingId(null); }}
+                        className="p-1 rounded-md hover:bg-gray-100 text-text-muted transition-all"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        onClick={e => startRename(s.id, s.name, e)}
+                        className="p-1 rounded-md hover:bg-g-pale hover:text-g-dark text-text-muted transition-all"
+                        title="Rename"
+                      >
+                        <Pencil className="w-3 h-3" />
+                      </button>
+                      {sessions.length > 1 && (
+                        <button
+                          onClick={e => { e.stopPropagation(); deleteSession(s.id); }}
+                          className="p-1 rounded-md hover:bg-red-50 hover:text-red-500 text-text-muted transition-all"
+                          title="Delete"
+                        >
+                          <Trash2 className="w-3 h-3" />
+                        </button>
+                      )}
+                    </>
+                  )}
+                </div>
+              </div>
             ))}
           </div>
         </Card>
