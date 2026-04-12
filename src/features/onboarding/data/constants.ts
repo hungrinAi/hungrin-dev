@@ -82,7 +82,7 @@ export const PLATFORMS: PlatformItem[] = [
     desc: 'Connect to sync your Uber Eats order history',
     bg: 'bg-black',
     text: 'text-white',
-    emoji: '🛵',
+    logo: '/logos/uber-eats.svg',
   },
   {
     id: 'deliveroo',
@@ -90,7 +90,7 @@ export const PLATFORMS: PlatformItem[] = [
     desc: 'Connect to sync your Deliveroo order history',
     bg: 'bg-[#00CCBC]',
     text: 'text-white',
-    emoji: '🦘',
+    logo: '/logos/deliveroo.svg',
   },
   {
     id: 'justeat',
@@ -98,7 +98,7 @@ export const PLATFORMS: PlatformItem[] = [
     desc: 'Connect to sync your Just Eat order history',
     bg: 'bg-[#FF8000]',
     text: 'text-white',
-    emoji: '🍽️',
+    logo: '/logos/just-eat.svg',
   },
 ];
 

@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { PLATFORMS } from '../data/constants';
@@ -45,8 +46,16 @@ export function Step2Platforms({ form, errors, onTogglePlatform }: Step2Props) {
                   : 'border-border-light bg-white hover:border-g-dark/30 hover:shadow-sm',
               )}
             >
-              <div className={cn('w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shrink-0', p.bg)}>
-                {p.emoji}
+              <div className={cn('w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 overflow-hidden', p.bg)}>
+                {p.logo ? (
+                  <img
+                    src={p.logo}
+                    alt={p.name}
+                    className="w-10 h-10 object-contain"
+                  />
+                ) : (
+                  <span className="text-2xl">{p.emoji}</span>
+                )}
               </div>
               <div className="flex-1 text-left">
                 <p className="text-sm font-bold text-text-dark">{p.name}</p>

@@ -22,7 +22,8 @@ export interface PlatformItem {
   desc: string;
   bg: string;
   text: string;
-  emoji: string;
+  emoji?: string;
+  logo?: string;
 }
 
 export interface OnboardingForm {

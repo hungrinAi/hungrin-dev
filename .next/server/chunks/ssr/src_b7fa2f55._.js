@@ -431,7 +431,7 @@ const PLATFORMS = [
         desc: 'Connect to sync your Uber Eats order history',
         bg: 'bg-black',
         text: 'text-white',
-        emoji: '🛵'
+        logo: '/logos/uber-eats.svg'
     },
     {
         id: 'deliveroo',
@@ -439,7 +439,7 @@ const PLATFORMS = [
         desc: 'Connect to sync your Deliveroo order history',
         bg: 'bg-[#00CCBC]',
         text: 'text-white',
-        emoji: '🦘'
+        logo: '/logos/deliveroo.svg'
     },
     {
         id: 'justeat',
@@ -447,7 +447,7 @@ const PLATFORMS = [
         desc: 'Connect to sync your Just Eat order history',
         bg: 'bg-[#FF8000]',
         text: 'text-white',
-        emoji: '🍽️'
+        logo: '/logos/just-eat.svg'
     }
 ];
 const STEP4_FEATURES = [
@@ -1138,7 +1138,7 @@ function Step2Platforms({ form, errors, onTogglePlatform }) {
                         children: "Connect Platforms"
                     }, void 0, false, {
                         fileName: "[project]/src/features/onboarding/components/Step2Platforms.tsx",
-                        lineNumber: 19,
+                        lineNumber: 20,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1146,13 +1146,13 @@ function Step2Platforms({ form, errors, onTogglePlatform }) {
                         children: "Connect your accounts to sync sales data. Select all that apply."
                     }, void 0, false, {
                         fileName: "[project]/src/features/onboarding/components/Step2Platforms.tsx",
-                        lineNumber: 20,
+                        lineNumber: 21,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/features/onboarding/components/Step2Platforms.tsx",
-                lineNumber: 18,
+                lineNumber: 19,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1163,7 +1163,7 @@ function Step2Platforms({ form, errors, onTogglePlatform }) {
                         children: "🔒"
                     }, void 0, false, {
                         fileName: "[project]/src/features/onboarding/components/Step2Platforms.tsx",
-                        lineNumber: 26,
+                        lineNumber: 27,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1175,20 +1175,20 @@ function Step2Platforms({ form, errors, onTogglePlatform }) {
                                 children: "100% secure"
                             }, void 0, false, {
                                 fileName: "[project]/src/features/onboarding/components/Step2Platforms.tsx",
-                                lineNumber: 28,
+                                lineNumber: 29,
                                 columnNumber: 24
                             }, this),
                             ". We only read order history — never modify your account."
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/features/onboarding/components/Step2Platforms.tsx",
-                        lineNumber: 27,
+                        lineNumber: 28,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/features/onboarding/components/Step2Platforms.tsx",
-                lineNumber: 25,
+                lineNumber: 26,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1201,11 +1201,26 @@ function Step2Platforms({ form, errors, onTogglePlatform }) {
                         className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["cn"])('w-full flex items-center gap-4 p-4 rounded-2xl border-2 transition-all text-left group', selected ? 'border-g-dark bg-[#f0faf5] shadow-sm' : 'border-border-light bg-white hover:border-g-dark/30 hover:shadow-sm'),
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["cn"])('w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shrink-0', p.bg),
-                                children: p.emoji
+                                className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["cn"])('w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 overflow-hidden', p.bg),
+                                children: p.logo ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                                    src: p.logo,
+                                    alt: p.name,
+                                    className: "w-10 h-10 object-contain"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/features/onboarding/components/Step2Platforms.tsx",
+                                    lineNumber: 51,
+                                    columnNumber: 19
+                                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "text-2xl",
+                                    children: p.emoji
+                                }, void 0, false, {
+                                    fileName: "[project]/src/features/onboarding/components/Step2Platforms.tsx",
+                                    lineNumber: 57,
+                                    columnNumber: 19
+                                }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/features/onboarding/components/Step2Platforms.tsx",
-                                lineNumber: 48,
+                                lineNumber: 49,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1216,7 +1231,7 @@ function Step2Platforms({ form, errors, onTogglePlatform }) {
                                         children: p.name
                                     }, void 0, false, {
                                         fileName: "[project]/src/features/onboarding/components/Step2Platforms.tsx",
-                                        lineNumber: 52,
+                                        lineNumber: 61,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1224,13 +1239,13 @@ function Step2Platforms({ form, errors, onTogglePlatform }) {
                                         children: p.desc
                                     }, void 0, false, {
                                         fileName: "[project]/src/features/onboarding/components/Step2Platforms.tsx",
-                                        lineNumber: 53,
+                                        lineNumber: 62,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/features/onboarding/components/Step2Platforms.tsx",
-                                lineNumber: 51,
+                                lineNumber: 60,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1239,24 +1254,24 @@ function Step2Platforms({ form, errors, onTogglePlatform }) {
                                     className: "w-3.5 h-3.5 text-white"
                                 }, void 0, false, {
                                     fileName: "[project]/src/features/onboarding/components/Step2Platforms.tsx",
-                                    lineNumber: 61,
+                                    lineNumber: 70,
                                     columnNumber: 30
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/features/onboarding/components/Step2Platforms.tsx",
-                                lineNumber: 55,
+                                lineNumber: 64,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, p.id, true, {
                         fileName: "[project]/src/features/onboarding/components/Step2Platforms.tsx",
-                        lineNumber: 37,
+                        lineNumber: 38,
                         columnNumber: 13
                     }, this);
                 })
             }, void 0, false, {
                 fileName: "[project]/src/features/onboarding/components/Step2Platforms.tsx",
-                lineNumber: 33,
+                lineNumber: 34,
                 columnNumber: 7
             }, this),
             form.platforms.length > 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1267,7 +1282,7 @@ function Step2Platforms({ form, errors, onTogglePlatform }) {
                         children: "✅"
                     }, void 0, false, {
                         fileName: "[project]/src/features/onboarding/components/Step2Platforms.tsx",
-                        lineNumber: 70,
+                        lineNumber: 79,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1280,26 +1295,26 @@ function Step2Platforms({ form, errors, onTogglePlatform }) {
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/features/onboarding/components/Step2Platforms.tsx",
-                        lineNumber: 71,
+                        lineNumber: 80,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/features/onboarding/components/Step2Platforms.tsx",
-                lineNumber: 69,
+                lineNumber: 78,
                 columnNumber: 9
             }, this) : errors.platforms ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                 className: "text-[10px] font-bold text-red-500",
                 children: errors.platforms
             }, void 0, false, {
                 fileName: "[project]/src/features/onboarding/components/Step2Platforms.tsx",
-                lineNumber: 77,
+                lineNumber: 86,
                 columnNumber: 9
             }, this) : null
         ]
     }, void 0, true, {
         fileName: "[project]/src/features/onboarding/components/Step2Platforms.tsx",
-        lineNumber: 17,
+        lineNumber: 18,
         columnNumber: 5
     }, this);
 }
