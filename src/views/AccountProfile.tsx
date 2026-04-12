@@ -2,10 +2,8 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { ChevronLeft, Camera, Save, Check, Trash2 } from 'lucide-react';
-import { AppLayout } from '@/src/components/layout/AppLayout';
+import { Camera, Save, Check, Trash2 } from 'lucide-react';
+import { SettingsShell } from '@/src/components/layout/SettingsShell';
 import { Card } from '@/src/components/ui/Card';
 import { Button } from '@/src/components/ui/Button';
 import { cn } from '@/src/lib/utils';
@@ -17,12 +15,10 @@ import {
   labelCls,
   EMAIL_RE,
   PHONE_RE,
-  ACCOUNT_SUB_NAV,
   ACCOUNT_PLATFORMS,
 } from '@/src/features/settings';
 
 export default function AccountProfile() {
-  const pathname = usePathname();
   const [platforms, setPlatforms] = useState<Record<string, boolean>>(
     Object.fromEntries(ACCOUNT_PLATFORMS.map(p => [p.id, p.connected]))
   );
@@ -64,71 +60,9 @@ export default function AccountProfile() {
     setProfileErrors(p => ({ ...p, [key]: '' }));
 
   return (
-    <AppLayout
-      title={
-        <span className="flex items-center gap-1.5 text-sm font-bold text-text-muted">
-          <Link href="/settings" className="hover:text-g-dark transition-all">Settings</Link>
-          <span className="text-border-light">/</span>
-          <span className="text-text-dark">Account Profile</span>
-        </span>
-      }
-    >
-      {/* Mobile horizontal tab strip */}
-      <div className="md:hidden -mx-4 md:-mx-6 lg:-mx-8 px-4 border-b border-border-light bg-white overflow-x-auto no-scrollbar mb-2">
-        <div className="flex gap-1 py-2 min-w-max">
-          {ACCOUNT_SUB_NAV.map((item) => {
-            const isActive = pathname === item.href;
-            return (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={cn(
-                  "flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition-all",
-                  isActive ? "bg-g-pale text-g-dark" : "text-text-mid hover:bg-g-faint hover:text-g-dark"
-                )}
-              >
-                <item.icon className="w-4 h-4 shrink-0" />
-                {item.label}
-              </Link>
-            );
-          })}
-        </div>
-      </div>
-
-      <div className="flex gap-6 min-h-0">
-        {/* Sub-navigation sidebar — desktop only */}
-        <div className="w-48 shrink-0 hidden md:block">
-          <Card className="p-2 space-y-0.5 sticky top-4">
-            {ACCOUNT_SUB_NAV.map((item) => {
-              const isActive = pathname === item.href;
-              return (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className={cn(
-                    "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all",
-                    isActive ? "bg-g-pale text-g-dark font-bold" : "text-text-mid hover:bg-g-faint hover:text-g-dark"
-                  )}
-                >
-                  <item.icon className="w-4 h-4 shrink-0" />
-                  {item.label}
-                </Link>
-              );
-            })}
-            <div className="pt-2 mt-1 border-t border-border-light">
-              <Link
-                href="/dashboard"
-                className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-medium text-text-muted hover:bg-g-faint hover:text-g-dark transition-all"
-              >
-                <ChevronLeft className="w-3.5 h-3.5 shrink-0" />
-                Back to Dashboard
-              </Link>
-            </div>
-          </Card>
-        </div>
-
+    <SettingsShell active="Account">
         {/* Main content */}
-        <div className="flex-1 min-w-0 space-y-6">
+        <div className="space-y-6">
 
           {/* Profile Card */}
           <Card className="p-6 space-y-5">
@@ -298,11 +232,10 @@ export default function AccountProfile() {
             </div>
           </Card>
         </div>
-      </div>
 
       {/* Modals */}
       <DeleteAccountModal open={showDeleteModal} onClose={() => setShowDeleteModal(false)} />
       <ChangePhotoModal open={showPhotoModal} onClose={() => setShowPhotoModal(false)} />
-    </AppLayout>
+    </SettingsShell>
   );
 }

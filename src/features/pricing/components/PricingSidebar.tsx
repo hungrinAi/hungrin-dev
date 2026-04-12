@@ -17,24 +17,26 @@ export function PricingSidebar() {
   return (
     <Card className="p-5 space-y-4">
       <div className="flex items-center gap-2 border-b border-border-light pb-3">
-        <div className="w-8 h-8 rounded-lg overflow-hidden shrink-0 bg-[#0d3d2c]">
+        <div className="w-8 h-8 rounded-lg overflow-hidden shrink-0 bg-white border border-border-light flex items-center justify-center">
           <Image
             src="/images/robot-thumbsup.jpeg"
             alt="AI"
             width={32}
             height={32}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-center"
+            style={{ mixBlendMode: 'multiply' }}
           />
         </div>
         <h3 className="text-sm font-bold text-text-dark">AI Recommendations</h3>
       </div>
-      <div className="w-full h-28 rounded-xl overflow-hidden bg-[#0d3d2c]">
+      <div className="w-full h-28 rounded-xl overflow-hidden bg-white border border-border-light flex items-center justify-center">
         <Image
           src="/images/robot-happy.jpeg"
           alt="AI"
           width={280}
           height={112}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover object-center"
+          style={{ mixBlendMode: 'multiply' }}
         />
       </div>
       <p className="text-xs text-text-muted leading-relaxed">

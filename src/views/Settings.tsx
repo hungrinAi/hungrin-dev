@@ -226,7 +226,7 @@ export default function Settings() {
               {passwordErrors.confirm && <p className="text-[10px] text-red-500 font-medium">{passwordErrors.confirm}</p>}
             </div>
           </div>
-          <div className="flex items-center justify-between pt-1">
+          <div className="flex items-center gap-3 pt-1">
             <Button className="gap-2" onClick={handlePasswordSave}>
               {passwordSave.saved ? <><Check className="w-4 h-4" /> Updated!</> : <><Save className="w-4 h-4" /> Update Password</>}
             </Button>

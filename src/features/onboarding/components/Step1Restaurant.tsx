@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { cn } from '@/src/lib/utils';
 import { RESTAURANT_TYPES, AVG_ORDERS } from '../data/constants';
 import type { OnboardingForm } from '../types';
@@ -20,7 +20,33 @@ interface Step1Props {
   onClearError: (key: string) => void;
 }
 
+const isPreset = (value: string) =>
+  !value || RESTAURANT_TYPES.some(t => t.label === value);
+
 export function Step1Restaurant({ form, errors, onUpdate, onClearError }: Step1Props) {
+  const [otherSelected, setOtherSelected] = useState(!isPreset(form.restaurantType));
+  const [otherText, setOtherText] = useState(
+    !isPreset(form.restaurantType) ? form.restaurantType : '',
+  );
+
+  const selectPreset = (label: string) => {
+    setOtherSelected(false);
+    onUpdate('restaurantType', label);
+    onClearError('restaurantType');
+  };
+
+  const selectOther = () => {
+    setOtherSelected(true);
+    onUpdate('restaurantType', otherText.trim());
+    onClearError('restaurantType');
+  };
+
+  const handleOtherInput = (val: string) => {
+    setOtherText(val);
+    onUpdate('restaurantType', val.trim());
+    if (val.trim()) onClearError('restaurantType');
+  };
+
   return (
     <div className="space-y-6">
       <div>
@@ -70,10 +96,10 @@ export function Step1Restaurant({ form, errors, onUpdate, onClearError }: Step1P
             <button
               key={t.label}
               type="button"
-              onClick={() => { onUpdate('restaurantType', t.label); onClearError('restaurantType'); }}
+              onClick={() => selectPreset(t.label)}
               className={cn(
                 'flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-bold border-2 transition-all',
-                form.restaurantType === t.label
+                !otherSelected && form.restaurantType === t.label
                   ? 'bg-g-dark text-white border-g-dark shadow-lg shadow-g-dark/20'
                   : 'bg-white text-text-mid border-border-light hover:border-g-dark/40 hover:text-g-dark',
               )}
@@ -81,7 +107,34 @@ export function Step1Restaurant({ form, errors, onUpdate, onClearError }: Step1P
               <span>{t.emoji}</span> {t.label}
             </button>
           ))}
+
+          {/* Other pill */}
+          <button
+            type="button"
+            onClick={selectOther}
+            className={cn(
+              'flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-bold border-2 transition-all',
+              otherSelected
+                ? 'bg-g-dark text-white border-g-dark shadow-lg shadow-g-dark/20'
+                : 'bg-white text-text-mid border-border-light hover:border-g-dark/40 hover:text-g-dark',
+            )}
+          >
+            ✏️ Other
+          </button>
         </div>
+
+        {/* Other text input — shown when "Other" is selected */}
+        {otherSelected && (
+          <input
+            type="text"
+            placeholder="e.g. Ethiopian, Dim Sum, Poke Bowl…"
+            value={otherText}
+            onChange={e => handleOtherInput(e.target.value)}
+            autoFocus
+            className={fieldCls(errors.restaurantType)}
+          />
+        )}
+
         {errors.restaurantType && (
           <p className="text-[10px] font-bold text-red-500">{errors.restaurantType}</p>
         )}

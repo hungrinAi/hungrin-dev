@@ -1,5 +1,5 @@
-import AccountProfile from '@/src/views/AccountProfile';
+import Team from '@/src/views/Team';
 
 export default function Page() {
-  return <AccountProfile />;
+  return <Team />;
 }

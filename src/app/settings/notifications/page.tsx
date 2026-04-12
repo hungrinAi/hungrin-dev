@@ -1,5 +1,5 @@
-import AccountProfile from '@/src/views/AccountProfile';
+import Notifications from '@/src/views/Notifications';
 
 export default function Page() {
-  return <AccountProfile />;
+  return <Notifications />;
 }
