@@ -84,19 +84,19 @@ export function CsvUploadCard() {
       <div className="flex items-center justify-between flex-wrap gap-2">
         <h3 className="text-sm font-bold text-text-dark">Reports & Data Import</h3>
         <div className="flex gap-1 bg-g-faint p-1 rounded-xl border border-border-light">
-          {(['csv', 'email'] as UploadTab[]).map((tab) => (
+          {(['email', 'csv'] as UploadTab[]).map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
               className={cn(
-                "flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-bold rounded-lg transition-all",
+                "flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-bold rounded-lg transition-all whitespace-nowrap",
                 activeTab === tab
                   ? "bg-white text-g-dark shadow-sm border border-border-light"
                   : "text-text-muted hover:text-text-dark"
               )}
             >
               {tab === 'csv' ? <Upload className="w-3 h-3" /> : <Mail className="w-3 h-3" />}
-              {tab === 'csv' ? 'Manual Upload' : 'Email Inbox'}
+              {tab === 'csv' ? 'Manual Upload' : 'Link Inbox'}
               {tab === 'email' && connected && (
                 <span className="w-1.5 h-1.5 rounded-full bg-g-dark animate-pulse" />
               )}
@@ -160,25 +160,28 @@ export function CsvUploadCard() {
               </div>
               <div className="space-y-1">
                 <label className="block text-xs font-bold text-text-dark">Restaurant Email Address</label>
-                <div className="flex gap-2">
-                  <div className="flex-1 flex items-center gap-2 bg-g-faint border border-border-light rounded-xl px-3 py-2.5 focus-within:border-g-dark transition-all">
-                    <Mail className="w-3.5 h-3.5 text-text-muted shrink-0" />
-                    <input
-                      type="email"
-                      placeholder="orders@yourrestaurant.com"
-                      value={emailInput}
-                      onChange={e => { setEmailInput(e.target.value); setEmailError(''); }}
-                      onKeyDown={e => e.key === 'Enter' && handleConnect()}
-                      className="flex-1 bg-transparent border-none outline-none text-sm"
-                    />
-                  </div>
-                  <Button size="sm" onClick={handleConnect} disabled={connecting} className="shrink-0 gap-1.5">
-                    {connecting
-                      ? <><RefreshCw className="w-3.5 h-3.5 animate-spin" /> Connecting…</>
-                      : <><Link2 className="w-3.5 h-3.5" /> Connect</>
-                    }
-                  </Button>
+                <div className="flex items-center gap-2 bg-g-faint border border-border-light rounded-xl px-3 py-2.5 focus-within:border-g-dark transition-all">
+                  <Mail className="w-3.5 h-3.5 text-text-muted shrink-0" />
+                  <input
+                    type="email"
+                    placeholder="orders@yourrestaurant.com"
+                    value={emailInput}
+                    onChange={e => { setEmailInput(e.target.value); setEmailError(''); }}
+                    onKeyDown={e => e.key === 'Enter' && handleConnect()}
+                    className="flex-1 bg-transparent border-none outline-none text-sm min-w-0"
+                  />
                 </div>
+                <Button
+                  size="sm"
+                  onClick={handleConnect}
+                  disabled={connecting}
+                  className="w-full gap-1.5 mt-2"
+                >
+                  {connecting
+                    ? <><RefreshCw className="w-3.5 h-3.5 animate-spin" /> Connecting…</>
+                    : <><Link2 className="w-3.5 h-3.5" /> Connect Inbox</>
+                  }
+                </Button>
                 {emailError && <p className="text-[10px] text-red-500 font-medium">{emailError}</p>}
               </div>
               <div className="space-y-2 pt-1">

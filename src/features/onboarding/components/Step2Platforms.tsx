@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { Check } from 'lucide-react';
 import { cn } from '@/src/lib/utils';
 import { PLATFORMS } from '../data/constants';
@@ -12,46 +13,10 @@ interface Step2Props {
   onTogglePlatform: (id: string) => void;
 }
 
-function UberEatsLogo() {
-  return (
-    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-7 h-7">
-      <rect width="48" height="48" rx="10" fill="#000"/>
-      <path d="M10 24c0-7.18 5.82-13 13-13s13 5.82 13 13c0 3.59-1.46 6.84-3.82 9.18A12.95 12.95 0 0123 37c-7.18 0-13-5.82-13-13z" fill="#06C167"/>
-      <text x="24" y="29" textAnchor="middle" fill="white" fontSize="11" fontWeight="800" fontFamily="sans-serif">eats</text>
-    </svg>
-  );
-}
-
-function DeliverooLogo() {
-  return (
-    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-7 h-7">
-      <rect width="48" height="48" rx="10" fill="#00CCBC"/>
-      {/* Kangaroo silhouette simplified */}
-      <text x="24" y="31" textAnchor="middle" fill="white" fontSize="22" fontWeight="900" fontFamily="sans-serif">D</text>
-      {/* Roo tail detail */}
-      <circle cx="33" cy="20" r="3" fill="white" opacity="0.3"/>
-    </svg>
-  );
-}
-
-function JustEatLogo() {
-  return (
-    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-7 h-7">
-      <rect width="48" height="48" rx="10" fill="#FF6600"/>
-      {/* Fork icon */}
-      <rect x="20" y="10" width="3" height="14" rx="1.5" fill="white"/>
-      <rect x="25" y="10" width="3" height="14" rx="1.5" fill="white"/>
-      <rect x="30" y="10" width="3" height="14" rx="1.5" fill="white"/>
-      <path d="M21.5 22 Q25 26 28.5 22" stroke="white" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-      <rect x="23.5" y="24" width="1" height="12" rx="0.5" fill="white"/>
-    </svg>
-  );
-}
-
-const PLATFORM_LOGO: Record<string, React.ReactNode> = {
-  uber: <UberEatsLogo />,
-  deliveroo: <DeliverooLogo />,
-  justeat: <JustEatLogo />,
+const PLATFORM_LOGO: Record<string, { src: string; alt: string }> = {
+  uber:      { src: '/images/platforms/uber-eats.svg',  alt: 'Uber Eats'  },
+  deliveroo: { src: '/images/platforms/deliveroo.svg',  alt: 'Deliveroo'  },
+  justeat:   { src: '/images/platforms/just-eat.svg',   alt: 'Just Eat'   },
 };
 
 export function Step2Platforms({ form, errors, onTogglePlatform }: Step2Props) {
@@ -87,8 +52,16 @@ export function Step2Platforms({ form, errors, onTogglePlatform }: Step2Props) {
                   : 'border-border-light bg-white hover:border-g-dark/30 hover:shadow-sm',
               )}
             >
-              <div className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 overflow-hidden bg-gray-50">
-                {PLATFORM_LOGO[p.id]}
+              <div className="w-14 h-14 rounded-2xl shrink-0 overflow-hidden shadow-sm">
+                {PLATFORM_LOGO[p.id] && (
+                  <Image
+                    src={PLATFORM_LOGO[p.id].src}
+                    alt={PLATFORM_LOGO[p.id].alt}
+                    width={56}
+                    height={56}
+                    className="w-full h-full object-cover"
+                  />
+                )}
               </div>
               <div className="flex-1 text-left">
                 <p className="text-sm font-bold text-text-dark">{p.name}</p>
