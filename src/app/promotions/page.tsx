@@ -1,4 +1,4 @@
-iimport LandingPage from '@/views/LandingPage';
+import Promotions from '@/views/Promotions';
 
 export default function Page() {
   return <Promotions />;

@@ -16,6 +16,8 @@ export default function ConnectDataPage() {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
+      localStorage.setItem('hungrin_data_connected', 'email');
+      localStorage.setItem('hungrin_data_email', email);
       router.push('/promotions');
     }, 1500);
   };
@@ -23,13 +25,19 @@ export default function ConnectDataPage() {
   const handleCSVUpload = async () => {
     if (!csvFile) return;
     setLoading(true);
-    setTimeout(() => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      localStorage.setItem('hungrin_data_connected', 'csv');
+      localStorage.setItem('hungrin_csv_data', e.target?.result as string);
+      localStorage.setItem('hungrin_csv_filename', csvFile.name);
       setLoading(false);
       router.push('/promotions');
-    }, 1500);
+    };
+    reader.readAsText(csvFile);
   };
 
   const handleSkip = () => {
+    localStorage.setItem('hungrin_data_connected', 'skipped');
     router.push('/promotions');
   };
 

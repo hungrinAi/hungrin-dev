@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Send, Sparkles, Calendar, Tag, CheckCircle2, ArrowRight, Pencil, Check, X, Plus, Trash2, MessageSquare } from 'lucide-react';
@@ -22,6 +22,14 @@ export default function Promotions() {
   const { sessions, activeId, messages, input, setInput, scrollRef, handleSend, newSession, switchSession, deleteSession } = usePromoChat();
   const modals = usePromoModals();
   const [editErrors, setEditErrors] = useState<{ title?: string; price?: string }>({});
+
+  // Redirect to connect-data if not connected
+  useEffect(() => {
+    const dataConnected = localStorage.getItem('hungrin_data_connected');
+    if (!dataConnected) {
+      router.push('/connect-data');
+    }
+  }, []);
 
   return (
     <AppLayout
