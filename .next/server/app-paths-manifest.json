@@ -1,3 +1,4 @@
 {
-  "/connect-data/page": "app/connect-data/page.js"
+  "/connect-data/page": "app/connect-data/page.js",
+  "/promotions/page": "app/promotions/page.js"
 }
