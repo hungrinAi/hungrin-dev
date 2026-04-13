@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <rect width="120" height="120" rx="22" fill="#00CCBC"/>
+  <!-- Kangaroo body -->
+  <ellipse cx="55" cy="80" rx="19" ry="24" fill="white"/>
+  <!-- Kangaroo head -->
+  <ellipse cx="74" cy="46" rx="15" ry="16" fill="white"/>
+  <!-- Left ear -->
+  <ellipse cx="65" cy="32" rx="5" ry="9" fill="white"/>
+  <ellipse cx="65" cy="32" rx="3" ry="6" fill="#00CCBC"/>
+  <!-- Right ear -->
+  <ellipse cx="78" cy="30" rx="5" ry="9" fill="white"/>
+  <ellipse cx="78" cy="31" rx="3" ry="6" fill="#00CCBC"/>
+  <!-- Eye -->
+  <circle cx="80" cy="43" r="3" fill="#00CCBC"/>
+  <circle cx="81" cy="42" r="1" fill="white"/>
+  <!-- Nose -->
+  <ellipse cx="87" cy="52" rx="4" ry="2.5" fill="#00b3a6"/>
+  <!-- Arm -->
+  <ellipse cx="76" cy="68" rx="6" ry="14" transform="rotate(15 76 68)" fill="white"/>
+  <!-- Pouch -->
+  <ellipse cx="50" cy="83" rx="9" ry="8" fill="#00ddd0"/>
+  <!-- Tail -->
+  <path d="M36 97 Q22 105 20 90 Q18 76 34 72" stroke="white" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Legs -->
+  <ellipse cx="47" cy="101" rx="7" ry="11" transform="rotate(-10 47 101)" fill="white"/>
+  <ellipse cx="64" cy="103" rx="7" ry="11" transform="rotate(10 64 103)" fill="white"/>
+</svg>

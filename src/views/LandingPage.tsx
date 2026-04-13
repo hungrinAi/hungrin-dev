@@ -33,8 +33,8 @@ export default function LandingPage() {
             <Sparkles className="w-4 h-4" /> AI-Powered Restaurant Growth
           </div>
           <h1 className="text-[2.2rem] sm:text-5xl md:text-6xl font-black text-text-dark leading-[1.05] tracking-tight">
-            Grow Your <span className="text-g-dark">Restaurant</span><br />
-            Orders <span className="text-g-dark">Automatically</span>
+            Grow Your <span style={{ color: '#4aaa80' }}>Restaurant</span><br />
+            Orders <span style={{ color: '#1a5c40' }}>Automatically</span>
           </h1>
           <p className="text-lg text-text-mid max-w-lg leading-relaxed">
             Hungrin uses AI to boost your restaurant sales, create promotions and bring you more customers — all from one simple dashboard.
@@ -171,10 +171,9 @@ export default function LandingPage() {
               </h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {[
-                  { href: '/onboarding', emoji: '🚀', label: 'Get Started', sub: 'Set up your restaurant', bg: 'bg-orange-50' },
-                  { href: '/dashboard',  emoji: '📊', label: 'Dashboard',   sub: 'View your sales & orders', bg: 'bg-[#eaf6f0]' },
-                  { href: '/promotions', emoji: '🎯', label: 'AI Promotions', sub: 'Create smart promotions', bg: 'bg-red-50' },
-                  { href: '/orders',     emoji: '📂', label: 'CSV Upload',  sub: 'Upload sales data', bg: 'bg-yellow-50' },
+                  { href: '/onboarding', emoji: '🚀', label: 'Get Started',    sub: 'Set up your restaurant',    bg: 'bg-orange-50' },
+                  { href: '/dashboard',  emoji: '📊', label: 'Dashboard',      sub: 'View your sales & orders',  bg: 'bg-[#eaf6f0]' },
+                  { href: '/promotions', emoji: '🎯', label: 'AI Promotions',  sub: 'Create smart promotions',   bg: 'bg-red-50' },
                 ].map(({ href, emoji, label, sub, bg }) => (
                   <Link
                     key={label}
@@ -188,6 +187,32 @@ export default function LandingPage() {
                     </div>
                   </Link>
                 ))}
+
+                {/* Merged: CSV Upload + Auto Email Parsing */}
+                <Link
+                  href="/orders"
+                  className="bg-yellow-50 border border-border-light rounded-2xl p-5 flex flex-col gap-3 hover:shadow-md hover:-translate-y-0.5 transition-all group"
+                >
+                  <p className="text-xs font-black text-text-dark uppercase tracking-wider text-center group-hover:text-g-dark transition-colors">
+                    Import Sales Data
+                  </p>
+                  <div className="flex flex-col gap-2">
+                    <div className="flex items-center gap-2.5 bg-white/70 rounded-xl px-3 py-2 border border-yellow-200/60">
+                      <span className="text-lg shrink-0">📂</span>
+                      <div className="min-w-0">
+                        <p className="text-[11px] font-bold text-text-dark leading-tight">CSV Upload</p>
+                        <p className="text-[10px] text-text-muted leading-tight">Upload sales file</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2.5 bg-white/70 rounded-xl px-3 py-2 border border-yellow-200/60">
+                      <span className="text-lg shrink-0">📧</span>
+                      <div className="min-w-0">
+                        <p className="text-[11px] font-bold text-text-dark leading-tight">Auto Email Parsing</p>
+                        <p className="text-[10px] text-text-muted leading-tight">Forward reports to sync</p>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
               </div>
             </>
           ) : (
@@ -223,9 +248,8 @@ export default function LandingPage() {
                 </p>
                 <div className="grid grid-cols-3 gap-3">
                   {[
-                    { emoji: '📊', label: 'Dashboard',    sub: 'Sales & orders', bg: 'bg-[#eaf6f0]' },
-                    { emoji: '🎯', label: 'AI Promotions', sub: 'Smart promos',  bg: 'bg-red-50' },
-                    { emoji: '📂', label: 'CSV Upload',   sub: 'Upload data',    bg: 'bg-yellow-50' },
+                    { emoji: '📊', label: 'Dashboard',     sub: 'Sales & orders', bg: 'bg-[#eaf6f0]' },
+                    { emoji: '🎯', label: 'AI Promotions', sub: 'Smart promos',   bg: 'bg-red-50' },
                   ].map(({ emoji, label, sub, bg }) => (
                     <div
                       key={label}
@@ -241,6 +265,24 @@ export default function LandingPage() {
                       </div>
                     </div>
                   ))}
+
+                  {/* Merged locked preview tile */}
+                  <div className="bg-yellow-50 border border-border-light rounded-2xl p-3 flex flex-col gap-1.5 relative select-none">
+                    <p className="text-[9px] font-black text-text-muted uppercase tracking-wider text-center">Import Data</p>
+                    <div className="flex flex-col gap-1">
+                      <div className="flex items-center gap-1.5 bg-white/60 rounded-lg px-2 py-1">
+                        <span className="text-sm grayscale opacity-50">📂</span>
+                        <p className="text-[10px] font-bold text-text-muted">CSV Upload</p>
+                      </div>
+                      <div className="flex items-center gap-1.5 bg-white/60 rounded-lg px-2 py-1">
+                        <span className="text-sm grayscale opacity-50">📧</span>
+                        <p className="text-[10px] font-bold text-text-muted">Email Parsing</p>
+                      </div>
+                    </div>
+                    <div className="absolute top-2 right-2 bg-white/90 rounded-full p-0.5 shadow-sm">
+                      <Lock className="w-2.5 h-2.5 text-text-muted" />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -427,9 +469,9 @@ export default function LandingPage() {
         <Logo />
         <p className="text-sm text-text-muted font-medium">© 2026 Hungrin AI. All rights reserved.</p>
         <div className="flex gap-8">
-          {['Privacy', 'Terms', 'Cookies'].map(l => (
-            <a key={l} href="#" className="text-sm font-bold text-text-mid hover:text-g-dark transition-all">{l}</a>
-          ))}
+          <Link href="/privacy" className="text-sm font-bold text-text-mid hover:text-g-dark transition-all">Privacy</Link>
+          <Link href="/terms" className="text-sm font-bold text-text-mid hover:text-g-dark transition-all">Terms</Link>
+          <Link href="/cookies" className="text-sm font-bold text-text-mid hover:text-g-dark transition-all">Cookies</Link>
         </div>
       </footer>
     </div>

@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ChevronRight, ChevronLeft } from 'lucide-react';
+import { ChevronRight, ChevronLeft, ArrowLeft } from 'lucide-react';
 import { Logo } from '@/src/components/brand';
 import { Button } from '@/src/components/ui/Button';
 import { ROUTES, STORAGE_KEYS } from '@/src/lib/constants';
@@ -46,10 +46,19 @@ export default function Onboarding() {
       {/* Right Panel */}
       <div className="flex-1 flex flex-col min-h-screen bg-white">
         {/* Top bar */}
-        <header className="flex items-center gap-4 px-6 py-4 border-b border-border-light lg:px-10">
+        <header className="flex items-center gap-3 px-6 py-4 border-b border-border-light lg:px-10">
+          {/* Back to home — always visible */}
+          <Link
+            href={ROUTES.HOME}
+            className="shrink-0 inline-flex items-center gap-1.5 rounded-full border border-border-light bg-white px-3 py-2 text-xs font-bold text-text-mid shadow-sm transition-all hover:border-g-dark hover:text-g-dark"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Home</span>
+          </Link>
+
           {/* Logo — mobile only */}
           <div className="lg:hidden shrink-0">
-            <Logo size={38} />
+            <Logo size={32} />
           </div>
 
           {/* Step counter — desktop only */}
@@ -129,9 +138,7 @@ export default function Onboarding() {
               <ChevronLeft className="w-4 h-4" /> Back
             </button>
           ) : (
-            <Link href={ROUTES.HOME} className="text-xs text-text-muted hover:text-g-dark transition-all">
-              ← Back to home
-            </Link>
+            <div />
           )}
 
           <div className="flex items-center gap-3">

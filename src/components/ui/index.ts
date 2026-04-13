@@ -8,3 +8,4 @@ export { FilterTabs } from './FilterTabs';
 export { BackButton } from './BackButton';
 export { Modal } from './Modal';
 export { PageLoading, InlineLoading, Skeleton, SkeletonCard } from './Loading';
+export { PlatformBadge } from './PlatformBadge';

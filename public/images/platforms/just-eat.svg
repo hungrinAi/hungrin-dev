@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <rect width="120" height="120" rx="22" fill="#FF8000"/>
+  <!-- "Just Eat" bold wordmark, two lines -->
+  <text x="60" y="46" text-anchor="middle" fill="white" font-size="22" font-weight="900" font-family="'Helvetica Neue',Arial,sans-serif" letter-spacing="-0.5">Just</text>
+  <text x="60" y="72" text-anchor="middle" fill="white" font-size="22" font-weight="900" font-family="'Helvetica Neue',Arial,sans-serif" letter-spacing="-0.5">Eat</text>
+  <!-- Underline accent -->
+  <rect x="30" y="78" width="60" height="4" rx="2" fill="white" opacity="0.5"/>
+  <!-- Small fork icon bottom -->
+  <rect x="44" y="88" width="4" height="14" rx="2" fill="white"/>
+  <rect x="51" y="88" width="4" height="14" rx="2" fill="white"/>
+  <rect x="58" y="88" width="4" height="14" rx="2" fill="white"/>
+  <rect x="65" y="88" width="4" height="14" rx="2" fill="white"/>
+  <path d="M44 100 Q54 108 68 100" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+</svg>

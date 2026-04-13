@@ -9,15 +9,19 @@ export function Step4Live() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col items-center text-center gap-4 py-4">
-        {/* Robot — white bg, Hungrin hex icon */}
+        {/* Real Hungrin logo — pale green bg matching HungrinIcon */}
         <div className="relative">
-          <div className="w-28 h-28 rounded-3xl overflow-hidden shadow-2xl border-4 border-[#d1f0e4] bg-white">
+          <div
+            className="w-28 h-28 rounded-3xl overflow-hidden shadow-2xl border-4 border-[#d1f0e4] flex items-center justify-center"
+            style={{ background: '#e6f5ef' }}
+          >
             <Image
-              src="/assets/logo-icon.svg"
-              alt="Hungrin is live"
-              width={112}
-              height={112}
-              className="w-full h-full object-contain p-2"
+              src="/logo/hungrin-logo-main.png"
+              alt="Hungrin"
+              width={96}
+              height={96}
+              className="w-20 h-20 object-contain"
+              priority
             />
           </div>
           <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-g-dark rounded-full flex items-center justify-center border-2 border-white shadow-md">
@@ -61,6 +65,23 @@ export function Step4Live() {
             <p className="text-[10px] text-text-muted mt-0.5">{s.label}</p>
           </div>
         ))}
+      </div>
+
+      {/* Robot — thumbs up, celebratory mood */}
+      <div className="flex flex-col items-center gap-2 pt-2">
+        <div
+          className="w-24 h-24 rounded-2xl overflow-hidden border border-border-light shadow-sm"
+          style={{ background: '#fff', mixBlendMode: 'multiply' } as React.CSSProperties}
+        >
+          <Image
+            src="/images/robot-thumbsup.jpeg"
+            alt="Hungrin robot giving a thumbs up"
+            width={96}
+            height={96}
+            className="w-full h-full object-cover object-center"
+          />
+        </div>
+        <p className="text-xs text-text-muted font-medium">Your AI is ready to grow your orders!</p>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card } from '@/src/components/ui/Card';
+import { PlatformBadge } from '@/src/components/ui/PlatformBadge';
 import { cn } from '@/src/lib/utils';
 import { OrderSummary } from '@/src/types';
 
@@ -86,15 +87,8 @@ export function OrderTable({ orders, selectedId, onSelect, completedIds }: Order
                     </td>
 
                     {/* Platform */}
-                    <td className="px-4 py-3 w-[80px]">
-                      <div className={cn(
-                        'inline-block px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-tighter whitespace-nowrap',
-                        o.deliveryPlatform === 'uber'
-                          ? 'bg-black text-white'
-                          : 'bg-[#00ccbc] text-white'
-                      )}>
-                        {o.deliveryPlatform}
-                      </div>
+                    <td className="px-4 py-3 w-[48px]">
+                      <PlatformBadge platform={o.deliveryPlatform} size={28} />
                     </td>
                   </tr>
                 );
