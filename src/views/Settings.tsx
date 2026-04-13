@@ -2,32 +2,21 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Save, ToggleLeft, ToggleRight, Trash2, Check } from 'lucide-react';
-import { AppLayout } from '@/components/layout/AppLayout';
-import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
-import { cn } from '@/lib/utils';
+import { Save, Trash2, Check } from 'lucide-react';
+import { AppLayout } from '@/src/components/layout/AppLayout';
+import { Card } from '@/src/components/ui/Card';
+import { Button } from '@/src/components/ui/Button';
+import { cn } from '@/src/lib/utils';
 import {
   useSettingsForm,
   DeleteAccountModal,
+  Toggle,
   SETTINGS_NAV,
   PLATFORM_LIST,
   NOTIFICATION_LIST,
-} from '@/features/settings';
-
-const inputCls = "w-full bg-g-faint border border-border-light rounded-xl px-4 py-2.5 text-sm outline-none focus:border-g-dark focus:ring-2 focus:ring-g-pale transition-all";
-const labelCls = "block text-xs font-bold text-text-dark mb-1.5";
-
-function Toggle({ on, onToggle }: { on: boolean; onToggle: () => void }) {
-  return (
-    <button onClick={onToggle} className="transition-all shrink-0">
-      {on
-        ? <ToggleRight className="w-8 h-8 text-g-dark" />
-        : <ToggleLeft className="w-8 h-8 text-text-muted" />
-      }
-    </button>
-  );
-}
+  inputCls,
+  labelCls,
+} from '@/src/features/settings';
 
 export default function Settings() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -237,7 +226,7 @@ export default function Settings() {
               {passwordErrors.confirm && <p className="text-[10px] text-red-500 font-medium">{passwordErrors.confirm}</p>}
             </div>
           </div>
-          <div className="flex items-center justify-between pt-1">
+          <div className="flex items-center gap-3 pt-1">
             <Button className="gap-2" onClick={handlePasswordSave}>
               {passwordSave.saved ? <><Check className="w-4 h-4" /> Updated!</> : <><Save className="w-4 h-4" /> Update Password</>}
             </Button>

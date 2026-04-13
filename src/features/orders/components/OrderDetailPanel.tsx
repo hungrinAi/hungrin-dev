@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react';
 import { Phone, CheckCircle2, Check, Clock } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
-import { Modal } from '@/components/ui/Modal';
-import { cn } from '@/lib/utils';
-import { OrderSummary } from '@/types';
+import { Button } from '@/src/components/ui/Button';
+import { Modal } from '@/src/components/ui/Modal';
+import { PlatformBadge } from '@/src/components/ui/PlatformBadge';
+import { OrderSummary } from '@/src/types';
 
 interface OrderDetailPanelProps {
   order: OrderSummary['orders'][0];
@@ -65,9 +65,9 @@ export function OrderDetailPanel({ order, isCompleted: isCompletedProp, onComple
 
         {/* Platform */}
         <div className="bg-g-faint p-4 rounded-xl border border-border-light flex items-center gap-3">
-          <div className={cn("w-10 h-10 rounded-lg flex items-center justify-center text-white font-black text-[10px]", order.deliveryPlatform === 'uber' ? "bg-black" : "bg-[#00ccbc]")}>{order.deliveryPlatform[0].toUpperCase()}</div>
+          <PlatformBadge platform={order.deliveryPlatform} size={40} />
           <div className="flex-1 min-w-0">
-            <p className="text-xs font-bold text-text-dark">{order.deliveryPlatform === 'uber' ? 'Uber Eats' : 'Deliveroo'}</p>
+            <PlatformBadge platform={order.deliveryPlatform} variant="pill" size={16} className="mb-0.5" />
             <p className="text-[10px] text-g-dark font-bold">{completed ? 'Delivered' : 'Awaiting pickup'}</p>
           </div>
         </div>

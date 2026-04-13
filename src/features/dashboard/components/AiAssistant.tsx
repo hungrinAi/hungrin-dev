@@ -33,13 +33,14 @@ export function AiAssistant({ stats }: AiAssistantProps) {
 
       {/* Header — robot avatar + title + large robot */}
       <div className="flex items-center gap-3">
-        <div className="w-12 h-12 rounded-2xl overflow-hidden shrink-0 bg-[#0d3d2c] shadow-md ring-2 ring-g-dark/20">
+        <div className="w-12 h-12 rounded-2xl overflow-hidden shrink-0 bg-white border border-border-light shadow-md ring-2 ring-g-dark/10 flex items-center justify-center">
           <Image
             src={robotSrc}
             alt="AI Assistant"
             width={48}
             height={48}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-center"
+            style={{ mixBlendMode: 'multiply' }}
           />
         </div>
         <div className="min-w-0">

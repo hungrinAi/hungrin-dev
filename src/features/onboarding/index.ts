@@ -20,5 +20,6 @@ export { LeftPanel } from './components/LeftPanel';
 export { StepBreadcrumb } from './components/StepBreadcrumb';
 export { Step1Restaurant } from './components/Step1Restaurant';
 export { Step2Platforms } from './components/Step2Platforms';
+export { Step3Email } from './components/Step3Email';
 export { Step3Promo } from './components/Step3Promo';
 export { Step4Live } from './components/Step4Live';

@@ -1,7 +1,11 @@
 export { Button } from './Button';
-export { Card } from './Card';
+export { Card, CardHeader, CardContent } from './Card';
 export { Input } from './Input';
 export { Badge } from './Badge';
+export { StatusBadge } from './StatusBadge';
+export { Pagination } from './Pagination';
+export { FilterTabs } from './FilterTabs';
 export { BackButton } from './BackButton';
 export { Modal } from './Modal';
 export { PageLoading, InlineLoading, Skeleton, SkeletonCard } from './Loading';
+export { PlatformBadge } from './PlatformBadge';

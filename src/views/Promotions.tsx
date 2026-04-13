@@ -1,69 +1,220 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { Send, Sparkles, Calendar, Tag, CheckCircle2, ArrowRight, Pencil, Check, X, Plus, Trash2, MessageSquare } from 'lucide-react';
-import { AppLayout } from '@/components/layout/AppLayout';
-import { Card, CardHeader } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
-import { Modal } from '@/components/ui/Modal';
-import { SuccessState } from '@/components/ui/SuccessState';
-import { cn } from '@/lib/utils';
-import { useNotifications } from '@/contexts/NotificationsContext';
-import { usePromoChat, usePromoModals, QUICK_ACTIONS } from '@/features/promotions';
-import type { PromoCardData } from '@/features/promotions';
-
-const PRICE_RE = /^[£$€]?\d+(\.\d{1,2})?$/;
+import {
+  Send, Sparkles, Calendar, Tag, CheckCircle2, ArrowRight,
+  Pencil, Check, X, Plus, Trash2, MessageSquare, History,
+} from 'lucide-react';
+import { AppLayout } from '@/src/components/layout/AppLayout';
+import { Card, CardHeader } from '@/src/components/ui/Card';
+import { Button } from '@/src/components/ui/Button';
+import { Modal } from '@/src/components/ui/Modal';
+import { SuccessState } from '@/src/components/ui/SuccessState';
+import { cn } from '@/src/lib/utils';
+import { useNotifications } from '@/src/contexts/NotificationsContext';
+import { usePromoChat, usePromoModals, QUICK_ACTIONS, PRICE_RE } from '@/src/features/promotions';
+import type { PromoCardData } from '@/src/features/promotions';
 
 export default function Promotions() {
   const router = useRouter();
   const { addNotification } = useNotifications();
-  const { sessions, activeId, messages, input, setInput, scrollRef, handleSend, newSession, switchSession, deleteSession } = usePromoChat();
+  const {
+    sessions, activeId, messages, input, setInput,
+    scrollRef, handleSend, newSession, switchSession, renameSession, deleteSession,
+  } = usePromoChat();
   const modals = usePromoModals();
-  const [editErrors, setEditErrors] = useState<{ title?: string; price?: string }>({});
 
-  // Redirect to connect-data if not connected
+  const [editErrors, setEditErrors] = useState<{ title?: string; price?: string }>({});
+  const [renamingId, setRenamingId] = useState<string | null>(null);
+  const [renameValue, setRenameValue] = useState('');
+  const renameInputRef = useRef<HTMLInputElement>(null);
+  const [historyOpen, setHistoryOpen] = useState(false);
+
   useEffect(() => {
-    const dataConnected = localStorage.getItem('hungrin_data_connected');
-    if (!dataConnected) {
-      router.push('/connect-data');
-    }
-  }, []);
+    if (renamingId && renameInputRef.current) renameInputRef.current.focus();
+  }, [renamingId]);
+
+  // Close history drawer on outside click
+  const drawerRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!historyOpen) return;
+    const handler = (e: MouseEvent) => {
+      if (drawerRef.current && !drawerRef.current.contains(e.target as Node)) {
+        setHistoryOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, [historyOpen]);
+
+  const startRename = (id: string, currentName: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setRenamingId(id);
+    setRenameValue(currentName);
+  };
+
+  const commitRename = () => {
+    if (renamingId) { renameSession(renamingId, renameValue); setRenamingId(null); }
+  };
+
+  // Shared session list — used in both sidebar and mobile drawer
+  const SessionList = ({ onSelect }: { onSelect?: () => void }) => (
+    <div className="flex-1 overflow-y-auto divide-y divide-border-light">
+      {sessions.map(s => (
+        <div
+          key={s.id}
+          onClick={() => { if (renamingId !== s.id) { switchSession(s.id); onSelect?.(); } }}
+          className={cn(
+            'w-full text-left px-4 py-3 flex flex-col gap-0.5 group transition-colors relative cursor-pointer',
+            activeId === s.id ? 'bg-g-pale' : 'hover:bg-g-faint/60'
+          )}
+        >
+          <div className="flex items-center gap-2 pr-14">
+            <MessageSquare className={cn('w-3 h-3 shrink-0', activeId === s.id ? 'text-g-dark' : 'text-text-muted')} />
+            {renamingId === s.id ? (
+              <input
+                ref={renameInputRef}
+                value={renameValue}
+                onChange={e => setRenameValue(e.target.value)}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') commitRename();
+                  if (e.key === 'Escape') setRenamingId(null);
+                  e.stopPropagation();
+                }}
+                onClick={e => e.stopPropagation()}
+                className="flex-1 text-xs font-bold text-g-dark bg-white border border-g-dark/30 rounded px-1.5 py-0.5 outline-none min-w-0"
+              />
+            ) : (
+              <p className={cn('text-xs font-bold truncate', activeId === s.id ? 'text-g-dark' : 'text-text-dark')}>
+                {s.name}
+              </p>
+            )}
+          </div>
+          {renamingId !== s.id && (
+            <p className="text-[10px] text-text-muted truncate pl-5">{s.preview}</p>
+          )}
+          <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-all">
+            {renamingId === s.id ? (
+              <>
+                <button
+                  onClick={e => { e.stopPropagation(); commitRename(); }}
+                  className="p-1 rounded-md bg-g-pale text-g-dark hover:bg-g-dark hover:text-white transition-all"
+                >
+                  <Check className="w-3 h-3" />
+                </button>
+                <button
+                  onClick={e => { e.stopPropagation(); setRenamingId(null); }}
+                  className="p-1 rounded-md hover:bg-gray-100 text-text-muted transition-all"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  onClick={e => startRename(s.id, s.name, e)}
+                  className="p-1 rounded-md hover:bg-g-pale hover:text-g-dark text-text-muted transition-all"
+                  title="Rename"
+                >
+                  <Pencil className="w-3 h-3" />
+                </button>
+                {sessions.length > 1 && (
+                  <button
+                    onClick={e => { e.stopPropagation(); deleteSession(s.id); }}
+                    className="p-1 rounded-md hover:bg-red-50 hover:text-red-500 text-text-muted transition-all"
+                    title="Delete"
+                  >
+                    <Trash2 className="w-3 h-3" />
+                  </button>
+                )}
+              </>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 
   return (
     <AppLayout
       title="Promotions"
       subtitle="Create and manage AI-powered promotions to drive more orders."
     >
-      {/* Mobile: horizontal session chips */}
-      <div className="lg:hidden flex gap-2 overflow-x-auto pb-1 no-scrollbar">
-        {sessions.map(s => (
-          <button
-            key={s.id}
-            onClick={() => switchSession(s.id)}
-            className={cn(
-              'flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap border transition-all shrink-0',
-              activeId === s.id
-                ? 'bg-g-dark text-white border-g-dark'
-                : 'bg-white text-text-mid border-border-light hover:bg-g-faint'
-            )}
-          >
-            <MessageSquare className="w-3 h-3 shrink-0" />
-            {s.name}
-          </button>
-        ))}
+      {/* ── Mobile History Drawer overlay ── */}
+      {historyOpen && (
+        <div className="fixed inset-0 z-40 bg-black/40 lg:hidden" aria-hidden="true" />
+      )}
+      <div
+        ref={drawerRef}
+        className={cn(
+          'fixed top-0 left-0 h-full w-72 max-w-[85vw] z-50 bg-white shadow-2xl flex flex-col transition-transform duration-300 ease-in-out lg:hidden',
+          historyOpen ? 'translate-x-0' : '-translate-x-full'
+        )}
+      >
+        {/* Drawer header */}
+        <div className="flex items-center justify-between px-4 py-4 border-b border-border-light">
+          <div className="flex items-center gap-2">
+            <History className="w-4 h-4 text-g-dark" />
+            <p className="text-sm font-bold text-text-dark">Chat History</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => { newSession(); setHistoryOpen(false); }}
+              className="flex items-center gap-1 text-xs font-bold text-g-dark border border-g-dark/20 bg-g-pale px-2.5 py-1.5 rounded-xl hover:bg-g-dark hover:text-white transition-all"
+            >
+              <Plus className="w-3 h-3" /> New
+            </button>
+            <button
+              onClick={() => setHistoryOpen(false)}
+              className="p-1.5 rounded-lg hover:bg-g-faint text-text-muted hover:text-text-dark transition-all"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+        <SessionList onSelect={() => setHistoryOpen(false)} />
+      </div>
+
+      {/* ── Mobile top bar: History button + active session name ── */}
+      <div className="lg:hidden flex items-center gap-2 mb-3">
+        <button
+          onClick={() => setHistoryOpen(true)}
+          className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-border-light bg-white text-xs font-bold text-text-mid hover:bg-g-faint hover:text-g-dark transition-all shrink-0"
+        >
+          <History className="w-3.5 h-3.5" />
+          History
+        </button>
+        {/* Active session chips */}
+        <div className="flex gap-2 overflow-x-auto pb-0.5 no-scrollbar flex-1">
+          {sessions.map(s => (
+            <button
+              key={s.id}
+              onClick={() => switchSession(s.id)}
+              className={cn(
+                'flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap border transition-all shrink-0',
+                activeId === s.id
+                  ? 'bg-g-dark text-white border-g-dark'
+                  : 'bg-white text-text-mid border-border-light hover:bg-g-faint'
+              )}
+            >
+              <MessageSquare className="w-3 h-3 shrink-0" />
+              {s.name}
+            </button>
+          ))}
+        </div>
         <button
           onClick={newSession}
-          className="flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap border border-dashed border-g-dark text-g-dark hover:bg-g-pale transition-all shrink-0"
+          className="shrink-0 w-8 h-8 flex items-center justify-center rounded-full border border-dashed border-g-dark text-g-dark hover:bg-g-pale transition-all"
         >
-          <Plus className="w-3 h-3" /> New
+          <Plus className="w-3.5 h-3.5" />
         </button>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr_260px] gap-4 lg:gap-5">
 
-        {/* Sessions Panel — desktop only */}
+        {/* ── Sessions Panel — desktop only ── */}
         <Card className="hidden lg:flex flex-col overflow-hidden">
           <div className="px-4 py-3 border-b border-border-light flex items-center justify-between">
             <p className="text-xs font-bold text-text-dark">Chats</p>
@@ -75,42 +226,23 @@ export default function Promotions() {
               <Plus className="w-3.5 h-3.5" />
             </button>
           </div>
-          <div className="flex-1 overflow-y-auto divide-y divide-border-light">
-            {sessions.map(s => (
-              <button
-                key={s.id}
-                onClick={() => switchSession(s.id)}
-                className={cn(
-                  'w-full text-left px-4 py-3 flex flex-col gap-0.5 group transition-colors relative',
-                  activeId === s.id ? 'bg-g-pale' : 'hover:bg-g-faint/60'
-                )}
-              >
-                <div className="flex items-center gap-2 pr-6">
-                  <MessageSquare className={cn('w-3 h-3 shrink-0', activeId === s.id ? 'text-g-dark' : 'text-text-muted')} />
-                  <p className={cn('text-xs font-bold truncate', activeId === s.id ? 'text-g-dark' : 'text-text-dark')}>
-                    {s.name}
-                  </p>
-                </div>
-                <p className="text-[10px] text-text-muted truncate pl-5">{s.preview}</p>
-                {sessions.length > 1 && (
-                  <button
-                    onClick={e => { e.stopPropagation(); deleteSession(s.id); }}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 p-1 rounded-md hover:bg-red-50 hover:text-red-500 text-text-muted transition-all"
-                  >
-                    <Trash2 className="w-3 h-3" />
-                  </button>
-                )}
-              </button>
-            ))}
-          </div>
+          <SessionList />
         </Card>
 
-        {/* Chat Interface */}
+        {/* ── Chat Interface ── */}
         <Card className="flex flex-col min-h-[500px] lg:h-[calc(100vh-12rem)]">
           <CardHeader className="flex flex-row items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl overflow-hidden shrink-0 bg-[#0d3d2c]">
-                <Image src="/images/robot-thinking.jpeg" alt="AI Assistant" width={40} height={40} className="w-full h-full object-cover" />
+              {/* Robot avatar — white bg + multiply blend to kill checkerboard */}
+              <div className="w-10 h-10 rounded-xl overflow-hidden shrink-0 bg-white border border-border-light">
+                <Image
+                  src="/images/robot-thinking.jpeg"
+                  alt="AI Assistant"
+                  width={40}
+                  height={40}
+                  className="w-full h-full object-cover"
+                  style={{ mixBlendMode: 'multiply' }}
+                />
               </div>
               <div>
                 <h3 className="text-sm font-bold text-text-dark">AI Growth Assistant</h3>
@@ -119,24 +251,48 @@ export default function Promotions() {
                 </p>
               </div>
             </div>
-            <button
-              onClick={newSession}
-              className="flex items-center gap-1.5 text-xs font-bold text-g-dark border border-g-dark/20 bg-g-pale hover:bg-g-dark hover:text-white px-3 py-1.5 rounded-xl transition-all"
-            >
-              <Plus className="w-3.5 h-3.5" /> New Chat
-            </button>
+            <div className="flex items-center gap-2">
+              {/* Mobile: open history */}
+              <button
+                onClick={() => setHistoryOpen(true)}
+                className="lg:hidden p-2 rounded-xl border border-border-light hover:bg-g-faint transition-all text-text-muted hover:text-g-dark"
+                title="Chat history"
+              >
+                <History className="w-4 h-4" />
+              </button>
+              <button
+                onClick={newSession}
+                className="flex items-center gap-1.5 text-xs font-bold text-g-dark border border-g-dark/20 bg-g-pale hover:bg-g-dark hover:text-white px-3 py-1.5 rounded-xl transition-all"
+              >
+                <Plus className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">New Chat</span>
+              </button>
+            </div>
           </CardHeader>
 
           <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 md:p-6 space-y-6 bg-g-faint/30">
             {messages.map(m => (
               <div key={m.id} className={cn('flex gap-3 md:gap-4', m.role === 'user' ? 'flex-row-reverse' : '')}>
-                <div className={cn('w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shrink-0 overflow-hidden', m.role === 'assistant' ? 'bg-[#0d3d2c]' : 'bg-gray-200 text-gray-600')}>
+                <div className={cn(
+                  'w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shrink-0 overflow-hidden border',
+                  m.role === 'assistant' ? 'bg-white border-border-light' : 'bg-gray-200 border-transparent text-gray-600'
+                )}>
                   {m.role === 'assistant'
-                    ? <Image src="/images/robot-happy.jpeg" alt="AI" width={32} height={32} className="w-full h-full object-cover" />
+                    ? <Image
+                        src="/images/robot-happy.jpeg"
+                        alt="AI"
+                        width={32}
+                        height={32}
+                        className="w-full h-full object-cover"
+                        style={{ mixBlendMode: 'multiply' }}
+                      />
                     : 'U'}
                 </div>
                 <div className={cn('max-w-[80%] space-y-4', m.role === 'user' ? 'text-right' : '')}>
-                  <div className={cn('p-4 rounded-2xl text-sm shadow-sm', m.role === 'assistant' ? 'bg-white text-text-dark border border-border-light' : 'bg-g-dark text-white')}>
+                  <div className={cn(
+                    'p-4 rounded-2xl text-sm shadow-sm',
+                    m.role === 'assistant' ? 'bg-white text-text-dark border border-border-light' : 'bg-g-dark text-white'
+                  )}>
                     {m.content}
                   </div>
                   {m.type === 'promo-card' && m.data && (
@@ -200,7 +356,7 @@ export default function Promotions() {
           </div>
         </Card>
 
-        {/* Right Sidebar */}
+        {/* ── Right Sidebar ── */}
         <div className="space-y-5">
           <Card className="p-5 bg-gradient-to-br from-g-dark to-g-mid text-white border-none">
             <h3 className="text-sm font-bold mb-3 flex items-center gap-2">
@@ -232,7 +388,9 @@ export default function Promotions() {
                     <p className="text-xs font-bold text-text-dark">{p.name}</p>
                     <p className="text-[10px] text-text-muted">{p.orders} orders generated</p>
                   </div>
-                  <span className={cn('px-2 py-0.5 rounded-full text-[10px] font-bold', p.status === 'Active' ? 'bg-g-pale text-g-dark' : 'bg-gray-100 text-gray-500')}>{p.status}</span>
+                  <span className={cn('px-2 py-0.5 rounded-full text-[10px] font-bold', p.status === 'Active' ? 'bg-g-pale text-g-dark' : 'bg-gray-100 text-gray-500')}>
+                    {p.status}
+                  </span>
                 </div>
               ))}
             </div>
@@ -243,7 +401,7 @@ export default function Promotions() {
         </div>
       </div>
 
-      {/* Launch Modal */}
+      {/* ── Launch Modal ── */}
       <Modal open={!!modals.launchData} onClose={modals.closeLaunch} title="Launch Promotion" size="sm">
         {modals.launched ? (
           <SuccessState
@@ -289,7 +447,7 @@ export default function Promotions() {
         )}
       </Modal>
 
-      {/* Edit Draft Modal */}
+      {/* ── Edit Draft Modal ── */}
       <Modal open={!!modals.editData} onClose={modals.closeEdit} title={<span className="flex items-center gap-2"><Pencil className="w-4 h-4 text-g-dark" /> Edit Draft</span>} size="sm">
         {modals.editSaved ? (
           <SuccessState

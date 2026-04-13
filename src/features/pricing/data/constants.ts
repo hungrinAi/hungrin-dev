@@ -43,8 +43,8 @@ export const PRICING_PLANS: PricingPlan[] = [
 
 export const FEATURE_ROWS: FeatureRow[] = [
   { label: 'Manage Customer data and orders', starter: true, growth: true, pro: true },
-  { label: 'AI Insights', starter: 'Basic', growth: 'Advanced', pro: true },
-  { label: 'Campaigns', starter: 'Limited', growth: 'Targeted', pro: true },
+  { label: 'AI Insights', starter: 'Basic', growth: 'Advanced', pro: 'Full' },
+  { label: 'Campaigns', starter: 'Limited', growth: 'Targeted', pro: 'Unlimited' },
   { label: 'Online Review Management', starter: false, growth: true, pro: true },
   { label: 'Priority Support', starter: false, growth: true, pro: true },
   { label: 'Delivery Optimisation', starter: false, growth: false, pro: true },

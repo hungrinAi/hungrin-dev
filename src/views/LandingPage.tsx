@@ -8,6 +8,7 @@ import {
   CheckCircle2,
   Sparkles,
   Play,
+  Lock,
 } from 'lucide-react';
 import { Logo, HungrinIcon } from '@/components/brand';
 import { PublicNav } from '@/components/layout/PublicNav';
@@ -15,6 +16,12 @@ import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 
 export default function LandingPage() {
+  const [loggedIn, setLoggedIn] = React.useState(false);
+
+  React.useEffect(() => {
+    setLoggedIn(localStorage.getItem('hungrinLoggedIn') === 'true');
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#eaf6f0] selection:bg-g-pale selection:text-g-dark">
       <PublicNav />
@@ -25,9 +32,9 @@ export default function LandingPage() {
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-border-light rounded-full text-xs font-bold text-g-dark shadow-sm">
             <Sparkles className="w-4 h-4" /> AI-Powered Restaurant Growth
           </div>
-          <h1 className="text-5xl md:text-6xl font-black text-text-dark leading-[1.05] tracking-tight">
-            Grow Your <span className="text-g-dark">Restaurant</span><br />
-            Orders <span className="text-g-dark">Automatically</span>
+          <h1 className="text-[2.2rem] sm:text-5xl md:text-6xl font-black text-text-dark leading-[1.05] tracking-tight">
+            Grow Your <span style={{ color: '#4aaa80' }}>Restaurant</span><br />
+            Orders <span style={{ color: '#1a5c40' }}>Automatically</span>
           </h1>
           <p className="text-lg text-text-mid max-w-lg leading-relaxed">
             Hungrin uses AI to boost your restaurant sales, create promotions and bring you more customers — all from one simple dashboard.
@@ -155,34 +162,137 @@ export default function LandingPage() {
       {/* Quick Access Section */}
       <section className="bg-white py-12 sm:py-16 border-y border-border-light">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <h2 className="text-center text-xl font-black text-text-dark mb-10 tracking-tight">
-            Access Your Hungrin Pages
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              { href: '/dashboard', emoji: '📊', label: 'Dashboard', sub: 'View your sales & orders', bg: 'bg-[#eaf6f0]' },
-              { href: '/promotions', emoji: '🎯', label: 'AI Promotions', sub: 'Create smart promotions', bg: 'bg-red-50' },
-              { href: '/orders', emoji: '📂', label: 'CSV Upload', sub: 'Upload sales data', bg: 'bg-yellow-50' },
-              { href: '/onboarding', emoji: '🚀', label: 'Get Started', sub: 'Set up your restaurant', bg: 'bg-orange-50' },
-            ].map(({ href, emoji, label, sub, bg }) => (
+
+          {loggedIn ? (
+            /* ── Logged-in: show all 4 pages ── */
+            <>
+              <h2 className="text-center text-xl font-black text-text-dark mb-8 tracking-tight">
+                Access Your Hungrin Pages
+              </h2>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {[
+                  { href: '/onboarding', emoji: '🚀', label: 'Get Started',    sub: 'Set up your restaurant',    bg: 'bg-orange-50' },
+                  { href: '/dashboard',  emoji: '📊', label: 'Dashboard',      sub: 'View your sales & orders',  bg: 'bg-[#eaf6f0]' },
+                  { href: '/promotions', emoji: '🎯', label: 'AI Promotions',  sub: 'Create smart promotions',   bg: 'bg-red-50' },
+                ].map(({ href, emoji, label, sub, bg }) => (
+                  <Link
+                    key={label}
+                    href={href}
+                    className={`${bg} border border-border-light rounded-2xl p-6 flex flex-col items-center text-center gap-3 hover:shadow-md hover:-translate-y-0.5 transition-all group`}
+                  >
+                    <span className="text-3xl">{emoji}</span>
+                    <div>
+                      <p className="text-sm font-bold text-text-dark group-hover:text-g-dark transition-colors">{label}</p>
+                      <p className="text-[11px] text-text-muted mt-0.5">{sub}</p>
+                    </div>
+                  </Link>
+                ))}
+
+                {/* Merged: CSV Upload + Auto Email Parsing */}
+                <Link
+                  href="/orders"
+                  className="bg-yellow-50 border border-border-light rounded-2xl p-5 flex flex-col gap-3 hover:shadow-md hover:-translate-y-0.5 transition-all group"
+                >
+                  <p className="text-xs font-black text-text-dark uppercase tracking-wider text-center group-hover:text-g-dark transition-colors">
+                    Import Sales Data
+                  </p>
+                  <div className="flex flex-col gap-2">
+                    <div className="flex items-center gap-2.5 bg-white/70 rounded-xl px-3 py-2 border border-yellow-200/60">
+                      <span className="text-lg shrink-0">📂</span>
+                      <div className="min-w-0">
+                        <p className="text-[11px] font-bold text-text-dark leading-tight">CSV Upload</p>
+                        <p className="text-[10px] text-text-muted leading-tight">Upload sales file</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2.5 bg-white/70 rounded-xl px-3 py-2 border border-yellow-200/60">
+                      <span className="text-lg shrink-0">📧</span>
+                      <div className="min-w-0">
+                        <p className="text-[11px] font-bold text-text-dark leading-tight">Auto Email Parsing</p>
+                        <p className="text-[10px] text-text-muted leading-tight">Forward reports to sync</p>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            </>
+          ) : (
+            /* ── Not logged in: Get Started + preview of what's waiting ── */
+            <div className="flex flex-col items-center gap-8">
+              {/* Headline */}
+              <div className="text-center space-y-2">
+                <h2 className="text-xl font-black text-text-dark tracking-tight">
+                  Ready to grow your restaurant?
+                </h2>
+                <p className="text-sm text-text-muted max-w-sm mx-auto">
+                  Create a free account to unlock your dashboard, promotions, and analytics.
+                </p>
+              </div>
+
+              {/* Get Started CTA — prominent */}
               <Link
-                key={label}
-                href={href}
-                className={`${bg} border border-border-light rounded-2xl p-6 flex flex-col items-center text-center gap-3 hover:shadow-md hover:-translate-y-0.5 transition-all group`}
+                href="/onboarding"
+                className="bg-g-dark text-white rounded-2xl px-8 py-5 flex items-center gap-4 shadow-lg hover:bg-g-mid hover:-translate-y-0.5 transition-all w-full max-w-sm"
               >
-                <span className="text-3xl">{emoji}</span>
-                <div>
-                  <p className="text-sm font-bold text-text-dark group-hover:text-g-dark transition-colors">{label}</p>
-                  <p className="text-[11px] text-text-muted mt-0.5">{sub}</p>
+                <span className="text-4xl">🚀</span>
+                <div className="text-left">
+                  <p className="text-base font-black">Get Started — It&apos;s Free</p>
+                  <p className="text-xs text-white/70 mt-0.5">Set up your restaurant in minutes</p>
                 </div>
+                <ArrowRight className="w-5 h-5 ml-auto shrink-0" />
               </Link>
-            ))}
-          </div>
+
+              {/* Locked preview */}
+              <div className="w-full">
+                <p className="text-center text-[11px] font-bold text-text-muted uppercase tracking-widest mb-4 flex items-center justify-center gap-2">
+                  <Lock className="w-3 h-3" /> Unlocked after sign-up
+                </p>
+                <div className="grid grid-cols-3 gap-3">
+                  {[
+                    { emoji: '📊', label: 'Dashboard',     sub: 'Sales & orders', bg: 'bg-[#eaf6f0]' },
+                    { emoji: '🎯', label: 'AI Promotions', sub: 'Smart promos',   bg: 'bg-red-50' },
+                  ].map(({ emoji, label, sub, bg }) => (
+                    <div
+                      key={label}
+                      className={`${bg} border border-border-light rounded-2xl p-4 flex flex-col items-center text-center gap-2 relative select-none`}
+                    >
+                      <span className="text-2xl grayscale opacity-50">{emoji}</span>
+                      <div>
+                        <p className="text-xs font-bold text-text-muted">{label}</p>
+                        <p className="text-[10px] text-text-muted/70 mt-0.5 hidden sm:block">{sub}</p>
+                      </div>
+                      <div className="absolute top-2 right-2 bg-white/90 rounded-full p-0.5 shadow-sm">
+                        <Lock className="w-2.5 h-2.5 text-text-muted" />
+                      </div>
+                    </div>
+                  ))}
+
+                  {/* Merged locked preview tile */}
+                  <div className="bg-yellow-50 border border-border-light rounded-2xl p-3 flex flex-col gap-1.5 relative select-none">
+                    <p className="text-[9px] font-black text-text-muted uppercase tracking-wider text-center">Import Data</p>
+                    <div className="flex flex-col gap-1">
+                      <div className="flex items-center gap-1.5 bg-white/60 rounded-lg px-2 py-1">
+                        <span className="text-sm grayscale opacity-50">📂</span>
+                        <p className="text-[10px] font-bold text-text-muted">CSV Upload</p>
+                      </div>
+                      <div className="flex items-center gap-1.5 bg-white/60 rounded-lg px-2 py-1">
+                        <span className="text-sm grayscale opacity-50">📧</span>
+                        <p className="text-[10px] font-bold text-text-muted">Email Parsing</p>
+                      </div>
+                    </div>
+                    <div className="absolute top-2 right-2 bg-white/90 rounded-full p-0.5 shadow-sm">
+                      <Lock className="w-2.5 h-2.5 text-text-muted" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
         </div>
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-16 sm:py-24">
+      <section id="features" className="py-16 sm:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-16 space-y-4">
             <h2 className="text-3xl md:text-5xl font-black text-text-dark tracking-tight">
@@ -197,7 +307,7 @@ export default function LandingPage() {
             {/* AI Growth Assistant — robot image */}
             <Card className="p-8 hover:shadow-lg transition-all group border border-border-light">
               <div className="w-14 h-14 bg-white rounded-2xl mb-6 group-hover:scale-110 transition-all shadow-sm border border-border-light overflow-hidden">
-                <Image src="/images/robot-thumbsup.jpeg" alt="AI Growth Assistant" width={56} height={56} className="w-full h-full object-cover" />
+                <Image src="/images/robot-thumbsup.jpeg" alt="AI Growth Assistant" width={56} height={56} className="w-full h-full object-cover" style={{ mixBlendMode: 'multiply' }} />
               </div>
               <h3 className="text-xl font-bold text-text-dark mb-3">AI Growth Assistant</h3>
               <p className="text-text-mid leading-relaxed text-sm">Hungrin automatically creates promotions tailored to your customers using smart criteria, date, and behaviour patterns.</p>
@@ -359,9 +469,9 @@ export default function LandingPage() {
         <Logo />
         <p className="text-sm text-text-muted font-medium">© 2026 Hungrin AI. All rights reserved.</p>
         <div className="flex gap-8">
-          {['Privacy', 'Terms', 'Cookies'].map(l => (
-            <a key={l} href="#" className="text-sm font-bold text-text-mid hover:text-g-dark transition-all">{l}</a>
-          ))}
+          <Link href="/privacy" className="text-sm font-bold text-text-mid hover:text-g-dark transition-all">Privacy</Link>
+          <Link href="/terms" className="text-sm font-bold text-text-mid hover:text-g-dark transition-all">Terms</Link>
+          <Link href="/cookies" className="text-sm font-bold text-text-mid hover:text-g-dark transition-all">Cookies</Link>
         </div>
       </footer>
     </div>

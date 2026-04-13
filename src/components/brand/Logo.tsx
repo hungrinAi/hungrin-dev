@@ -2,22 +2,32 @@ import React from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
-/** Standalone hex icon — always visible, dark bg baked into the SVG */
-export const HungrinIcon = ({ size = 32, className }: { size?: number; className?: string }) => (
-  <Image
-    src="/assets/logo-icon.svg"
-    alt="Hungrin"
-    width={size}
-    height={size}
-    className={cn('shrink-0', className)}
-    style={{ width: size, height: size, borderRadius: Math.round(size * 0.2) }}
-    priority
-  />
+/** Standalone hex icon — no background box, just the raw logo image */
+export const HungrinIcon = ({ size = 36, className }: { size?: number; className?: string }) => (
+  <span
+    className={cn('shrink-0 inline-flex items-center justify-center', className)}
+    style={{ width: size, height: size }}
+  >
+    <Image
+      src="/logo/hungrin-logo-main.png"
+      alt="Hungrin"
+      width={size}
+      height={size}
+      className="w-full h-full object-contain"
+      priority
+    />
+  </span>
 );
 
-export const Logo = ({ className }: { className?: string }) => (
-  <div className={cn('flex items-center gap-2.5', className)}>
-    <HungrinIcon size={36} />
-    <span className="text-[17px] font-bold text-g-dark tracking-tight leading-none">Hungrin</span>
+/** Full logo — icon + "Hungrin" wordmark */
+export const Logo = ({ className, size = 40 }: { className?: string; size?: number }) => (
+  <div className={cn('flex items-center gap-2', className)}>
+    <HungrinIcon size={size} />
+    <span
+      className="font-black text-g-dark tracking-tight leading-none"
+      style={{ fontSize: Math.round(size * 0.48) }}
+    >
+      Hungrin
+    </span>
   </div>
 );

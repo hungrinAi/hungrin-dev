@@ -13,6 +13,12 @@ interface Step2Props {
   onTogglePlatform: (id: string) => void;
 }
 
+const PLATFORM_LOGO: Record<string, { src: string; alt: string }> = {
+  uber:      { src: '/images/platforms/uber-eats.svg',  alt: 'Uber Eats'  },
+  deliveroo: { src: '/images/platforms/deliveroo.svg',  alt: 'Deliveroo'  },
+  justeat:   { src: '/images/platforms/just-eat.svg',   alt: 'Just Eat'   },
+};
+
 export function Step2Platforms({ form, errors, onTogglePlatform }: Step2Props) {
   return (
     <div className="space-y-6">
@@ -46,6 +52,7 @@ export function Step2Platforms({ form, errors, onTogglePlatform }: Step2Props) {
                   : 'border-border-light bg-white hover:border-g-dark/30 hover:shadow-sm',
               )}
             >
+<<<<<<< HEAD
               <div className={cn('w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 overflow-hidden', p.bg)}>
                 {p.logo ? (
                   <img
@@ -55,6 +62,17 @@ export function Step2Platforms({ form, errors, onTogglePlatform }: Step2Props) {
                   />
                 ) : (
                   <span className="text-2xl">{p.emoji}</span>
+=======
+              <div className="w-14 h-14 rounded-2xl shrink-0 overflow-hidden shadow-sm">
+                {PLATFORM_LOGO[p.id] && (
+                  <Image
+                    src={PLATFORM_LOGO[p.id].src}
+                    alt={PLATFORM_LOGO[p.id].alt}
+                    width={56}
+                    height={56}
+                    className="w-full h-full object-cover"
+                  />
+>>>>>>> a57bb53724bb3d20f5b7d0e8f273295089a036cb
                 )}
               </div>
               <div className="flex-1 text-left">
@@ -78,8 +96,7 @@ export function Step2Platforms({ form, errors, onTogglePlatform }: Step2Props) {
         <div className="bg-[#f0faf5] border border-[#d1f0e4] rounded-2xl p-4 flex items-center gap-3">
           <span className="text-xl">✅</span>
           <p className="text-xs font-bold text-g-dark">
-            {form.platforms.length} platform{form.platforms.length > 1 ? 's' : ''} selected — great
-            choice!
+            {form.platforms.length} platform{form.platforms.length > 1 ? 's' : ''} selected — great choice!
           </p>
         </div>
       ) : errors.platforms ? (

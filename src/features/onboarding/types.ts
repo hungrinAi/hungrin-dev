@@ -22,8 +22,7 @@ export interface PlatformItem {
   desc: string;
   bg: string;
   text: string;
-  emoji?: string;
-  logo?: string;
+  emoji: string;
 }
 
 export interface OnboardingForm {
@@ -32,4 +31,7 @@ export interface OnboardingForm {
   restaurantType: string;
   avgOrdersPerDay: string;
   platforms: string[];
+  emailForParsing: string;
+  emailConsent: boolean;
+  csvFileName: string;
 }

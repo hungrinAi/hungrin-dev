@@ -1,7 +1,8 @@
 import { useState, useCallback } from 'react';
+import { ALL_PLATFORMS, DURATIONS } from '../data/constants';
+import type { Platform, BoostDuration } from '../data/constants';
 
-export type Platform = 'Google' | 'Uber Eats' | 'Just Eat' | 'Deliveroo';
-export type BoostDuration = 'Day' | 'Week' | 'Month';
+export type { Platform, BoostDuration };
 
 export interface BoostPromoState {
   isOpen: boolean;
@@ -9,9 +10,6 @@ export interface BoostPromoState {
   activeDuration: BoostDuration;
   confirmed: boolean;
 }
-
-const ALL_PLATFORMS: Platform[] = ['Google', 'Uber Eats', 'Just Eat', 'Deliveroo'];
-const DURATIONS: BoostDuration[] = ['Day', 'Week', 'Month'];
 
 export function useBoostPromo() {
   const [isOpen, setIsOpen] = useState(false);

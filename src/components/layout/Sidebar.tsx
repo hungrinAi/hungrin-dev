@@ -14,7 +14,8 @@ import {
   X,
   Sparkles,
 } from 'lucide-react';
-import { cn } from '@/lib/utils';
+
+import { cn } from '@/src/lib/utils';
 import { Logo } from '../brand';
 
 const navItems = [
@@ -24,6 +25,7 @@ const navItems = [
   { icon: Users,      label: 'Customers',  path: '/customers' },
   { icon: Megaphone,  label: 'Campaigns',  path: '/campaigns' },
   { icon: BarChart2,  label: 'Insights',   path: '/insights' },
+  { icon: Settings,   label: 'Settings',   path: '/settings' },
 ];
 
 interface SidebarProps {
@@ -85,20 +87,7 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
       </nav>
 
       {/* Bottom section */}
-      <div className="px-3 pt-3 border-t border-border-light mt-3 space-y-1">
-        <Link
-          href="/settings"
-          onClick={onClose}
-          className={cn(
-            "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all",
-            pathname === '/settings' || pathname?.startsWith('/settings/')
-              ? "bg-gradient-to-r from-g-dark to-[#1e5c47] text-white shadow-[0_4px_12px_rgba(45,122,95,0.3)]"
-              : "text-text-mid hover:bg-g-faint hover:text-g-dark"
-          )}
-        >
-          <Settings style={{ width: '1.1rem', height: '1.1rem' }} className="shrink-0 text-inherit" />
-          Settings
-        </Link>
+      <div className="px-3 pt-3 border-t border-border-light mt-3">
         <Link
           href="/demo"
           onClick={onClose}

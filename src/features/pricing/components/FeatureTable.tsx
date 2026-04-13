@@ -44,7 +44,7 @@ export function FeatureTable() {
                       <span
                         className={cn(
                           'text-[10px] font-bold px-2 py-0.5 rounded-full',
-                          i === 1 ? 'bg-g-pale text-g-dark' : 'bg-gray-100 text-text-mid',
+                          i === 0 ? 'bg-gray-100 text-text-mid' : 'bg-g-pale text-g-dark',
                         )}
                       >
                         {val}

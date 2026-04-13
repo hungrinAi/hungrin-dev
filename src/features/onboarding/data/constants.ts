@@ -3,8 +3,9 @@ import type { OnboardingStep, LeftSlide, RestaurantType, PlatformItem } from '..
 export const STEPS: OnboardingStep[] = [
   { id: 1, label: 'Restaurant' },
   { id: 2, label: 'Platforms' },
-  { id: 3, label: 'AI Promos' },
-  { id: 4, label: "You're Live!" },
+  { id: 3, label: 'Email Setup' },
+  { id: 4, label: 'AI Promos' },
+  { id: 5, label: "You're Live!" },
 ];
 
 export const LEFT_SLIDES: LeftSlide[] = [
@@ -71,6 +72,18 @@ export const RESTAURANT_TYPES: RestaurantType[] = [
   { label: 'Korean', emoji: '🍖' },
   { label: 'Fast Food', emoji: '🍟' },
   { label: 'Chicken', emoji: '🐔' },
+  { label: 'Japanese', emoji: '🍣' },
+  { label: 'Greek', emoji: '🧆' },
+  { label: 'Vietnamese', emoji: '🍲' },
+  { label: 'Lebanese', emoji: '🥙' },
+  { label: 'African', emoji: '🍽️' },
+  { label: 'Bangladeshi', emoji: '🫕' },
+  { label: 'American', emoji: '🌭' },
+  { label: 'Fish & Chips', emoji: '🐟' },
+  { label: 'Halal', emoji: '🌙' },
+  { label: 'Breakfast', emoji: '🍳' },
+  { label: 'Desserts', emoji: '🧁' },
+  { label: 'Middle Eastern', emoji: '🥗' },
 ];
 
 export const AVG_ORDERS = ['0 – 25', '25 – 50', '50 – 100', '100+'];
@@ -82,7 +95,11 @@ export const PLATFORMS: PlatformItem[] = [
     desc: 'Connect to sync your Uber Eats order history',
     bg: 'bg-black',
     text: 'text-white',
+<<<<<<< HEAD
     logo: '/logos/uber-eats.svg',
+=======
+    emoji: 'uber',
+>>>>>>> a57bb53724bb3d20f5b7d0e8f273295089a036cb
   },
   {
     id: 'deliveroo',
@@ -90,15 +107,23 @@ export const PLATFORMS: PlatformItem[] = [
     desc: 'Connect to sync your Deliveroo order history',
     bg: 'bg-[#00CCBC]',
     text: 'text-white',
+<<<<<<< HEAD
     logo: '/logos/deliveroo.svg',
+=======
+    emoji: 'deliveroo',
+>>>>>>> a57bb53724bb3d20f5b7d0e8f273295089a036cb
   },
   {
     id: 'justeat',
     name: 'Just Eat',
     desc: 'Connect to sync your Just Eat order history',
-    bg: 'bg-[#FF8000]',
+    bg: 'bg-[#FF6600]',
     text: 'text-white',
+<<<<<<< HEAD
     logo: '/logos/just-eat.svg',
+=======
+    emoji: 'justeat',
+>>>>>>> a57bb53724bb3d20f5b7d0e8f273295089a036cb
   },
 ];
 

@@ -1,23 +1,23 @@
 'use client';
 
 import React from 'react';
-import { PageLoading } from '@/components/ui/Loading';
-import {
-  Search, Filter, Plus, MoreHorizontal,
-  ChevronLeft, ChevronRight, Zap, CheckCircle2
-} from 'lucide-react';
+import { PageLoading } from '@/src/components/ui/Loading';
+import { Search, Filter, Plus, MoreHorizontal, Zap, CheckCircle2 } from 'lucide-react';
 import Image from 'next/image';
-import { AppLayout } from '@/components/layout/AppLayout';
-import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import { AppLayout } from '@/src/components/layout/AppLayout';
+import { Card } from '@/src/components/ui/Card';
+import { Button } from '@/src/components/ui/Button';
+import { Pagination } from '@/src/components/ui/Pagination';
+import { FilterTabs } from '@/src/components/ui/FilterTabs';
+import { StatusBadge } from '@/src/components/ui/StatusBadge';
 import {
   useCampaigns,
   useCampaignActions,
   useCampaignsView,
   NewCampaignModal,
   CampaignActionsMenu,
-} from '@/features/campaigns';
-import { cn } from '@/lib/utils';
+} from '@/src/features/campaigns';
+import { cn } from '@/src/lib/utils';
 
 export default function Campaigns() {
   const { data: campaigns, loading, error } = useCampaigns();
@@ -47,22 +47,11 @@ export default function Campaigns() {
     >
       {/* Toolbar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div className="overflow-x-auto no-scrollbar">
-          <div className="flex bg-g-faint p-1 rounded-xl border border-border-light w-max min-w-full sm:min-w-0">
-            {['All', 'Active', 'Paused', 'Ended'].map((f) => (
-              <button
-                key={f}
-                onClick={() => setFilter(f)}
-                className={cn(
-                  "px-4 sm:px-6 py-2 rounded-lg text-sm font-semibold transition-all whitespace-nowrap",
-                  filter === f ? "bg-g-dark text-white shadow-md" : "text-text-mid hover:bg-g-pale hover:text-g-dark"
-                )}
-              >
-                {f}
-              </button>
-            ))}
-          </div>
-        </div>
+        <FilterTabs
+          options={['All', 'Active', 'Paused', 'Ended']}
+          value={filter}
+          onChange={setFilter}
+        />
         <div className="flex items-center gap-2 shrink-0">
           <Button variant="secondary" size="sm">
             <Filter className="w-4 h-4" /> Filter
@@ -125,14 +114,7 @@ export default function Campaigns() {
                     </div>
                   </td>
                   <td className="px-3 md:px-6 py-3 md:py-4">
-                    <span className={cn(
-                      "inline-flex items-center gap-1.5 px-2 md:px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap",
-                      c.status === 'Active' ? "bg-g-pale text-g-dark" :
-                      c.status === 'Paused' ? "bg-yellow-50 text-yellow-700" : "bg-gray-100 text-gray-500"
-                    )}>
-                      <span className="w-1.5 h-1.5 rounded-full bg-current shrink-0" />
-                      {c.status}
-                    </span>
+                    <StatusBadge status={c.status} />
                   </td>
                   <td className="px-3 md:px-6 py-3 md:py-4 text-sm font-bold text-text-dark hidden sm:table-cell">{c.orders}</td>
                   <td className="px-3 md:px-6 py-3 md:py-4 text-sm font-bold text-text-dark hidden sm:table-cell">{c.revenue}</td>
@@ -151,41 +133,16 @@ export default function Campaigns() {
           </table>
         </div>
 
-        <div className="p-5 bg-g-faint border-t border-border-light flex items-center justify-between">
-          <div className="text-xs text-text-muted">
-            Page <strong className="text-text-dark">{page}</strong> of {totalPages}
-            {filtered.length !== paginated.length && (
-              <span className="ml-1">({filtered.length} results)</span>
-            )}
-          </div>
-          <div className="flex items-center gap-2">
-            <button
-              disabled={page === 1}
-              onClick={() => setPage(p => p - 1)}
-              className="p-2 border border-border-light rounded-lg bg-white text-text-muted disabled:opacity-40"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map(n => (
-              <button
-                key={n}
-                onClick={() => setPage(n)}
-                className={cn(
-                  "w-8 h-8 rounded-lg text-xs font-bold",
-                  n === page ? "bg-g-dark text-white" : "bg-white border border-border-light text-text-mid hover:bg-g-pale"
-                )}
-              >
-                {n}
-              </button>
-            ))}
-            <button
-              disabled={page === totalPages}
-              onClick={() => setPage(p => p + 1)}
-              className="p-2 border border-border-light rounded-lg bg-white text-text-mid hover:bg-g-pale disabled:opacity-40"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
+        <div className="p-5 bg-g-faint border-t border-border-light">
+          <Pagination
+            page={page}
+            total={totalPages}
+            onChange={setPage}
+            label={
+              <>Page <strong className="text-text-dark">{page}</strong> of {totalPages}
+              {filtered.length !== (paginated as unknown[]).length && <span className="ml-1">({filtered.length} results)</span>}</>
+            }
+          />
         </div>
       </Card>
 
@@ -205,8 +162,8 @@ export default function Campaigns() {
             <Plus className="w-4 h-4" /> Create Campaign
           </Button>
         </div>
-        <div className="w-24 h-24 md:w-32 md:h-32 animate-bob hidden sm:block shrink-0 rounded-2xl overflow-hidden bg-[#0d3d2c]">
-          <Image src="/images/robot-thumbsup.jpeg" alt="" width={128} height={128} className="w-full h-full object-cover" />
+        <div className="w-24 h-24 md:w-32 md:h-32 animate-bob shrink-0 rounded-2xl overflow-hidden bg-white border border-border-light flex items-center justify-center mx-auto sm:mx-0">
+          <Image src="/images/robot-thumbsup.jpeg" alt="" width={128} height={128} className="w-full h-full object-cover object-center" style={{ mixBlendMode: 'multiply' }} />
         </div>
       </div>
 

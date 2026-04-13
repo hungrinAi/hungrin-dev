@@ -2,37 +2,11 @@
 
 import React, { useState } from 'react';
 import { Check, Zap } from 'lucide-react';
-import { Modal } from '@/components/ui/Modal';
-import { Button } from '@/components/ui/Button';
-import { SuccessState } from '@/components/ui/SuccessState';
-import { cn } from '@/lib/utils';
-
-export const PLANS = [
-  {
-    id: 'starter',
-    name: 'Starter',
-    price: '£19',
-    priceNum: 19,
-    desc: 'Perfect for new restaurants',
-    features: ['1 delivery platform', 'Basic insights', '5 promotions/mo'],
-  },
-  {
-    id: 'growth',
-    name: 'Growth',
-    price: '£49',
-    priceNum: 49,
-    desc: 'Most popular for growing restaurants',
-    features: ['Unlimited platforms', 'AI insights', 'Unlimited promotions', 'Priority support'],
-  },
-  {
-    id: 'pro',
-    name: 'Pro',
-    price: '£99',
-    priceNum: 99,
-    desc: 'For high-volume restaurants',
-    features: ['Everything in Growth', 'Dedicated account manager', 'Custom integrations', 'API access'],
-  },
-];
+import { Modal } from '@/src/components/ui/Modal';
+import { Button } from '@/src/components/ui/Button';
+import { SuccessState } from '@/src/components/ui/SuccessState';
+import { cn } from '@/src/lib/utils';
+import { PLANS } from '../data/constants';
 
 interface UpdatePlanModalProps {
   open: boolean;
